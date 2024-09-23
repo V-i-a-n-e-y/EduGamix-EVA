@@ -72,7 +72,7 @@ body {
 }
 
 .container-form.sign-in .formulario {
-    background-color: rgba(51, 51, 51, 0.6);
+    background-color: transparent;
 }
 
 .create-account {
