@@ -24,6 +24,8 @@ body {
     justify-content: center;
     align-items: flex-start;
     transition: all .5s ease-out;
+    position: relative; /* Asegura que el contenedor se posicione de manera relativa */
+    top: 200px; /* Inicializa la posición superior */
 }
 
 .welcome-back {
@@ -73,6 +75,7 @@ body {
 
 .container-form.sign-in .formulario {
     background-color: transparent;
+    padding: 1.5rem;
 }
 
 .create-account {
