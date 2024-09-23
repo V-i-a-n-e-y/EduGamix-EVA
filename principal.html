@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>EduGamix - Nivel 1</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    header {
+        background-color: #333;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+    }
+    .main-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 20px;
+    }
+    .avatar {
+        flex-grow: 1;
+        margin: 10px;
+        text-align: center;
+    }
+    .content {
+        flex-grow: 3;
+        background: white;
+        margin: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .timer {
+        flex-grow: 1;
+        margin: 10px;
+        text-align: center;
+        font-size: 22px;
+        background: #ddd;
+        padding: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        background-color: #5cb85c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #4cae4c;
+    }
+</style>
+</head>
+<body>
+<header>
+    <h1>EduGamix - Nivel 1: Definición de Sistemas de Ecuaciones Lineales</h1>
+</header>
+<div class="main-container">
+    <div class="avatar">
+        <img src="gami.png" alt="Gami Guía" style="height: 150px;">
+    </div>
+    <div class="content">
+        <p>"Pon a prueba tus habilidades y busca el camino hacia la victoria, resolviendo problemas matemáticos en nuestro emocionante Bingo de Álgebra Lineal. Encuentra la combinación correcta de vectores y sé el primero en oprimir ¡Bingo! para ganar"</p>
+        <button>Siguiente</button>
+    </div>
+    <div class="timer">
+        TIEMPO: 03:00:00
+    </div>
+</div>
+<footer style="text-align: center; padding: 20px; background-color: #333; color: white;">
+    Andrea Carrillo - EduGamix
+</footer>
+<script>
+    var countDownDate = new Date(new Date().getTime() + 5 * 60 * 1000); // 5 minutos
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.querySelector('.timer').innerHTML = "TIEMPO: " + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.querySelector('.timer').innerHTML = "EXPIRADO";
+        }
+    }, 1000);
+</script>
+</body>
+</html>

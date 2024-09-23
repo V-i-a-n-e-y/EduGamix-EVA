@@ -35,17 +35,17 @@ body {
 }
 
 .message {
-    padding: 1rem;
+    padding: 0rem;
 }
 
 .message h2 {
     font-size: 1.7rem;
-    padding: 1rem 0;
+    padding: 5rem 0;
 }
 
 .message button {
     padding: 1rem;
-    font-weight: 400;
+    font-weight: 600;
     background-color: #e98018;
     border-radius: 2rem;
     border: none;
@@ -79,12 +79,12 @@ body {
 }
 
 .create-account {
-    padding: 2.7rem 0;
+    padding: 0.9rem 0;
     font-size: 1.7rem;
 }
 
 .cuenta-gratis {
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 .formulario input {
@@ -110,7 +110,7 @@ body {
     border-radius: 2rem;
     background-color: rgb(243, 134, 1);
     font-weight: 600;
-    margin-top: 3rem;
+    margin-top: 0rem;
     font-size: .8rem;
     cursor: pointer;
     color: #000000;
