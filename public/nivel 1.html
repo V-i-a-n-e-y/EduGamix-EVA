@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>EduGamix - Nivel 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .header-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            color: white;
+            font-size: 14px;
+        }
+        .main-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px;
+        }
+        .avatar {
+            flex-grow: 1;
+            margin: 10px;
+            text-align: center;
+        }
+        .content {
+            flex-grow: 3;
+            background: white;
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .timer {
+            flex-grow: 1;
+            margin: 10px;
+            text-align: center;
+            font-size: 22px;
+            background: #ddd;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        /* Estilo para mostrar el nombre y correo */
+        .user-section {
+            display: flex;
+            align-items: center;
+            /*justify-content: center;*/
+            font-size: 14px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .user-section span {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>EduGamix - Nivel 1: Definición de Sistemas de Ecuaciones Lineales</h1>
+</header>
+
+<!-- Información del usuario -->
+<div class="header-info">
+    <div class="user-section">
+        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+        <span id="username">No registrado</span> |
+        <span id="useremail">No registrado</span>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="avatar">
+        <img src="img/gami.jpg" alt="Gami Guía" style="height: 150px;">
+    </div>
+    <div class="content">
+        <p>"Pon a prueba tus habilidades y busca el camino hacia la victoria, resolviendo problemas matemáticos en nuestro emocionante Bingo de Álgebra Lineal. Encuentra la combinación correcta de vectores y sé el primero en oprimir ¡Bingo! para ganar"</p>
+                <p>Selecciona el modo de juego.</p>
+            <p>Instrucciones: Gami será tu guía durante los niveles del juego, el narrará las actividades</p> 
+
+            <p>1. Escucha a Xilo: Quien leerá un sistema de ecuaciones lineales</p>
+            <p>2. Resuelve el sistema: Debes resolver el sistema de ecuaciones para encontrar los valores de 𝑥 y 𝑦 </p>      
+            <p> 3. Marca tu tarjeta: Si la solución que obtuviste está en tu tarjeta de bingo, marca esa casilla.</p>
+            <p> 4. Desafíos de Radicux: De vez en cuando, Gami leerá un "Desafío de Radicux", que es un sistema de ecuaciones más complicado</p>
+            <p>5. Selecciona el botón de "Bingo": El primer jugador en completar una línea de 3 casillas en cualquier dirección (horizontal, vertical o diagonal) debe apretar el botón "Bingo". Gami verificará las soluciones marcadas para confirmar el ganador</p>
+           
+             
+           
+           
+           Reglas Adicionales:
+           Confirmación de Bingo: Cuando el jugador oprime "Bingo", Gami revisará las soluciones marcadas para asegurar que todas son correctas. Si alguna solución es incorrecta, el juego continúa. ¡Si fallas Radicux se burlará, !no lo dejes!
+           Ayuda: Si necesitas ayuda para resolver un sistema, puedes pedir una pista a Xilo, pero no se te dará la solución completa.
+           "</p>
+        <button>Siguiente</button>
+        <button onclick="window.location.href='inicio.html'">Regresar a Inicio</button>
+    </div>
+    <div class="timer">
+        TIEMPO: 03:00:00
+    </div>
+</div>
+
+
+<script>
+    // Cargar el nombre de usuario y correo desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+        const useremail = localStorage.getItem("useremail");
+        
+        if (username) {
+            document.getElementById("username").textContent =  username;
+        }
+
+        if (useremail) {
+            document.getElementById("useremail").textContent = useremail;
+        }
+    });
+
+    var countDownDate = new Date(new Date().getTime() + 5 * 60 * 1000); // 5 minutos
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.querySelector('.timer').innerHTML = "TIEMPO: " + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.querySelector('.timer').innerHTML = "EXPIRADO";
+        }
+    }, 1000);
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(img/3.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #0b0b0b;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+}
+
+.container-form {
+    width: 90%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.container-form.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+form {
+    width: 100%;
+    text-align: center;
+}
+
+input {
+    width: 80%;
+    margin: 1rem auto;
+    padding: 0.7rem;
+    border: none;
+    border-bottom: 1px solid #0b0b0b;
+    background-color: transparent;
+    outline: none;
+}
+
+input[type="button"], input[type="submit"] {
+    width: 60%;
+    margin: 1rem auto;
+    padding: 0.7rem;
+    border-radius: 25px;
+    background-color: rgb(243, 134, 1);
+    border: none;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="button"]:hover, input[type="submit"]:hover {
+    background-color: #6464f8;
+}
+
+.message {
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.message h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.message button {
+    padding: 0.8rem 1.2rem;
+    border-radius: 20px;
+    background-color: #e98018;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message button:hover {
+    background-color: #6464f8;
+}
+
+.sign-in {
+    top: 0;
+}
+
+.sign-up {
+    top: 0;
+}

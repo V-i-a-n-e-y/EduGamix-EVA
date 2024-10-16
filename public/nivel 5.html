@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>EduGamix - Nivel 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .header-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            color: white;
+            font-size: 14px;
+        }
+        .main-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 20px;
+        }
+        .avatar {
+            flex-grow: 1;
+            margin: 10px;
+            text-align: center;
+        }
+        .content {
+            flex-grow: 3;
+            background: white;
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(185, 161, 4, 0.1);
+        }
+        .timer {
+            flex-grow: 1;
+            margin: 10px;
+            text-align: center;
+            font-size: 22px;
+            background: #ddd;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        /* Estilo para mostrar el nombre y correo */
+        .user-section {
+            display: flex;
+            align-items: center;
+            /*justify-content: center;*/
+            font-size: 14px;
+            color: #333;
+            margin: 10px 0;
+        }
+        .user-section span {
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>EduGamix - Nivel 5: APLICACIONES 
+    </h1>
+         
+</header>
+
+<!-- Información del usuario -->
+<div class="header-info">
+    <div class="user-section">
+        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+        <span id="username">No registrado</span> |
+        <span id="useremail">No registrado</span>
+    </div>
+</div>
+
+<div class="main-container">
+    <div class="avatar">
+        <img src="img/gami.jpg" alt="Gami Guía" style="height: 150px;">
+    </div>
+    <div class="content">
+        <p>Bienvenid@ al emocionante juego Ruleta de Desafíos Lineales, en donde tendrás relacionar el algebra lineal con la ingeniería. Sigue las instrucciones para jugar y divertirte mientras refuerzas tus conocimientos. ¡Éxito!</p> 
+        <p>Selecciona el modo de juego.</p>
+
+        Instrucciones: Gami será tu guía durante los niveles del juego, el narrará las actividades.
+
+            <p>1. Gira la ruleta: Para seleccionar el número de ejercicio que resolverás.</p>
+            <p>2. Arrastra la tarjeta: Debajo de la pregunta habrá un cuadro punteado ahí deberás arrastrar la tarjeta con la respuesta correcta</p>      
+            <p>3. Oprime siguiente: al tener tus respuestas correctas pasa a las siguientes preguntas.</p>
+                              
+           Reglas Adicionales:
+           Verifica tu Trabajo: Asegúrate de que tus respuestas sean correctas.
+           Participa Activamente: No dejes pasar mucho tiempo, por cada error te quitara tiempo Radicux. 
+           Pide Ayuda si la Necesitas: No dudes en pedir una pista a “Xilo” si te quedas atascado.
+</p>
+                   <button>Siguiente</button>
+        <button onclick="window.location.href='inicio.html'">Regresar a Inicio</button>
+    </div>
+    <div class="timer">
+        TIEMPO: 03:00:00
+    </div>
+</div>
+
+
+<script>
+    // Cargar el nombre de usuario y correo desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+        const useremail = localStorage.getItem("useremail");
+        
+        if (username) {
+            document.getElementById("username").textContent =  username;
+        }
+
+        if (useremail) {
+            document.getElementById("useremail").textContent = useremail;
+        }
+    });
+
+    var countDownDate = new Date(new Date().getTime() + 5 * 60 * 1000); // 5 minutos
+
+    var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.querySelector('.timer').innerHTML = "TIEMPO: " + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.querySelector('.timer').innerHTML = "EXPIRADO";
+        }
+    }, 1000);
+</script>
+</body>
+</html>

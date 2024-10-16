@@ -1,0 +1,56 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+#logo {
+    font-size: 24px;
+}
+#nivel-info, #usuario-info {
+    font-size: 16px;
+}
+main {
+    text-align: center;
+    margin-top: 20px;
+}
+#intro-text {
+    margin-bottom: 20px;
+}
+#game-controls {
+    margin-bottom: 20px;
+}
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #444;
+    padding: 10px;
+    text-align: center;
+}
+button {
+    background-color: #3f51b5; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Espaciado */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de mano al pasar el mouse */
+    font-size: 16px; /* Tamaño de la fuente */
+    margin-top: 15px; /* Margen superior */
+}
+
+button:hover {
+    background-color: #5c6bc0; /* Color al pasar el mouse */
+}
