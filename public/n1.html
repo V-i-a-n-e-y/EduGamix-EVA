@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix - Desafío 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .header-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            color: white;
+            font-size: 14px;
+        }
+        .user-section {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: white;
+        }
+        .user-section span {
+            margin: 0 5px;
+        }
+        .main-content {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+        }
+        .main-content h2 {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Desafío 1: Bingo de Ecuaciones Lineales</h1>
+        <div class="header-info">
+            <div class="user-section">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <span id="username">No registrado</span> |
+                <span id="useremail">No registrado</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <h2>Bienvenido al Desafío 1: Bingo de Ecuaciones Lineales</h2>
+        <p>Aquí podrás poner a prueba tus habilidades en la resolución de sistemas de ecuaciones lineales.</p>
+        <p>Selecciona el botón de "Iniciar" cuando estés listo para comenzar.</p>
+        <button onclick="window.location.href='nivel1-juego.html'">Iniciar</button>
+    </div>
+
+    <script>
+        // Cargar el nombre de usuario y correo desde localStorage
+        document.addEventListener("DOMContentLoaded", function() {
+            const username = localStorage.getItem("username");
+            const useremail = localStorage.getItem("useremail");
+            
+            if (username) {
+                document.getElementById("username").textContent = username;
+            }
+
+            if (useremail) {
+                document.getElementById("useremail").textContent = useremail;
+            }
+        });
+    </script>
+</body>
+</html>

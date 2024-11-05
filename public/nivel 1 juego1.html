@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="nivel 1 juego1.css">
+    <title>EduGamix - Desafío 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f0e9;
+        }
+        header {
+            background-color: #333;
+            color: #f9f0e9;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        .challenge-header {
+            font-size: 30px; /* Tamaño de fuente más grande */
+            font-weight: bold;
+        }
+        .header-info {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            color: white;
+            font-size: 14px;
+        }
+        .user-section {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: white;
+        }
+        .user-section span {
+            margin: 0 5px;
+        }
+        .main-content {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+        }
+        .main-content h2 {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <div class="challenge-header">
+                Desafío 1: Bingo de Ecuaciones Lineales
+            </div>
+            <div class="challenge-info">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <!-- Información del usuario -->
+                <div class="header-info">
+                    <div class="user-section">
+                        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                        <span id="username">No registrado</span> |
+                        <span id="useremail">No registrado</span>
+                    </div>
+                </div>
+                <p>TIEMPO: <span id="timer">00:00</span></p>
+                <p>Puntos obtenidos: <span id="points">0</span></p>
+            </div>
+        </header>
+        
+        <div class="content">
+            <div class="equation-container">
+                <p>El sistema de ecuaciones es:</p>
+                <div id="equation" class="equation">x + y = 5, 2x - y = 1</div>
+                <button id="prev-btn" onclick="prevEquation()">Regresar</button>
+                <button id="next-btn" onclick="nextEquation()">Siguiente</button>
+            </div>
+
+            <div class="bingo-container">
+                <h2>Bingo</h2>
+                <div id="bingo-board" class="bingo-board"></div>
+            </div>
+        </div>
+
+        <div class="attempts-info">
+            <span id="attempts">Intentos restantes: 3</span>
+        </div>
+
+        <button onclick="checkBingo()">¡Verificar Bingo!</button>
+        <button onclick="restartGame()">Volver a Empezar</button>
+    </div>
+
+    <!-- Modal de Retroalimentación -->
+    <div id="feedback-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeFeedback()">&times;</span>
+            <h2>Retroalimentación</h2>
+            <!-- Tabla de Retroalimentación -->
+            <div id="feedback">
+                <table class="feedback-table">
+                    <thead>
+                        <tr>
+                            <th>Pregunta</th>
+                            <th>Respuesta Correcta</th>
+                            <th>Tu Respuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las filas de retroalimentación se agregarán aquí mediante JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="nivel 1 juego1.js"></script>
+
+    <script>
+        // Cargar el nombre de usuario y correo desde localStorage
+        document.addEventListener("DOMContentLoaded", function() {
+            const username = localStorage.getItem("username");
+            const useremail = localStorage.getItem("useremail");
+            
+            if (username) {
+                document.getElementById("username").textContent = username;
+            }
+
+            if (useremail) {
+                document.getElementById("useremail").textContent = useremail;
+            }
+        });
+    </script> 
+</body>
+</html>
