@@ -6,14 +6,14 @@ const rateLimit = require('express-rate-limit');
 const cors = require('cors');
 
 const app = express();
-const port = 3000;
+const port = 5500;
 
 // Configuración de nodemailer
 const transporter = nodemailer.createTransport({
   service: 'Gmail', // Puedes usar cualquier servicio de correo
   auth: {
-    user: 'tucorreo@gmail.com', // Tu correo
-    pass: 'tucontraseña' // Tu contraseña
+    user: 'ebnerjuarez@gmail.com', // Tu correo
+    pass: 'violeta16011982' // Tu contraseña
   }
 });
 
@@ -46,7 +46,7 @@ app.post('/register', async (req, res) => {
 
     // Enviar correo de verificación
     const mailOptions = {
-      from: 'tucorreo@gmail.com',
+      from: 'ebnerjuarez@gmail.com',
       to: email,
       subject: `Correo de Validación del ${username} de EduGamix`,
       html: `<p>Hola ${username},</p>
