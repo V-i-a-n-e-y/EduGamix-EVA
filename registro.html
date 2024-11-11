@@ -1,22 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <!-- meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <title>EduGamix</title-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduGamix - Crear Jugador</title>
     <link rel="stylesheet" href="principal.css">
+    <script defer src="registro.js"></script> <!-- Referencia al archivo JS -->
 </head>
-
 <body>
     <!-- Encabezado -->
     <header>
@@ -30,7 +20,7 @@
     </header>
     <div class="container">
         <!-- Formulario de Registro -->
-         <form class="registration-form">
+        <form class="registration-form">
             <label for="username">Alias</label>
             <input type="text" id="username" name="username" required>
             <label for="email">Correo Electrónico</label>
@@ -39,22 +29,9 @@
             <input type="password" id="password" name="password" required> 
             <label for="confirm-password">Confirmar Contraseña</label> 
             <input type="password" id="confirm-password" name="confirm-password" required> 
-            <button type="submit" class="register-btn">Crear</button> </form>
-
+            <button type="submit" class="register-btn">Crear</button> 
+        </form>
     </div>    
-
-    <script>
-        // Alternar entre formularios
-        document.getElementById('go-to-login').addEventListener('click', function() {
-            document.getElementById('register-form').style.display = 'none';
-            document.getElementById('login-form').style.display = 'block';
-        });
-
-        document.getElementById('go-to-register').addEventListener('click', function() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('register-form').style.display = 'block';
-        });
-    </script>
 </body>
-
 </html>
+
