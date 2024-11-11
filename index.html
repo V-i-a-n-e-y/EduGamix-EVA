@@ -1,52 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <title>EduGamix</title>
+    <title>EduGamix - Álgebra Lineal</title>
+    <link rel="stylesheet" href="principal.css">
 </head>
-
 <body>
-    <div class="container-form sign-up">
-        <div class="welcome-back">
-            <div class="message">
-                <h2>Bienvenido a EduGamix</h2>
-                <p>Si ya tienes una cuenta, por favor inicia sesión aquí</p>
-                <button class="sign-up-btn">Iniciar Sesión</button>
-            </div>
+    <!-- Encabezado -->
+    <header>
+        <div class="logo">
+            <img src="\img\logo.png" alt="EduGamix Logo" height="60">
         </div>
-        <form class="formulario">
-            <h2 class="create-account">Crear una cuenta</h2>
-            <p class="cuenta-gratis">Crear una cuenta gratis</p>
-            <input type="text" placeholder="Nombre">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Contraseña">
-            <input type="button" value="Registrarse">
-        </form>
-    </div>
-    <div class="container-form sign-in">
-        <form class="formulario">
-            <h2 class="create-account">Iniciar Sesión</h2>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Contraseña">
-            <input type="button" value="Iniciar Sesión">
-        </form>
-        <div class="welcome-back">
-            <div class="message">
-                <h2>Bienvenido de nuevo</h2>
-                <p>Si aún no tienes una cuenta, por favor regístrate aquí</p>
-                <button class="sign-in-btn">Registrarse</button>
-            </div>
+        <h1>Álgebra lineal</h1>
+        <div class="user-info">
+            <span class="icon">🔔</span>
+            <span class="icon">⭐</span>
+            <span>Nombre usuario</span>
+            <span class="icon">👤</span>
         </div>
-    </div>
+        <div class="auth-buttons">
+            <button class="login-btn sign-in-btn">Unirse al Juego</button>
+            <button class="register-btn sign-up-btn">Crear Cuenta de Jugador</button>
+        </div>
+    </header>
+
+    <!-- Área de Progreso -->
+    <main>
+        <section class="progress-area sign-in active">
+            <h2>Área de Progreso</h2>
+            <div class="boosters">
+                <h3>Potenciadores</h3>
+                <div class="booster-icons">
+                    <span>⏰ Tiempo extra</span>
+                    <span>⚔️ Duplicar puntos</span>
+                    <span>🔄 Cambio de Pregunta</span>
+                    <span>⭐ Ayuda del Equipo</span>
+                    <span>❌ Opción de eliminar</span>
+                    <span>🛡️ Escudo de Fallos</span>
+                </div>
+            </div>
+
+            <div class="badges">
+                <h3>Insignias</h3>
+                <div class="badge-icons">
+                    <span>🏆 Visionario del Aprendizaje</span>
+                    <span>🌟 Explorador del Conocimiento</span>
+                    <span>🎖️ Maestro de Desafíos</span>
+                </div>
+            </div>
+
+            <div class="identifiers">
+                <h3>Identificadores</h3>
+                <div class="identifier-icons">
+                    <span>🚴 Principiante: 1,666 puntos</span>
+                    <span>🚗 Intermedio: 3,332 puntos</span>
+                    <span>🚚 Avanzado: 4,000 puntos</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Zona Social y Rankings -->
+        <section class="social-area sign-up">
+            <h2>Zona Social y Rankings</h2>
+            <div class="social-chat">
+                <p>Únete a la conversación y resuelve tus dudas</p>
+                <ul>
+                    <li>👤 Nombre de usuario <span>💬</span></li>
+                    <li>👤 Nombre de usuario <span>💬</span></li>
+                    <li>👤 Nombre de usuario <span>💬</span></li>
+                    <li>👤 Nombre de usuario <span>💬</span></li>
+                </ul>
+            </div>
+            <div class="rankings">
+                <p>Ranking</p>
+                <div class="ranking-user">
+                    👤 Nombre de usuario
+                </div>
+                <div class="ranking-user">
+                    👤 Nombre de usuario
+                </div>
+                <div class="ranking-user">
+                    👤 Nombre de usuario
+                </div>
+            </div>
+        </section>
+    </main>
+
     <script src="script.js"></script>
 </body>
-
 </html>
