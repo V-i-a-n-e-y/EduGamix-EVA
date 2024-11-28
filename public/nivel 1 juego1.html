@@ -6,48 +6,7 @@
     <link rel="stylesheet" href="nivel 1 juego1.css">
     <title>EduGamix - Desafío 1</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f0e9;
-        }
-        header {
-            background-color: #333;
-            color: #f9f0e9;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        .challenge-header {
-            font-size: 30px; /* Tamaño de fuente más grande */
-            font-weight: bold;
-        }
-        .header-info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            color: white;
-            font-size: 14px;
-        }
-        .user-section {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: white;
-        }
-        .user-section span {
-            margin: 0 5px;
-        }
-        .main-content {
-            text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-        }
-        .main-content h2 {
-            font-size: 24px;
-            color: #333;
-        }
+       
     </style>
 </head>
 <body>
@@ -71,10 +30,27 @@
             </div>
         </header>
         
+        <!-- Contenedor del avatar en la esquina inferior derecha -->
+<div id="avatar-container" class="avatar-container">
+    <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
+</div>
+
+<!-- Cuadro de diálogo del avatar -->
+<div id="avatar-dialog" class="avatar-dialog">
+    <div class="dialog-content">
+        <span class="close" onclick="closeAvatarDialog()">&times;</span>
+        <p>¡Hola! Soy tu asistente de juego. Estoy aquí para ayudarte.</p>
+    </div>
+</div>
+
+
         <div class="content">
             <div class="equation-container">
-                <p>El sistema de ecuaciones es:</p>
-                <div id="equation" class="equation">x + y = 5, 2x - y = 1</div>
+                            <div id="equation-container">
+                    <h2>El sistema de ecuaciones es:</h2>
+                    <ul id="equation-list"></ul> <!-- Contenedor de lista para las ecuaciones -->
+                </div>
+                <div id="equation" class="equation">x + y = 5,    2x - y = 1</div>
                 <button id="prev-btn" onclick="prevEquation()">Regresar</button>
                 <button id="next-btn" onclick="nextEquation()">Siguiente</button>
             </div>
@@ -87,37 +63,37 @@
 
         <div class="attempts-info">
             <span id="attempts">Intentos restantes: 3</span>
-        </div>
-
-        <button onclick="checkBingo()">¡Verificar Bingo!</button>
-        <button onclick="restartGame()">Volver a Empezar</button>
+            <button onclick="checkBingo()">¡Verificar Bingo!</button>
+            <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
+    </div>
     </div>
 
     <!-- Modal de Retroalimentación -->
-    <div id="feedback-modal" class="modal" style="display: none;">
+    <div id="feedback-modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeFeedback()">&times;</span>
             <h2>Retroalimentación</h2>
-            <!-- Tabla de Retroalimentación -->
-            <div id="feedback">
-                <table class="feedback-table">
-                    <thead>
-                        <tr>
-                            <th>Pregunta</th>
-                            <th>Respuesta Correcta</th>
-                            <th>Tu Respuesta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Las filas de retroalimentación se agregarán aquí mediante JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+            <table id="feedback" class="feedback-table">
+                <thead>
+                    <tr>
+                        <th>Ecuación</th>
+                        <th>Solución</th>
+                        <th>Tu respuesta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas de retroalimentación generadas por JavaScript -->
+                </tbody>
+            </table>
+            <!-- Avatar debajo de la tabla -->
+            <img src="img/radicux.jpg" alt="Avatar" class="avatar">
+            <p>¡Fallaste! Suerte para la próxima</p>
         </div>
     </div>
+    
 
     <script src="nivel 1 juego1.js"></script>
-
+    
     <script>
         // Cargar el nombre de usuario y correo desde localStorage
         document.addEventListener("DOMContentLoaded", function() {
@@ -132,6 +108,8 @@
                 document.getElementById("useremail").textContent = useremail;
             }
         });
+
+        
     </script> 
 </body>
 </html>

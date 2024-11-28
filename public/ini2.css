@@ -1,19 +1,7 @@
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f0e9;
-}
-
 /* Encabezado */
 header {
     background-color: #fff;
-    padding: 10px;
+    padding: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -26,12 +14,24 @@ header {
 }
 
 h1 {
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: #555;
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .user-info .icon {
-    margin: 0 5px;
+    font-size: 1.5em;
+}
+
+.user-info #username,
+.user-info #useremail {
+    font-size: 1.5em;
+    color: #333;
 }
 
 /* Área de Progreso */
@@ -44,6 +44,12 @@ h1 {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+/* Flechas de navegación */
+.arrow {
+    cursor: pointer;
+    font-size: 1.5em;
+    margin: 0 5px;
+}
 
 .progress-area h2 {
     color: #333;
@@ -54,15 +60,50 @@ h1 {
     margin: 15px 0;
 }
 
-.booster-icons, .badge-icons, .identifier-icons {
+/* Estilos del Slider */
+.slider {
     display: flex;
-    justify-content: space-around;
-    padding: 10px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
 
-.booster-icons span, .badge-icons span, .identifier-icons span {
-    font-size: 0.9em;
+.arrow {
+    cursor: pointer;
+    font-size: 1.5em;
     color: #666;
+    user-select: none;
+}
+
+.slider-content {
+    display: flex;
+    overflow: hidden;
+    width: 70%;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.slider-content span {
+    min-width: 45%;
+    text-align: center;
+    color: #666;
+    font-size: 0.9em;
+    padding: 8px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    white-space: nowrap;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f0e9;
 }
 
 /* Zona Social y Rankings */
@@ -70,7 +111,7 @@ h1 {
     background-color: #e3f2fd;
     padding: 20px;
     margin: 20px auto;
-    max-width: 900px;
+    max-width: 500px;
     border-radius: 8px;
     text-align: center;
 }
@@ -98,4 +139,80 @@ h1 {
     background-color: #f5f5f5;
     margin: 5px 0;
     border-radius: 4px;
+}
+
+.medal-icon {
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+
+/* Estilos de la Ventana Emergente de Mensajes */
+.message-popup {
+    display: none; /* Oculta la ventana por defecto */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+.message-popup h3 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.message-popup textarea {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+.message-popup button {
+    width: 48%;
+    padding: 8px;
+    margin: 5px 1%;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-popup button:last-child {
+    background-color: #ccc;
+}
+
+.message-popup button:hover {
+    opacity: 0.9;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.user-info i {
+    color: #333;
+}
+
+.logout-link {
+    margin-left: 10px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
 }

@@ -72,11 +72,11 @@ function renderBingoBoard() {
     });
 }
 
-// Generar 16 valores aleatorios para el tablero de bingo
+// Generar 9 valores aleatorios para el tablero de bingo (3x3)
 function generateBingoValues() {
     const values = [];
 
-    while (values.length < 16) {
+    while (values.length < 9) { // Genera solo 9 valores
         const x = Math.floor(Math.random() * 11) - 5;
         const y = Math.floor(Math.random() * 11) - 5;
         const pair = `(${x}, ${y})`;
@@ -86,6 +86,7 @@ function generateBingoValues() {
 
     return values;
 }
+
 
 // Cambiar al siguiente sistema de ecuaciones
 function nextEquation() {
@@ -118,7 +119,7 @@ function updateEquation() {
     }
 }
 
-// Verificar si se ha encontrado el bingo
+// Función para verificar si se ha encontrado el bingo
 function checkBingo() {
     const solution = equationsHistory[currentEquationIndex].solution;
     const solutionString = `(${solution.x}, ${solution.y})`;
@@ -136,13 +137,13 @@ function checkBingo() {
         if (attempts > 0) {
             alert("Sigue intentando.");
         } else {
-            lockGame();
-            showFeedback();
+            lockGame(); // Bloquea el juego
+            setTimeout(showFeedback, 1000); // Mostrar retroalimentación después de 1 segundo
         }
     }
 }
 
-// Mostrar retroalimentación en tabla
+// Función para mostrar retroalimentación en tabla
 function showFeedback() {
     const feedbackTable = document.querySelector("#feedback tbody");
     feedbackTable.innerHTML = ""; // Limpiar la tabla
@@ -160,35 +161,76 @@ function showFeedback() {
         feedbackTable.innerHTML += row;
     });
 
-    document.getElementById("feedback-modal").style.display = "block";
+    document.getElementById("feedback-modal").style.display = "block"; // Mostrar el modal de retroalimentación
 }
 
-// Cerrar la ventana de retroalimentación
+
+// Función para cerrar la ventana de retroalimentación
 function closeFeedback() {
     document.getElementById("feedback-modal").style.display = "none";
 }
 
+
 // Reiniciar el juego
 function restartGame() {
+    // Restablecer puntos, intentos y respuestas
     attempts = 3;
     selectedAnswers = [];
     equationsHistory = [];
     currentEquationIndex = -1;
-    totalPoints = 0; // Reiniciar puntos a 0
+    totalPoints = 0;
 
+    // Resetear el temporizador
+    clearInterval(timerInterval);
     document.getElementById("timer").textContent = "00:00";    
-    document.getElementById("points").textContent = "0"; // Resetear puntos a 0
-    document.getElementById("attempts").textContent = "Intentos restantes: 3"; // Resetear intentos
+
+    // Restablecer la interfaz
+    document.getElementById("points").textContent = "0"; // Resetear puntos
+    document.getElementById("attempts").textContent = "Intentos restantes: 3"; // Restablecer intentos
     document.getElementById("feedback-modal").style.display = "none";
 
+    // Volver a generar el tablero y las ecuaciones
     renderBingoBoard();
     startTimer();
     nextEquation();
+
+    // Restablecer el estado de las casillas
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => {
+        cell.classList.remove("selected");  // Eliminar la clase 'selected'
+        cell.style.pointerEvents = "auto";  // Habilitar la interacción
+    });
+
+    // Reactivar la interacción del tablero
+    document.getElementById("bingo-board").style.pointerEvents = "auto";
+    // Función para abrir el cuadro de diálogo del avatar
+function openAvatarDialog() {
+    document.getElementById("avatar-dialog").style.display = "block";
 }
 
-// Inicializar el juego
-window.onload = () => {
-    renderBingoBoard();
-    startTimer();
-    nextEquation();
-};
+// Selecciona el contenedor del avatar y el cuadro de diálogo
+const avatarContainer = document.querySelector('.avatar-container');
+const avatarDialog = document.querySelector('.avatar-dialog');
+const closeBtn = document.querySelector('.avatar-dialog .close');
+
+// Muestra el cuadro de diálogo cuando el avatar es clickeado
+avatarContainer.addEventListener('click', () => {
+    avatarDialog.style.display = 'block';  // Muestra el cuadro de diálogo
+});
+
+// Cierra el cuadro de diálogo cuando se hace clic en la "x"
+closeBtn.addEventListener('click', () => {
+    avatarDialog.style.display = 'none';  // Oculta el cuadro de diálogo
+});
+
+// Cierra el cuadro de diálogo si se hace clic fuera de él
+window.addEventListener('click', (event) => {
+    if (event.target === avatarDialog) {
+        avatarDialog.style.display = 'none';  // Oculta el cuadro de diálogo si se hace clic fuera
+    }
+});
+
+
+
+
+}

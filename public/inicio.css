@@ -1,0 +1,236 @@
+/* Encabezado */
+header {
+    background-color: #fff;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: #555;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info .icon {
+    font-size: 1.5em;
+}
+
+.user-info #username,
+.user-info #useremail {
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Área de Progreso */
+.progress-area {
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 900px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+  /* Reseteo de márgenes */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estructura general */
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f0e9;
+}
+
+
+/* Contenido principal */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+/* Ruta de progreso */
+.progress-road {
+    flex-grow: 1;
+    padding: 40px;
+    position: relative;
+}
+
+.road {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 10px;
+}
+
+.road-point {
+    text-align: center;
+    width: 150px;
+    position: relative;
+}
+
+.point-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 0 auto;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Colores de los puntos */
+.yellow { background-color: #fbc02d; }
+.red { background-color: #e57373; }
+.green { background-color: #81c784; }
+.light-green { background-color: #aed581; }
+.blue { background-color: #64b5f6; }
+
+/* Estilo al pasar el cursor */
+.road-point:hover .point-icon {
+    transform: scale(1.3); /* Efecto de agrandar el punto */
+}
+
+.road-point:hover .yellow { background-color: #ffd600; }
+.road-point:hover .red { background-color: #ef5350; }
+.road-point:hover .green { background-color: #66bb6a; }
+.road-point:hover .light-green { background-color: #9ccc65; }
+.road-point:hover .blue { background-color: #42a5f5; }
+
+button {
+    padding: 10px 20px;
+    background-color: #d76a1c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #d76a1c;
+}
+/* Información adicional al pasar el mouse */
+.road-point:hover .info-box {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-10px);
+}
+
+/* Caja de información que aparece al hover */
+.info-box {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(0px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+}
+
+/* Inicio y meta */
+.start, .end {
+    text-align: center;
+    font-size: 14px;
+}
+
+.start i, .end i {
+    font-size: 24px;
+    color: red;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 120px;
+    background-color: #eceff1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.sidebar-item {
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.sidebar-item i {
+    font-size: 32px;
+    color: #333;
+}
+
+.sidebar-item p {
+    font-size: 14px;
+}
+
+.avatar img {
+    width: 60px;
+}
+
+.icon {
+    cursor: pointer;
+    font-size: 20px;
+    margin-right: 15px;
+}
+
+.icon:hover {
+    color: #3f51b5;
+}

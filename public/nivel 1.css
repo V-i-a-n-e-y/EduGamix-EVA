@@ -1,57 +1,142 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-image: url(img/fondo.jpg);
-}
-header {
+
+
+.main-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    background-color: #333;
-    color: #f9f0e9;
-    padding: 10px;
+    margin: 20px;
 }
-#logo {
-    font-size: 24px;
-}
-#nivel-info, #usuario-info {
-    font-size: 16px;
-}
-main {
+
+.avatar {
+    flex-grow: 1;
+    margin: 10px;
     text-align: center;
-    margin-top: 20px;
 }
-#intro-text {
-    margin-bottom: 20px;
+
+.content {
+    flex-grow: 3;
+    background: white;
+    margin: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-#game-controls {
-    margin-bottom: 20px;
-}
+
 button {
     padding: 10px 20px;
-    font-size: 16px;
+    background-color: #d76a1c;
+    color: white;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-}
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #444;
-    padding: 10px;
-    text-align: center;
-}
-button {
-    background-color: #3f51b5; /* Color de fondo */
-    color: white; /* Color del texto */
-    border: none; /* Sin borde */
-    padding: 10px 20px; /* Espaciado */
-    border-radius: 5px; /* Bordes redondeados */
-    cursor: pointer; /* Cursor de mano al pasar el mouse */
-    font-size: 16px; /* Tamaño de la fuente */
-    margin-top: 15px; /* Margen superior */
 }
 
 button:hover {
-    background-color: #5c6bc0; /* Color al pasar el mouse */
+    background-color: #d76a1c;
+}
+
+/* Estilo para mostrar el nombre y correo */
+.user-section {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #131313;
+    margin: 10px 0;
+}
+
+.user-section span {
+    margin: 0 5px;
+}
+/* Estilos para el encabezado */
+header {
+    background-color: #fff;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: #555;
+}
+
+
+
+/* Nuevo estilo para los botones del encabezado */
+.user-info .icon {
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.user-info .icon:hover {
+    color: #f1c40f;
+}
+
+/* Estilos para la sección de usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1em;
+    color: #0d0d0d;
+}
+
+.logout-link {
+    font-size: 1em;
+    color: #d76a1c;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f0e9;
+}
+header {
+    background-color: #f9f0e9;
+    color: #f9f0e9;
+    padding: 10px 20px;
+    text-align: center;
+}
+.challenge-header {
+    font-size: 30px; /* Tamaño de fuente más grande */
+    font-weight: bold;
+}
+.header-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    color: rgb(16, 9, 9);
+    font-size: 14px;
+}
+.user-section {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: rgb(16, 14, 14);
+}
+.user-section span {
+    margin: 0 5px;
+}
+.main-content {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+}
+.main-content h2 {
+    font-size: 24px;
+    color: #333;
 }

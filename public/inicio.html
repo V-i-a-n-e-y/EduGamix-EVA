@@ -4,253 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduGamix - Álgebra Lineal</title>
-    <style>
-        /* Reseteo de márgenes */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Estructura general */
-        body {
-            display: flex;
-            flex-direction: column;
-            background-color: #f9f0e9;
-        }
-
-        /* Encabezado */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #eceff1;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo {
-            width: 50px;
-            margin-right: 10px;
-        }
-
-        h1 {
-            color: #ffcc00;
-            font-size: 24px;
-        }
-
-        h2 {
-            color: #3f51b5;
-            font-size: 20px;
-        }
-
-        .user-section {
-            display: flex;
-            align-items: center;
-            color: #333;
-            font-size: 14px;
-        }
-
-        .user-section i {
-            font-size: 24px;
-            margin-right: 8px;
-        }
-
-        #username {
-            font-weight: bold;
-        }
-
-        #useremail {
-            margin-left: 8px;
-            color: #555;
-        }
-
-        /* Cerrar sesión */
-        .logout-link {
-            margin-left: 20px;
-            text-decoration: none; /* Sin subrayado */
-            color: #d9534f; /* Color del enlace */
-            font-weight: bold; /* Negrita */
-            cursor: pointer; /* Cursor de mano */
-        }
-
-        .logout-link:hover {
-            text-decoration: underline; /* Subrayar al pasar el mouse */
-        }
-
-        /* Contenido principal */
-        .main-content {
-            display: flex;
-            justify-content: space-between;
-            flex-grow: 1;
-        }
-
-        /* Ruta de progreso */
-        .progress-road {
-            flex-grow: 1;
-            padding: 40px;
-            position: relative;
-        }
-
-        .road {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            padding: 10px;
-        }
-
-        .road-point {
-            text-align: center;
-            width: 150px;
-            position: relative;
-        }
-
-        .point-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin: 0 auto;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        /* Colores de los puntos */
-        .yellow { background-color: #fbc02d; }
-        .red { background-color: #e57373; }
-        .green { background-color: #81c784; }
-        .light-green { background-color: #aed581; }
-        .blue { background-color: #64b5f6; }
-
-        /* Estilo al pasar el cursor */
-        .road-point:hover .point-icon {
-            transform: scale(1.3); /* Efecto de agrandar el punto */
-        }
-
-        .road-point:hover .yellow { background-color: #ffd600; }
-        .road-point:hover .red { background-color: #ef5350; }
-        .road-point:hover .green { background-color: #66bb6a; }
-        .road-point:hover .light-green { background-color: #9ccc65; }
-        .road-point:hover .blue { background-color: #42a5f5; }
-
-        /* Información adicional al pasar el mouse */
-        .road-point:hover .info-box {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(-10px);
-        }
-
-        /* Caja de información que aparece al hover */
-        .info-box {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 10px;
-            text-align: center;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(0px);
-            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 20px;
-            border-radius: 10px;
-            width: 50%;
-            text-align: center;
-        }
-
-        .close-modal {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close-modal:hover,
-        .close-modal:focus {
-            color: black;
-        }
-
-        /* Inicio y meta */
-        .start, .end {
-            text-align: center;
-            font-size: 14px;
-        }
-
-        .start i, .end i {
-            font-size: 24px;
-            color: red;
-        }
-
-        /* Panel lateral */
-        .sidebar {
-            width: 120px;
-            background-color: #eceff1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .sidebar-item {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .sidebar-item i {
-            font-size: 32px;
-            color: #333;
-        }
-
-        .sidebar-item p {
-            font-size: 14px;
-        }
-
-        .avatar img {
-            width: 60px;
-        }
-    </style>
-</head>
+    <link rel="stylesheet" href="inicio.css">
+ </head>
 <body>
-
-    <!-- Encabezado -->
-    <div class="header">
-        <div class="logo-section">
-            <img src="img/logo.jpg" alt="EduGamix Logo" class="logo">
-            <h1>EduGamix</h1>
-        </div>
-        <h2>ÁLGEBRA LINEAL</h2>
-        <div class="user-section">
-            <!-- Ícono de usuario, nombre de usuario y correo -->
+<!-- Encabezado -->
+<header>
+    <div img src=img/logo.jpg">EduGamix</div>
+    <h1>Álgebra lineal</h1>
+    <div class="user-info">
+        <span class="icon" onclick="alert('Notificaciones');">🔔</span>
+        <span class="icon" onclick="alert('Favoritos');">⭐</span>
+        <span class="icon" onclick="alert('Inicio');">🏠</span>
+        <div class="user-info">
             <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-            <span id="username"></span> | <span id="useremail"></span>
+            <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
             <a class="logout-link" onclick="logout()">Cerrar sesión</a>
         </div>
+        <span class="icon" onclick="alert('Perfil');">👤</span>
     </div>
+</header>
+
+<script>
+    // Cargar el nombre de usuario y correo desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+        const useremail = localStorage.getItem("useremail");
+        
+        if (username) {
+            document.getElementById("username").textContent = username;
+        }
+
+        if (useremail) {
+            document.getElementById("useremail").textContent = useremail;
+        }
+    });
+</script>
 
     <!-- Contenido principal -->
     <div class="main-content">
@@ -287,103 +75,92 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-item">
+        <div class="sidebar-item" onclick="alert('Inicio');">
             <i class="fas fa-home"></i>
             <p>Inicio</p>
         </div>
-        <div class="sidebar-item">
+        <div class="sidebar-item" onclick="openCalendar();">
             <i class="fas fa-calendar-alt"></i>
             <p>Calendario</p>
         </div>
         <div class="sidebar-item avatar">
             <img src="img/xilo-avatar.jpg" alt="Avatar Xilo">
-            <p>Asesoría Xilo</p>
+            <p>Asesor Xilo</p>
         </div>
     </div>
-</div>
 
-
-<!-- Modales -->
-<div id="modal1" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
-        <h2>Definición de sistemas de ecuaciones lineales</h2>
-        <p>Aquí aprenderás los fundamentos básicos de los sistemas de ecuaciones lineales.</p>
-        <button onclick="window.location.href='nivel 1.html'">Ir a Nivel 1</button>
-        
+      <!-- Modales -->
+      <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
+            <h2>Definición de sistemas de ecuaciones lineales</h2>
+            <p>Aquí aprenderás los fundamentos básicos de los sistemas de ecuaciones lineales.</p>
+            <button onclick="window.location.href='nivel 1.html'">Ir a Nivel 1</button>
+        </div>
     </div>
-</div>
 
-<div id="modal2" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
-        <h2>Clasificación de los sistemas de ecuaciones</h2>
-        <p>Aprende a clasificar los sistemas y sus soluciones.</p>
-        <button onclick="window.location.href='nivel 2.html'">Ir a Nivel 2</button>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
+            <h2>Clasificación de los sistemas de ecuaciones lineales</h2>
+            <p>Aprende a clasificar los diferentes tipos de sistemas de ecuaciones.</p>
+            <button onclick="window.location.href='nivel 2.html'">Ir a Nivel 2</button>
+        </div>
     </div>
-</div>
 
-<div id="modal3" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
-        <h2>Métodos de solución de ecuaciones</h2>
-        <p>Explora diferentes métodos para resolver sistemas de ecuaciones lineales.</p>
-        <button onclick="window.location.href='nivel 3.html'">Ir a Nivel 3</button>
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
+            <h2>Métodos de solución de ecuaciones</h2>
+            <p>Explora los distintos métodos para resolver ecuaciones lineales.</p>
+            <button onclick="window.location.href='nivel 3.html'">Ir a Nivel 3</button>
+        </div>
     </div>
-</div>
 
-<div id="modal4" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
-        <h2>Interpretación geométrica de las soluciones</h2>
-        <p>Descubre cómo representar las soluciones en un espacio geométrico.</p>
-        <button onclick="window.location.href='nivel 4.html'">Ir a Nivel 4</button>
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
+            <h2>Interpretación geométrica</h2>
+            <p>Comprende cómo se interpretan los sistemas de ecuaciones en el plano cartesiano.</p>
+            <button onclick="window.location.href='nivel 4.html'">Ir a Nivel 4</button>
+        </div>
     </div>
-</div>
 
-<div id="modal5" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal('modal5')">&times;</span>
-        <h2>Aplicaciones</h2>
-        <p>Conoce las aplicaciones prácticas de los sistemas de ecuaciones lineales en la vida real.</p>
-        <button onclick="window.location.href='nivel 5.html'">Ir a Nivel 5</button>
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal5')">&times;</span>
+            <h2>Aplicaciones</h2>
+            <p>Descubre las aplicaciones prácticas de los sistemas de ecuaciones lineales.</p>
+            <button onclick="window.location.href='nivel 5.html'">Ir a Nivel 5</button>
+        </div>
     </div>
-</div>
 
-<script>
-    // Script para cargar nombre de usuario y correo desde localStorage
-    document.addEventListener("DOMContentLoaded", function() {
-        const username = localStorage.getItem('username');
-        const useremail = localStorage.getItem('useremail');
+   
+    <!-- Modal de calendario -->
+         <div id="calendar-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('calendar-modal')">&times;</span>
+            <h2>Calendario</h2>
+            <div id="calendar"></div>
+        </div>
+    </div>
 
-        if (username) {
-            document.getElementById('username').textContent = username;
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
         }
 
-        if (useremail) {
-            document.getElementById('useremail').textContent = useremail;
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
         }
-    });
 
-    // Función para abrir el modal
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.style.display = "block";
-    }
+        function logout() {
+            alert('Sesión cerrada');
+        }
 
-    // Función para cerrar el modal
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.style.display = "none";
-    }
-
-    // Función para cerrar sesión
-    function logout() {
-        localStorage.removeItem('username');
-        localStorage.removeItem('useremail');
-        window.location.href = 'index.html'; // Redirigir al índice
-    }
-</script>
-
+        function openCalendar() {
+            document.getElementById('calendar-modal').style.display = "block";
+        }
+    </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+/* Estilo global */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -67,14 +68,21 @@ header h1, header h2 {
 
 .bingo-board {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     margin-top: 1rem;
 }
 
+.bingo-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Estilo de las casillas del bingo */
 .cell {
-    width: 100px; /* Tamaño aumentado de las casillas */
-    height: 100px; /* Tamaño aumentado de las casillas */
+    width: 100px;
+    height: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,6 +104,7 @@ header h1, header h2 {
     color: white;
 }
 
+/* Estilo de los botones */
 button {
     margin: 0.5rem;
     padding: 0.5rem 1rem;
@@ -112,30 +121,32 @@ button:hover {
     background-color: hsl(39, 100%, 35%);
 }
 
+/* Estilos para el modal de retroalimentación */
 .modal {
     display: flex;
     position: fixed;
     z-index: 1;
-    left: 0;
+    left: 0; /* Fijar el modal al lado izquierdo */
     top: 0;
-    width: 100%;
-    height: 100%;
+    width: 40%; /* Ajustar el ancho para que no ocupe toda la pantalla */
+    height: 100%; /* Altura completa para ocupar el lado izquierdo */
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
 }
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-width: 600px;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #ce3535;
+    width: 90%; /* Ancho completo del modal */
+    height: 80%; /* Altura completa del modal */
     text-align: center;
+    overflow-y: auto;
 }
 
 .close {
-    color: #aaa;
+    color: #f40000;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -148,11 +159,53 @@ button:hover {
     cursor: pointer;
 }
 
-.avatar {
-    width: 50px; /* Tamaño del avatar */
-    height: auto;
-    margin-top: 10px;
+/* Estilos del avatar en la esquina inferior derecha */
+.avatar-container {
+    position: fixed; /* Posicionamiento fijo para que esté en la parte inferior derecha */
+    bottom: 20px; /* Distancia desde la parte inferior de la pantalla */
+    right: 20px; /* Distancia desde la parte derecha de la pantalla */
+    cursor: pointer; /* Cambiar el cursor cuando se pasa por encima */
 }
+
+.avatar {
+    width: 200px; /* Tamaño original del avatar, puedes ajustarlo a tu gusto */
+    height: auto; /* Mantener la proporción original */
+    display: block; /* Hacer que el avatar sea un bloque, para que no se recorte */
+    border-radius: 0; /* Eliminar cualquier borde redondeado */
+}
+
+
+/* Estilos para el cuadro de diálogo del avatar */
+.avatar-dialog {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 200px;
+    padding: 10px;
+    background-color: #fefefe;
+    border: 0px solid #ccc;
+    border-radius: 0px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 11; /* Asegura que esté por encima del avatar */
+}
+
+.avatar-dialog .dialog-content {
+    padding: 10px;
+    position: center;
+}
+
+.avatar-dialog .close {
+    position: center;
+    top: 5px;
+    right: 10px;
+    font-size: 16px;
+    color: #f40000;
+    cursor: pointer;
+}
+
+/* Estilos para la tabla de retroalimentación */
 .feedback-table {
     width: 100%;
     border-collapse: collapse;
@@ -171,4 +224,30 @@ button:hover {
 }
 
 .feedback-table tr:nth-child(even) {
-    background-color: #f2f2f2;}
+    background-color: #f2f2f2;
+}
+
+/* Contenedor de los botones de reinicio y otras acciones */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 2rem; /* Espacio adecuado debajo de intentos */
+}
+
+/* Botón de reinicio */
+button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #d76a1c;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: hsl(39, 100%, 35%);
+}

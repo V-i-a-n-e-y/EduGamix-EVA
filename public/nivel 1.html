@@ -3,86 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>EduGamix-Nivel 1</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f0e9;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        .header-info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            color: #f9f0e9;
-            font-size: 14px;
-        }
-        .main-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 20px;
-        }
-        .avatar {
-            flex-grow: 1;
-            margin: 10px;
-            text-align: center;
-        }
-        .content {
-            flex-grow: 3;
-            background: white;
-            margin: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .timer {
-            flex-grow: 1;
-            margin: 10px;
-            text-align: center;
-            font-size: 22px;
-            background: #ddd;
-            padding: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #d76a1c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #d76a1c;
-        }
-        /* Estilo para mostrar el nombre y correo */
-        .user-section {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: #fffefe;
-            margin: 10px 0;
-        }
-        .user-section span {
-            margin: 0 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="nivel 1.css"> <!-- Enlazamos el archivo CSS -->
 </head>
 <body>
-<header>
-    <h1>Nivel 1: Definición de Sistemas de Ecuaciones Lineales</h1>
-    <div class="header-info">
-        <div class="user-section">
+
+ <!-- Encabezado -->
+ <header>
+       
+    <div img src=img/logo.jpg">EduGamix</div>
+    <h1>Álgebra lineal</h1>
+    <div class="user-info">
+        <span class="icon" onclick="alert('Notificaciones');">🔔</span>
+        <span class="icon" onclick="alert('Favoritos');">⭐</span>
+        <span class="icon" onclick="alert('Inicio');">🏠</span>
+        <div class="user-info">
             <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-            <span id="username">No registrado</span> |
-            <span id="useremail">No registrado</span>
+            <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+            <a class="logout-link" onclick="logout()">Cerrar sesión</a>
         </div>
+        <span class="icon" onclick="alert('Perfil');">👤</span>
     </div>
 </header>
 
@@ -121,23 +60,7 @@
             document.getElementById("useremail").textContent = useremail;
         }
     });
-
-    var countDownDate = new Date(new Date().getTime() + 5 * 60 * 1000); // 5 minutos
-
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.querySelector('.timer').innerHTML = "TIEMPO: " + minutes + "m " + seconds + "s ";
-
-        if (distance < 0) {
-            clearInterval(x);
-            document.querySelector('.timer').innerHTML = "EXPIRADO";
-        }
-    }, 1000);
 </script>
+
 </body>
 </html>
