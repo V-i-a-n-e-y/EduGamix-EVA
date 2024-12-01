@@ -1,0 +1,241 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f0e9;
+}
+
+/* Encabezado */
+header {
+    background-color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
+    flex-wrap: wrap;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+}
+
+h1 {
+    font-size: 1.2em;
+    color: #555;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.user-info .icon {
+    margin: 0 5px;
+}
+
+/* Botones de Autenticación */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.login-btn, .register-btn {
+    padding: 10px 20px;
+    font-size: 0.9em;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn {
+    background-color: #1abc9c;
+    color: #fff;
+}
+
+.register-btn {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.login-btn:hover, .register-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Área de Progreso */
+.progress-area {
+    background-color: #fff;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 900px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.progress-area h2 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.boosters, .badges, .identifiers {
+    margin: 15px 0;
+}
+
+.booster-icons, .badge-icons, .identifier-icons {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+
+.booster-icons span, .badge-icons span, .identifier-icons span {
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* Zona Social y Rankings */
+.social-area {
+    background-color: #e3f2fd;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.social-chat {
+    margin-bottom: 20px;
+}
+
+.social-chat ul {
+    list-style: none;
+    margin-top: 10px;
+}
+
+.social-chat li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #f5f5f5;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+.rankings .ranking-user {
+    padding: 5px;
+    background-color: #f5f5f5;
+    margin: 5px 0;
+    border-radius: 4px;
+}
+
+/* Consultas de medios para hacer el sitio responsive */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    h1 {
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .auth-buttons {
+        width: 100%;
+        justify-content: space-evenly;
+        margin-top: 10px;
+    }
+
+    .progress-area, .social-area {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .booster-icons, .badge-icons, .identifier-icons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-btn, .register-btn {
+        padding: 8px 15px;
+        font-size: 0.8em;
+    }
+}
+/* Estilos para el Formulario de Registro */
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 400px;
+    background: rgba(255, 255, 255, 0.1); /* Fondo transparente */
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: #000; /* Color de texto negro */
+}
+
+.registration-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.registration-form label {
+    font-size: 1em;
+    color: #000; /* Color de texto negro */
+}
+
+.registration-form input {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Bordes más oscuros */
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #000; /* Color de texto negro */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.registration-form input::placeholder {
+    color: #777; /* Color de placeholder ajustado para mejor visibilidad con texto negro */
+}
+
+.registration-form input:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.7); /* Bordes más oscuros en foco */
+}
+
+.registration-form button {
+    padding: 15px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 25px;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.registration-form button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.registration-form button:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
