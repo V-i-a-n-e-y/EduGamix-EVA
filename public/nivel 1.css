@@ -1,13 +1,50 @@
-/* General */
-* {
-    box-sizing: border-box;
+/* Fondo general */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f0e9;
+/* Encabezado */
+header {
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info .icon {
+    font-size: 1.5em;
+    cursor: pointer;
 }
 
 /* Contenedor principal */
@@ -85,7 +122,7 @@ header {
 /* Estilo para los títulos */
 h1 {
     font-size: 1.5em;
-    color: #555;
+    color: #fffefe;
 }
 
 /* Estilos para la sección de usuario */
@@ -94,12 +131,12 @@ h1 {
     align-items: center;
     gap: 10px;
     font-size: 1em;
-    color: #0d0d0d;
+    color: #fffafa;
 }
 
 .logout-link {
     font-size: 1em;
-    color: #d76a1c;
+    color: #007bff;
     text-decoration: none;
     cursor: pointer;
 }
@@ -119,7 +156,7 @@ h1 {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    color: rgb(16, 9, 9);
+    color: rgb(255, 255, 255);
     font-size: 14px;
 }
 
@@ -132,7 +169,7 @@ h1 {
 
 .main-content h2 {
     font-size: 24px;
-    color: #333;
+    color: #fffdfd;
 }
 
 /* Estilos para los controles de volumen */
@@ -215,4 +252,23 @@ h1 {
 /* Opcional: Efecto de cambio de color al pasar el ratón */
 .icon:hover {
     color: #f1c40f; /* Cambia el color al pasar el mouse */
+}
+
+
+
+header {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo translúcido */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.main-content {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+    border-radius: 10px;
+    box-shadow: 0px 
 }

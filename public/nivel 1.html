@@ -9,25 +9,22 @@
 <body>
     <!-- Encabezado -->
     <header>
-        <div>
-        <img src="img/logo.jpg" alt="Logo EduGamix">
-        <h1>Álgebra lineal</h1>  
+        <div class="logo">
+            <a href="quienes somos.html" target="_blank">
+                <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+            </a>
         </div>
-        <h1>Nivel 1 </h1>
+        <h1>Nivel 1</h1>
         <div class="user-info">
-            <!-- Notificaciones -->
-            <span class="icon" onclick="alert('Notificaciones');">🔔</span>
-            <!-- Favoritos -->
-            <span class="icon" onclick="alert('Favoritos');">⭐</span>
+            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
             <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <div class="user-info">
                 <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
                 <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-                <a class="logout-link" onclick="logout()">Cerrar sesión</a>
+                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
             </div>
-            <!-- Perfil -->
-            <span class="icon" onclick="window.location.href='miespacio.html';">👤</span>
+            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
         </div>
     </header>
 

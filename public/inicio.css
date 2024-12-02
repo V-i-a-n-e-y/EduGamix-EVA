@@ -27,7 +27,7 @@ header {
 }
 
 .logo img {
-    width: 50px;
+    width: 150px;
     height: auto;
 }
 
@@ -46,6 +46,17 @@ h1 {
     font-size: 1.5em;
     cursor: pointer;
 }
+
+.logout-link {
+    margin-left: 10px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-link:hover 
+    text-decoration: underline;
+
 
 /* Contenedor de la ruta de progreso centrado */
 .progress-road {
