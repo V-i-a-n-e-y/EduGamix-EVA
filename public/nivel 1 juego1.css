@@ -457,7 +457,7 @@ button:hover {
 #avatar.hablando {
     animation: moverBoca 0.3s infinite;
 }
-
+/* Animación de la boca */
 @keyframes moverBoca {
     0%, 100% {
         transform: scaleY(1);
@@ -465,82 +465,79 @@ button:hover {
     50% {
         transform: scaleY(0.8);
     }
-    
-        margin: 0;
-        font-family: Arial, sans-serif;
-    }
-    
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-            padding: 10px 20px;
-            border-bottom: 2px solid #f4d03f; /* Línea amarilla */
-        }
+}
 
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
+/* Estilo global */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
 
-        h1 {
-            font-size: 24px;
-            margin: 0;
-            color: #444;
-        }
+/* Estilo del encabezado */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
+    color: white;
+    padding: 10px 20px;
+    border-bottom: 2px solid #f4d03f; /* Línea amarilla */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
 
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+/* Logo del encabezado */
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
 
-        .user-info .icon {
-            cursor: pointer;
-            font-size: 18px;
-        }
+h1 {
+    font-size: 24px;
+    margin: 0;
+    color: #444;
+}
 
-        .user-details {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            color: #555;
-        }
+/* Información del usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-        .user-details i {
-            font-size: 20px;
-            margin-right: 8px;
-        }
+.user-info .icon {
+    cursor: pointer;
+    font-size: 18px;
+}
 
-        .logout-link {
-            color: #007BFF;
-            text-decoration: none;
-            margin-left: 8px;
-            cursor: pointer;
-        }
+.user-details {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
 
-        .logout-link:hover {
-            text-decoration: underline;
-        }
+.user-details i {
+    font-size: 20px;
+    margin-right: 8px;
+}
 
-    
+.logout-link {
+    color: #007BFF;
+    text-decoration: none;
+    margin-left: 8px;
+    cursor: pointer;
+}
 
-    header {
-        background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
-        color: white;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
-    }
+.logout-link:hover {
+    text-decoration: underline;
+}
 
-    .main-content {
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        margin: 20px;
-    }
+/* Contenido principal */
+.main-content {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+}
