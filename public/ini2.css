@@ -1,7 +1,17 @@
+/* Fondo general */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 /* Encabezado */
 header {
     background-color: #fff;
-    padding: 40px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,32 +21,35 @@ header {
 .logo {
     font-size: 1.5em;
     font-weight: bold;
-}
-
-h1 {
-    font-size: 1.5em;
-    color: #555;
-}
-
-.user-info {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.user-info .icon {
-    font-size: 1.5em;
+.logo img {
+    width: 50px;
+    height: auto;
 }
 
-.user-info #username,
-.user-info #useremail {
+h1 {
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info .icon {
     font-size: 1.5em;
-    color: #333;
+    cursor: pointer;
 }
 
 /* Área de Progreso */
 .progress-area {
-    background-color: #fff;
+    background-color: #f5da53;
     margin: 20px auto;
     padding: 20px;
     max-width: 900px;
@@ -52,7 +65,7 @@ h1 {
 }
 
 .progress-area h2 {
-    color: #333;
+    color: #010101;
     margin-bottom: 15px;
 }
 
@@ -71,7 +84,7 @@ h1 {
 .arrow {
     cursor: pointer;
     font-size: 1.5em;
-    color: #666;
+    color: #000000;
     user-select: none;
 }
 
@@ -86,10 +99,10 @@ h1 {
 .slider-content span {
     min-width: 45%;
     text-align: center;
-    color: #666;
+    color: #050000;
     font-size: 0.9em;
     padding: 8px;
-    background-color: #f0f0f0;
+    background-color: #fefffd;
     border-radius: 6px;
     white-space: nowrap;
 }
@@ -108,7 +121,7 @@ body {
 
 /* Zona Social y Rankings */
 .social-area {
-    background-color: #e3f2fd;
+    background-color: #31d3fc;
     padding: 20px;
     margin: 20px auto;
     max-width: 500px;
@@ -155,7 +168,7 @@ body {
     transform: translate(-50%, -50%);
     width: 300px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #dbc450;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     z-index: 1000;
@@ -172,7 +185,7 @@ body {
     height: 80px;
     margin-bottom: 10px;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid #620d0d;
     border-radius: 4px;
     resize: none;
 }
@@ -182,14 +195,14 @@ body {
     padding: 8px;
     margin: 5px 1%;
     border: none;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #f6f9f9;
+    color: #000000;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .message-popup button:last-child {
-    background-color: #ccc;
+    background-color: #fcffff;
 }
 
 .message-popup button:hover {
@@ -199,11 +212,11 @@ body {
     display: flex;
     align-items: center;
     font-size: 0.9em;
-    color: #333;
+    color: #f7eeee;
 }
 
 .user-info i {
-    color: #333;
+    color: #fbf6f6;
 }
 
 .logout-link {
@@ -216,3 +229,31 @@ body {
 .logout-link:hover {
     text-decoration: underline;
 }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f9d423, #ff8c00, #32cd32);
+        background-size: 400% 400%;
+        animation: gradientBackground 10s ease infinite;
+        color: #d14444;
+    }
+
+
+
+    header {
+        background-color: rgba(0, 0, 0, 0.8); /* Fondo translúcido */
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-content {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+        border-radius: 10px;
+        box-shadow: 0px 
+    }

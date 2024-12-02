@@ -1,106 +1,183 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* Fondo general */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
+/* Encabezado */
 header {
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-bottom: 3px solid #fdd835;
+    background-color: #fff;
+    padding: 20px;
     display: flex;
-    justify-content: center;
-}
-
-.header-content {
-    max-width: 1200px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
 }
 
 .logo {
-    font-weight: bold;
-    color: #333;
-    font-size: 1.2em;
-}
-
-h1 {
     font-size: 1.5em;
-    color: #666;
-}
-
-.icons {
+    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.icon {
-    font-size: 1.2em;
-    cursor: pointer;
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
 }
 
 .user-info {
-    font-size: 0.9em;
-    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-.logout {
-    color: #007bff;
-    text-decoration: none;
-    margin-left: 5px;
+.user-info .icon {
+    font-size: 1.5em;
+    cursor: pointer;
 }
 
-.progress-container {
-    background-color: #fefefe;
-    max-width: 800px;
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
     margin: 30px auto;
+    padding: 20px;
+}
+
+.evaluation-container, .progress-container {
+    background-color: #9ce171;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
-.progress-container h2 {
+.evaluation-container h2, .progress-container h2 {
     font-size: 1.5em;
     color: #333;
     margin-bottom: 20px;
+    text-align: center;
 }
 
-.section {
-    margin: 20px 0;
-}
-
-.section h3 {
-    font-size: 1.2em;
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.item {
+.evaluation-item, .progress-item {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: flex-start;
     background-color: #f0f0f0;
     padding: 10px;
     margin: 5px 0;
     border-radius: 5px;
 }
 
-.item-icon {
+.evaluation-item {
+    gap: 10px;
     font-size: 1.2em;
     color: #007bff;
-    margin-right: 10px;
 }
 
-.arrow {
-    font-size: 1.2em;
-    color: #007bff;
+.progress-item span {
+    margin-left: 10px;
 }
+
+/* Secciones de Identificadores, Insignias y Potenciadores */
+.identifiers-container, .badges-container, .boosters-container {
+    background-color: #debd64;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.identifiers-container h2, .badges-container h2, .boosters-container h2 {
+    font-size: 1.5em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.identifier-item, .badge-item, .booster-item {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-size: 1.1em;
+    color: #007bff;
+    text-align: center;
+}
+
+h3 {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1em;
+    color: #666;
+}
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f9d423, #ff4e50, #1c92d2);
+        background-size: 400% 400%;
+        animation: gradientBackground 10s ease infinite;
+        color: #333;
+    }
+
+    @keyframes gradientBackground {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    header {
+        background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-content {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        margin: 20px;
+    }
+
+    .progress-road {
+        margin: 20px 0;
+    }
+
+    .road {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .road-point p {
+        color: #555;
+    }

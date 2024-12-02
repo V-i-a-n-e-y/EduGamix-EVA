@@ -1,7 +1,17 @@
+/* Fondo general */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 /* Encabezado */
 header {
     background-color: #fff;
-    padding: 40px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -11,165 +21,173 @@ header {
 .logo {
     font-size: 1.5em;
     font-weight: bold;
-}
-
-h1 {
-    font-size: 1.5em;
-    color: #555;
-}
-
-.user-info {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .user-info .icon {
     font-size: 1.5em;
+    cursor: pointer;
 }
 
-.user-info #username,
-.user-info #useremail {
-    font-size: 1.5em;
-    color: #333;
-}
-
-/* Área de Progreso */
-.progress-area {
-    background-color: #fff;
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 900px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-  /* Reseteo de márgenes */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-}
-
-/* Estructura general */
-body {
-    display: flex;
-    flex-direction: column;
-    background-color: #f9f0e9;
-}
-
-
-/* Contenido principal */
-.main-content {
-    display: flex;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-/* Ruta de progreso */
+/* Contenedor de la ruta de progreso centrado */
 .progress-road {
-    flex-grow: 1;
-    padding: 40px;
-    position: relative;
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    height: 70vh; /* Aumentamos el espacio para elevar los puntos */
 }
 
 .road {
     display: flex;
-    justify-content: space-between;
-    position: relative;
-    padding: 10px;
+    justify-content: space-evenly; /* Espaciado uniforme entre los puntos */
+    align-items: flex-start; /* Los puntos estarán alineados en la parte superior */
+    width: 80%; /* Ajusta el ancho al 80% del contenedor */
 }
 
 .road-point {
     text-align: center;
-    width: 150px;
-    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin: 0 15px; /* Aumentamos el espacio entre los puntos */
+    padding: 15px 0; /* Agregamos espacio adicional en la parte superior e inferior */
+}
+
+.road-point:hover {
+    transform: scale(1.1);
 }
 
 .point-icon {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin: 0 auto;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin: 10px auto;
+    transition: all 0.3s ease-in-out;
 }
 
-/* Colores de los puntos */
-.yellow { background-color: #fbc02d; }
-.red { background-color: #e57373; }
-.green { background-color: #81c784; }
-.light-green { background-color: #aed581; }
-.blue { background-color: #64b5f6; }
-
-/* Estilo al pasar el cursor */
-.road-point:hover .point-icon {
-    transform: scale(1.3); /* Efecto de agrandar el punto */
+.point-icon.yellow {
+    background-color: #f1c40f;
+    animation: bounce 1.5s infinite;
 }
 
-.road-point:hover .yellow { background-color: #ffd600; }
-.road-point:hover .red { background-color: #ef5350; }
-.road-point:hover .green { background-color: #66bb6a; }
-.road-point:hover .light-green { background-color: #9ccc65; }
-.road-point:hover .blue { background-color: #42a5f5; }
+.point-icon.red {
+    background-color: #e74c3c;
+    animation: bounce 1.5s infinite 0.2s;
+}
 
-button {
-    padding: 10px 20px;
-    background-color: #d76a1c;
-    color: white;
-    border: none;
-    border-radius: 5px;
+.point-icon.green {
+    background-color: #2ecc71;
+    animation: bounce 1.5s infinite 0.4s;
+}
+
+.point-icon.light-green {
+    background-color: #27ae60;
+    animation: bounce 1.5s infinite 0.6s;
+}
+
+.point-icon.blue {
+    background-color: #3498db;
+    animation: bounce 1.5s infinite 0.8s;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Avatar */
+#avatar-container-xilo, #avatar-container-gami {
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    z-index: 10;
+}
+
+.avatar {
+    max-width: 200px;
+    height: auto;
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #d76a1c;
-}
-/* Información adicional al pasar el mouse */
-.road-point:hover .info-box {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(-10px);
+.avatar-container-xilo {
+    left: 20px;
 }
 
-/* Caja de información que aparece al hover */
-.info-box {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(0px);
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+.avatar-container-gami {
+    right: 20px;
 }
 
-/* Modal */
-.modal {
-    display: none;
+/* Dialogo del avatar */
+.avatar-dialog {
     position: fixed;
-    z-index: 1;
+    bottom: 140px;
+    width: 300px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 10;
+}
+
+.avatar-dialog .dialog-content {
+    text-align: left;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+.avatar-dialog .close {
+    cursor: pointer;
+    font-size: 1.5em;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+/* Modales */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 10; 
+    padding-top: 60px; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
-    background-color: white;
-    margin: 15% auto;
+    background-color: #fefefe;
+    margin: 5% auto;
     padding: 20px;
-    border-radius: 10px;
-    width: 50%;
-    text-align: center;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
 }
 
 .close-modal {
@@ -177,60 +195,90 @@ button:hover {
     float: right;
     font-size: 28px;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .close-modal:hover,
 .close-modal:focus {
     color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+  /* Posición del avatar de Xilo */
+  #avatar-container-xilo {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
 }
 
-/* Inicio y meta */
-.start, .end {
-    text-align: center;
-    font-size: 14px;
-}
-
-.start i, .end i {
-    font-size: 24px;
-    color: red;
-}
-
-/* Sidebar */
-.sidebar {
-    width: 120px;
-    background-color: #eceff1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-.sidebar-item {
-    margin-bottom: 20px;
-    text-align: center;
+#avatar-container-xilo img {
+    width: 100%;
+    height: auto;
     cursor: pointer;
 }
 
-.sidebar-item i {
-    font-size: 32px;
-    color: #333;
+.avatar-dialog {
+    position: fixed;
+    bottom: 140px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.sidebar-item p {
-    font-size: 14px;
-}
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(135deg, #f9d423, #ff4e50, #1c92d2);
+        background-size: 400% 400%;
+        animation: gradientBackground 10s ease infinite;
+        color: #333;
+    }
 
-.avatar img {
-    width: 60px;
-}
+    @keyframes gradientBackground {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 
-.icon {
-    cursor: pointer;
-    font-size: 20px;
-    margin-right: 15px;
-}
+    header {
+        background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
 
-.icon:hover {
-    color: #3f51b5;
-}
+    .main-content {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        margin: 20px;
+    }
+
+    .progress-road {
+        margin: 20px 0;
+    }
+
+    .road {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .road-point p {
+        color: #555;
+    }

@@ -1,5 +1,16 @@
+/* General */
+* {
+    box-sizing: border-box;
+}
 
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f0e9;
+}
 
+/* Contenedor principal */
 .main-container {
     display: flex;
     justify-content: space-around;
@@ -7,12 +18,14 @@
     margin: 20px;
 }
 
+/* Estilo del avatar */
 .avatar {
     flex-grow: 1;
     margin: 10px;
     text-align: center;
 }
 
+/* Estilo del contenido */
 .content {
     flex-grow: 3;
     background: white;
@@ -21,6 +34,7 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
+/* Botones generales */
 button {
     padding: 10px 20px;
     background-color: #d76a1c;
@@ -28,10 +42,15 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #d76a1c;
+    background-color: #b85a10;
+}
+
+button:active {
+    transform: scale(0.98);
 }
 
 /* Estilo para mostrar el nombre y correo */
@@ -46,6 +65,7 @@ button:hover {
 .user-section span {
     margin: 0 5px;
 }
+
 /* Estilos para el encabezado */
 header {
     background-color: #fff;
@@ -56,27 +76,16 @@ header {
     border-bottom: 2px solid #f1c40f;
 }
 
+/* Estilo para el logo en el header */
 .logo {
     font-size: 1.5em;
     font-weight: bold;
 }
 
+/* Estilo para los títulos */
 h1 {
     font-size: 1.5em;
     color: #555;
-}
-
-
-
-/* Nuevo estilo para los botones del encabezado */
-.user-info .icon {
-    font-size: 1.5em;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.user-info .icon:hover {
-    color: #f1c40f;
 }
 
 /* Estilos para la sección de usuario */
@@ -98,22 +107,13 @@ h1 {
 .logout-link:hover {
     text-decoration: underline;
 }
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f0e9;
-}
-header {
-    background-color: #f9f0e9;
-    color: #f9f0e9;
-    padding: 10px 20px;
-    text-align: center;
-}
+
+/* Estilo para el desafío */
 .challenge-header {
     font-size: 30px; /* Tamaño de fuente más grande */
     font-weight: bold;
 }
+
 .header-info {
     display: flex;
     justify-content: center;
@@ -122,21 +122,97 @@ header {
     color: rgb(16, 9, 9);
     font-size: 14px;
 }
-.user-section {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: rgb(16, 14, 14);
-}
-.user-section span {
-    margin: 0 5px;
-}
+
+/* Estilos de contenido principal */
 .main-content {
     text-align: center;
     margin-top: 50px;
     padding: 20px;
 }
+
 .main-content h2 {
     font-size: 24px;
     color: #333;
+}
+
+/* Estilos para los controles de volumen */
+.controls {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.controls label {
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.controls input[type="range"] {
+    width: 200px;
+    margin: 0 10px;
+    cursor: pointer;
+    appearance: none;
+    background: #ddd;
+    height: 5px;
+    border-radius: 5px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.controls input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #4CAF50;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.controls input[type="range"]:hover {
+    background: #bbb;
+}
+
+.controls button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.controls button:hover {
+    background-color: #45a049;
+}
+
+.controls button:active {
+    transform: scale(0.98);
+}
+
+/* Animación de avatar (si es necesario) */
+.avatar.talking {
+    animation: talkAnimation 1s infinite;
+}
+
+@keyframes talkAnimation {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+/* Aplicar el cursor pointer a los íconos */
+.icon {
+    cursor: pointer;
+}
+
+/* Opcional: Efecto de cambio de color al pasar el ratón */
+.icon:hover {
+    color: #f1c40f; /* Cambia el color al pasar el mouse */
 }

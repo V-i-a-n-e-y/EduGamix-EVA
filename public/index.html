@@ -1,18 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <title>EduGamix</title>
+    <title>EduGamix - Álgebra Lineal</title>
+    <link rel="stylesheet" href="ini2.css">
 </head>
+<body>
+    <!-- Encabezado -->
+    <div img src="img/logo.jpg">EduGamix</div>
+    <h1>Social y Progreso</h1>
+    <div class="user-info">
+        <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+        <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+        <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+        <div class="user-info">
+            <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+            <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+            <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+        </div>
+        <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+    </div>
+</header>
 
+
+    <script>
+    // Cargar el nombre de usuario y correo desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+        const useremail = localStorage.getItem("useremail");
+        
+        if (username) {
+            document.getElementById("username").textContent = username;
+        }
+
+        if (useremail) {
+            document.getElementById("useremail").textContent = useremail;
+        }
+    });
+</script>
+
+        </div>
+    </header>
 <body>
     <div class="container">
         <!-- Formulario de Registro -->

@@ -1,11 +1,43 @@
 let attempts = 3;
 let selectedAnswers = [];
 let timerInterval;
-let equationsHistory = [];
-let currentEquationIndex = -1;
+let equationsHistory = [
+    { ecuacion: 'x + y = 2, 2x + y = 5', solucion: 'x = 3, y = -1', respuestaUsuario: '' },
+    { ecuacion: '2x + 4y = 0, x + 2y = 4', solucion: 'x = 2, y = -1', respuestaUsuario: '' },
+    { ecuacion: '3x + 2y = 11, 4x + 5y = 7', solucion: 'x = 3, y = 1', respuestaUsuario: '' },
+    { ecuacion: '2x + 3y = -1, 3x + 4y = 0', solucion: 'x = 4, y = -3', respuestaUsuario: '' },
+    { ecuacion: 'x + 2y = 5, 3x - 2y = 19', solucion: 'x = 7, y = 1', respuestaUsuario: '' }
+].slice(0, 5);
+
+let currentEquationIndex = 5;
 const maxEquations = 5; // Limitar a 5 ecuaciones
 const pointsPerCorrectAnswer = 200; // Puntos por respuesta correcta
 let totalPoints = 0; // Variable para almacenar los puntos totales
+
+// Función para generar una respuesta aleatoria
+function getRandomSolution() {
+    const randomSolutions = [
+        'x= 1, y= 1',
+        'x= 3, y= 1',
+        'x= 5, y= -4',
+        'x= 0, y= 0',
+        'x= -1, y= 2',
+        'x= 4, y= -3',
+        'x= 2, y= -1',
+        'x= 3, y= -1',
+        'x= 7, y= 1'
+    ];
+    const randomIndex = Math.floor(Math.random() * randomSolutions.length);
+    return randomSolutions[randomIndex];
+}
+
+// Función para mezclar el orden de las respuestas en el tablero
+function shuffleArray(array) {
+    for (let i = array.length - 5; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Intercambiar elementos
+    }
+}
 
 // Función para actualizar el temporizador
 function startTimer() {
@@ -25,34 +57,13 @@ function lockGame() {
     document.getElementById("attempts").textContent = "Juego terminado.";
 }
 
-// Generar un sistema aleatorio de ecuaciones lineales
-function generateRandomEquation() {
-    const a1 = Math.floor(Math.random() * 10) + 1;
-    const b1 = Math.floor(Math.random() * 10) + 1;
-    const c1 = Math.floor(Math.random() * 20) - 10;
-
-    const a2 = Math.floor(Math.random() * 10) + 1;
-    const b2 = Math.floor(Math.random() * 10) + 1;
-    const c2 = Math.floor(Math.random() * 20) - 10;
-
-    const equationText = `${a1}x + ${b1}y = ${c1}, ${a2}x + ${b2}y = ${c2}`;
-    const determinant = a1 * b2 - a2 * b1;
-
-    if (determinant !== 0) {
-        const x = (c1 * b2 - c2 * b1) / determinant;
-        const y = (a1 * c2 - a2 * c1) / determinant;
-        return { text: equationText, solution: { x: Math.round(x), y: Math.round(y) } };
-    } else {
-        return generateRandomEquation();
-    }
-}
-
 // Renderizar el tablero de bingo
 function renderBingoBoard() {
     const board = document.getElementById("bingo-board");
     board.innerHTML = "";
 
     const bingoValues = generateBingoValues();
+    shuffleArray(bingoValues); // Mezclar las respuestas para el tablero
     bingoValues.forEach(value => {
         const cell = document.createElement("div");
         cell.className = "cell";
@@ -61,11 +72,11 @@ function renderBingoBoard() {
             if (cell.classList.contains("selected")) {
                 cell.classList.remove("selected");
                 selectedAnswers = selectedAnswers.filter(answer => answer !== value);
-            } else if (selectedAnswers.length < 5) {
+            } else if (selectedAnswers.length < 5) { // Cambiar a máximo 1 selección
                 cell.classList.add("selected");
                 selectedAnswers.push(value);
             } else {
-                alert("Solo puedes seleccionar hasta 5 casillas.");
+                alert("Solo puedes seleccionar 5 casilla.");
             }
         };
         board.appendChild(cell);
@@ -77,24 +88,18 @@ function generateBingoValues() {
     const values = [];
 
     while (values.length < 9) { // Genera solo 9 valores
-        const x = Math.floor(Math.random() * 11) - 5;
-        const y = Math.floor(Math.random() * 11) - 5;
-        const pair = `(${x}, ${y})`;
-
-        if (!values.includes(pair)) values.push(pair);
+        const randomSolution = getRandomSolution();
+        if (!values.includes(randomSolution)) {
+            values.push(randomSolution);
+        }
     }
 
     return values;
 }
 
-
 // Cambiar al siguiente sistema de ecuaciones
 function nextEquation() {
-    if (currentEquationIndex < equationsHistory.length - 1) {
-        currentEquationIndex++;
-    } else if (equationsHistory.length < maxEquations) {
-        const newEquation = generateRandomEquation();
-        equationsHistory.push(newEquation);
+    if (currentEquationIndex < equationsHistory.length - 5) {
         currentEquationIndex++;
     } else {
         alert("Se ha alcanzado el número máximo de ecuaciones.");
@@ -115,16 +120,19 @@ function prevEquation() {
 function updateEquation() {
     const equation = equationsHistory[currentEquationIndex];
     if (equation) {
-        document.getElementById("equation").textContent = `Ecuación ${currentEquationIndex + 1}: ${equation.text}`;
+        document.getElementById("equation").textContent = `Ecuación ${currentEquationIndex + 1}: ${equation.ecuacion}`;
     }
 }
 
 // Función para verificar si se ha encontrado el bingo
 function checkBingo() {
-    const solution = equationsHistory[currentEquationIndex].solution;
-    const solutionString = `(${solution.x}, ${solution.y})`;
+    const solution = equationsHistory[currentEquationIndex].solucion;
+    const userAnswer = selectedAnswers.join(", "); // Combinar respuestas seleccionadas
 
-    if (selectedAnswers.includes(solutionString)) {
+    // Guardar la respuesta del usuario en el historial de ecuaciones
+    equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
+
+    if (userAnswer === solution) {
         // Sumar puntos al total
         totalPoints += pointsPerCorrectAnswer;
         document.getElementById("points").textContent = totalPoints; // Actualizar puntos en el DOM
@@ -135,12 +143,17 @@ function checkBingo() {
 
         // Verificar si se han agotado los intentos
         if (attempts > 0) {
-            alert("Sigue intentando.");
+            alert("Respuesta incorrecta. Sigue intentando.");
         } else {
             lockGame(); // Bloquea el juego
             setTimeout(showFeedback, 1000); // Mostrar retroalimentación después de 1 segundo
         }
     }
+
+    // Limpiar respuestas seleccionadas
+    selectedAnswers = [];
+    const cells = document.querySelectorAll(".cell.selected");
+    cells.forEach(cell => cell.classList.remove("selected"));
 }
 
 // Función para mostrar retroalimentación en tabla
@@ -149,12 +162,11 @@ function showFeedback() {
     feedbackTable.innerHTML = ""; // Limpiar la tabla
 
     equationsHistory.forEach((equation, index) => {
-        const solution = equation.solution;
-        const userAnswer = selectedAnswers[index] || "N/A";
+        const userAnswer = equation.respuestaUsuario || "N/A"; // Mostrar la respuesta del usuario guardada en la ecuación
         const row = `
             <tr>
-                <td>${equation.text}</td>
-                <td>(${solution.x}, ${solution.y})</td>
+                <td>${equation.ecuacion}</td>
+                <td>${equation.solucion}</td>
                 <td>${userAnswer}</td>
             </tr>
         `;
@@ -164,73 +176,27 @@ function showFeedback() {
     document.getElementById("feedback-modal").style.display = "block"; // Mostrar el modal de retroalimentación
 }
 
-
 // Función para cerrar la ventana de retroalimentación
 function closeFeedback() {
     document.getElementById("feedback-modal").style.display = "none";
 }
 
-
 // Reiniciar el juego
 function restartGame() {
-    // Restablecer puntos, intentos y respuestas
     attempts = 3;
     selectedAnswers = [];
-    equationsHistory = [];
+    equationsHistory.forEach(equation => equation.respuestaUsuario = ''); // Resetear las respuestas
     currentEquationIndex = -1;
     totalPoints = 0;
 
-    // Resetear el temporizador
     clearInterval(timerInterval);
     document.getElementById("timer").textContent = "00:00";    
 
-    // Restablecer la interfaz
-    document.getElementById("points").textContent = "0"; // Resetear puntos
-    document.getElementById("attempts").textContent = "Intentos restantes: 3"; // Restablecer intentos
+    document.getElementById("points").textContent = "0"; 
+    document.getElementById("attempts").textContent = "Intentos restantes: 3";
     document.getElementById("feedback-modal").style.display = "none";
 
-    // Volver a generar el tablero y las ecuaciones
     renderBingoBoard();
     startTimer();
     nextEquation();
-
-    // Restablecer el estado de las casillas
-    const cells = document.querySelectorAll(".cell");
-    cells.forEach(cell => {
-        cell.classList.remove("selected");  // Eliminar la clase 'selected'
-        cell.style.pointerEvents = "auto";  // Habilitar la interacción
-    });
-
-    // Reactivar la interacción del tablero
-    document.getElementById("bingo-board").style.pointerEvents = "auto";
-    // Función para abrir el cuadro de diálogo del avatar
-function openAvatarDialog() {
-    document.getElementById("avatar-dialog").style.display = "block";
-}
-
-// Selecciona el contenedor del avatar y el cuadro de diálogo
-const avatarContainer = document.querySelector('.avatar-container');
-const avatarDialog = document.querySelector('.avatar-dialog');
-const closeBtn = document.querySelector('.avatar-dialog .close');
-
-// Muestra el cuadro de diálogo cuando el avatar es clickeado
-avatarContainer.addEventListener('click', () => {
-    avatarDialog.style.display = 'block';  // Muestra el cuadro de diálogo
-});
-
-// Cierra el cuadro de diálogo cuando se hace clic en la "x"
-closeBtn.addEventListener('click', () => {
-    avatarDialog.style.display = 'none';  // Oculta el cuadro de diálogo
-});
-
-// Cierra el cuadro de diálogo si se hace clic fuera de él
-window.addEventListener('click', (event) => {
-    if (event.target === avatarDialog) {
-        avatarDialog.style.display = 'none';  // Oculta el cuadro de diálogo si se hace clic fuera
-    }
-});
-
-
-
-
 }

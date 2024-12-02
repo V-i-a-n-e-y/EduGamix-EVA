@@ -3,54 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix</title>
     <link rel="stylesheet" href="nivel 1 juego1.css">
-    <title>EduGamix - Desafío 1</title>
-    <style>
-       
-    </style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
+    <!-- Encabezado -->
+      <div img src="img/logo.jpg">EduGamix</div>
+        <h1>Social y Progreso</h1>
+        <div class="user-info">
+            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+            <div class="user-info">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+            </div>
+            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+        </div>
+    </header>
+    
+
+    <script>
+        // Cargar el nombre de usuario y correo desde localStorage
+        document.addEventListener("DOMContentLoaded", function() {
+            const username = localStorage.getItem("username");
+            const useremail = localStorage.getItem("useremail");
+            
+            if (username) {
+                document.getElementById("username").textContent = username;
+            }
+    
+            if (useremail) {
+                document.getElementById("useremail").textContent = useremail;
+            }
+        });
+    </script>
+    
+         </div>
+        </header>
+
+    <!-- Contenido Principal -->
     <div class="game-container">
         <header>
             <div class="challenge-header">
                 Desafío 1: Bingo de Ecuaciones Lineales
             </div>
             <div class="challenge-info">
-                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-                <!-- Información del usuario -->
                 <div class="header-info">
-                    <div class="user-section">
-                        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-                        <span id="username">No registrado</span> |
-                        <span id="useremail">No registrado</span>
-                    </div>
+                    <div class="user-section"></div>
                 </div>
                 <p>TIEMPO: <span id="timer">00:00</span></p>
                 <p>Puntos obtenidos: <span id="points">0</span></p>
             </div>
         </header>
+
         
-        <!-- Contenedor del avatar en la esquina inferior derecha -->
-<div id="avatar-container" class="avatar-container">
-    <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
-</div>
 
-<!-- Cuadro de diálogo del avatar -->
-<div id="avatar-dialog" class="avatar-dialog">
-    <div class="dialog-content">
-        <span class="close" onclick="closeAvatarDialog()">&times;</span>
-        <p>¡Hola! Soy tu asistente de juego. Estoy aquí para ayudarte.</p>
-    </div>
-</div>
+        <!-- Avatar y diálogo -->
+        <div id="avatar-container" class="avatar-container">
+            <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
+        </div>
 
+        <div id="avatar-dialog" class="avatar-dialog" style="display: none;">
+            <div class="dialog-content">
+                <span class="close" onclick="closeAvatarDialog()">&times;</span>
+                <p id="avatar-text">¡Hola! Soy Xilo, tu asistente de juego. Estoy aquí para ayudarte.</p>
+                <button onclick="narrarContenido()">Hablar</button>
+            </div>
+        </div>
 
+        <!-- Contenido del juego -->
         <div class="content">
             <div class="equation-container">
-                            <div id="equation-container">
+                <div id="equation-container">
                     <h2>El sistema de ecuaciones es:</h2>
-                    <ul id="equation-list"></ul> <!-- Contenedor de lista para las ecuaciones -->
+                    <ul id="equation-list"></ul>
                 </div>
-                <div id="equation" class="equation">x + y = 5,    2x - y = 1</div>
+                <div id="equation" class="equation">x + y = 5, 2x - y = 1</div>
                 <button id="prev-btn" onclick="prevEquation()">Regresar</button>
                 <button id="next-btn" onclick="nextEquation()">Siguiente</button>
             </div>
@@ -61,55 +92,159 @@
             </div>
         </div>
 
+        <!-- Intentos y botones -->
         <div class="attempts-info">
             <span id="attempts">Intentos restantes: 3</span>
-            <button onclick="checkBingo()">¡Verificar Bingo!</button>
+            <button onclick="verificarYMostrar()">Verificar</button>
             <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
-    </div>
-    </div>
+        </div>
 
-    <!-- Modal de Retroalimentación -->
-    <div id="feedback-modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeFeedback()">&times;</span>
-            <h2>Retroalimentación</h2>
-            <table id="feedback" class="feedback-table">
-                <thead>
-                    <tr>
-                        <th>Ecuación</th>
-                        <th>Solución</th>
-                        <th>Tu respuesta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Filas de retroalimentación generadas por JavaScript -->
-                </tbody>
-            </table>
-            <!-- Avatar debajo de la tabla -->
-            <img src="img/radicux.jpg" alt="Avatar" class="avatar">
-            <p>¡Fallaste! Suerte para la próxima</p>
+        <!-- Botones adicionales -->
+        <div class="buttons-container">
+            <button class="icon-button" onclick="restartGame()">Comenzar</button>
+            <button class="icon-button" onclick="openSettings()">Configuración <i class="fas fa-cog"></i></button>
+        </div>
+
+        <!-- Controles de audio -->
+        <div class="audio-buttons-container">
+            <button class="audio-button" onclick="playAudio()"><i class="fas fa-play"></i></button>
+            <button class="audio-button" onclick="pauseAudio()"><i class="fas fa-pause"></i></button>
+            <button class="audio-button" onclick="toggleMute()"><i class="fas fa-volume-mute"></i></button>
+            <button class="audio-button" onclick="increaseVolume()"><i class="fas fa-volume-up"></i></button>
+            <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
+        </div>
+
+        <!-- Modal de retroalimentación -->
+        <div id="feedback-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeFeedback()">&times;</span>
+                <h2>Retroalimentación</h2>
+                <table id="feedback" class="feedback-table">
+                    <thead>
+                        <tr>
+                            <th>Ecuación</th>
+                            <th>Solución</th>
+                            <th>Tu respuesta</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feedback-table-body"></tbody>
+                </table>
+                <div class="avatar-feedback">
+                    <img src="img/radicux.jpg" alt="Avatar" class="avatar">
+                    <p id="feedback-text">¡Fallaste! Suerte para la próxima</p>
+                </div>
+            </div>
         </div>
     </div>
-    
+
+    <!-- Scripts -->
+
+
 
     <script src="nivel 1 juego1.js"></script>
-    
     <script>
-        // Cargar el nombre de usuario y correo desde localStorage
-        document.addEventListener("DOMContentLoaded", function() {
-            const username = localStorage.getItem("username");
-            const useremail = localStorage.getItem("useremail");
-            
-            if (username) {
-                document.getElementById("username").textContent = username;
-            }
+        let ecuaciones = [
+            { ecuacion: 'x + y = 2, 2x + y = 5', solucion: 'x = 3, y = -1', respuestaUsuario: '' },
+            { ecuacion: '2x + 4y = 0, x + 2y = 4', solucion: 'x = 2, y = -1', respuestaUsuario: '' },
+            { ecuacion: '3x + 2y = 11, 4x + 5y = 7', solucion: 'x = 3, y = 1', respuestaUsuario: '' },
+            { ecuacion: '2x + 3y = -1, 3x + 4y = 0', solucion: 'x = 4, y = -3', respuestaUsuario: '' },
+            { ecuacion: 'x + 2y = 5, 3x - 2y = 19', solucion: 'x = 7, y = 1', respuestaUsuario: '' },
 
-            if (useremail) {
-                document.getElementById("useremail").textContent = useremail;
-            }
-        });
+        ];
 
-        
-    </script> 
+        // Función para verificar el bingo y mostrar la retroalimentación
+        function verificarYMostrar() {
+            checkBingo();
+            showFeedbackModal();
+        }
+
+        // Lógica de checkBingo
+        function checkBingo() {
+            console.log("Verificando bingo...");
+            // Aquí puedes agregar tu lógica de verificación
+        }
+
+        // Función para registrar la respuesta del usuario
+        function registrarRespuesta(ecuacionIndex, respuesta) {
+            ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
+        }
+
+        // Función para mostrar el modal de retroalimentación
+        function showFeedbackModal() {
+            const modal = document.getElementById('feedback-modal');
+            const feedbackTableBody = document.getElementById('feedback-table-body');
+            feedbackTableBody.innerHTML = "";  // Limpiar la tabla antes de agregar las nuevas filas
+
+            // Iterar sobre las ecuaciones y mostrar la retroalimentación
+            ecuaciones.forEach((item, index) => {
+                const row = document.createElement("tr");
+
+                // Mostrar ecuación enumerada
+                const ecuacionCell = document.createElement("td");
+                ecuacionCell.textContent = `Ecuación ${index + 1}: ${item.ecuacion}`;
+                row.appendChild(ecuacionCell);
+
+                const solucionCell = document.createElement("td");
+                solucionCell.textContent = item.solucion;
+                row.appendChild(solucionCell);
+
+                const respuestaCell = document.createElement("td");
+                respuestaCell.textContent = item.respuestaUsuario ? item.respuestaUsuario : "No respondida";
+                row.appendChild(respuestaCell);
+
+                feedbackTableBody.appendChild(row);
+            });
+
+            modal.style.display = 'block';
+            narrarFeedback();
+        }
+
+        // Narrar retroalimentación
+        function narrarFeedback() {
+            const texto = document.getElementById('feedback-text').textContent;
+            const speech = new SpeechSynthesisUtterance(texto);
+            speech.lang = 'es-ES';
+            speech.pitch = 1;
+            speech.rate = 1;
+            speech.volume = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        // Cerrar el modal de retroalimentación
+        function closeFeedback() {
+            const modal = document.getElementById('feedback-modal');
+            modal.style.display = 'none';
+        }
+
+        // Dialogo del avatar
+        function openAvatarDialog() {
+            var dialog = document.getElementById('avatar-dialog');
+            dialog.style.display = 'block';
+        }
+
+        function closeAvatarDialog() {
+            var dialog = document.getElementById('avatar-dialog');
+            dialog.style.display = 'none';
+        }
+
+        function narrarContenido() {
+            const texto = document.getElementById('avatar-text').textContent;
+            const speech = new SpeechSynthesisUtterance(texto);
+            speech.lang = 'es-ES';
+            speech.pitch = 1;
+            speech.rate = 1;
+            speech.volume = 1;
+
+            const avatar = document.querySelector('.avatar');
+            avatar.style.transform = 'scale(1.1)';
+            avatar.style.transition = 'transform 0.2s ease-in-out';
+
+            speech.onend = () => {
+                avatar.style.transform = 'scale(1)';
+            };
+
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
 </body>
 </html>

@@ -2,33 +2,35 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>EduGamix-Nivel 1</title>
-    <link rel="stylesheet" href="nivel 1.css"> <!-- Enlazamos el archivo CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix</title>
+    <link rel="stylesheet" href="nivel 1.css">
 </head>
 <body>
-
- <!-- Encabezado -->
- <header>
-       
-    <div img src=img/logo.jpg">EduGamix</div>
-    <h1>Álgebra lineal</h1>
-    <div class="user-info">
-        <span class="icon" onclick="alert('Notificaciones');">🔔</span>
-        <span class="icon" onclick="alert('Favoritos');">⭐</span>
-        <span class="icon" onclick="alert('Inicio');">🏠</span>
-        <div class="user-info">
-            <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-            <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-            <a class="logout-link" onclick="logout()">Cerrar sesión</a>
+    <!-- Encabezado -->
+    <header>
+        <div>
+        <img src="img/logo.jpg" alt="Logo EduGamix">
+        <h1>Álgebra lineal</h1>  
         </div>
-        <span class="icon" onclick="alert('Perfil');">👤</span>
-    </div>
-</header>
+        <h1>Nivel 1 </h1>
+        <div class="user-info">
+            <!-- Notificaciones -->
+            <span class="icon" onclick="alert('Notificaciones');">🔔</span>
+            <!-- Favoritos -->
+            <span class="icon" onclick="alert('Favoritos');">⭐</span>
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>>
+            <div class="user-info">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+                <a class="logout-link" onclick="logout()">Cerrar sesión</a>
+            </div>
+            <!-- Perfil -->
+            <span class="icon" onclick="window.location.href='miespacio.html';">👤</span>
+        </div>
+    </header>
 
-<div class="main-container">
-    <div class="avatar">
-        <img src="img/gami.jpg" alt="Gami Guía" style="height: 150px;">
-    </div>
     <div class="content">
         <p>"Pon a prueba tus habilidades y busca el camino hacia la victoria, resolviendo problemas matemáticos en nuestro emocionante Bingo de Álgebra Lineal. Encuentra la combinación correcta de vectores y sé el primero en oprimir ¡Bingo! para ganar."</p>
         <p>Selecciona el modo de juego.</p>
@@ -44,23 +46,48 @@
         <button onclick="window.location.href='modo juego n1.html'">Siguiente</button>
         <button onclick="window.location.href='inicio.html'">Regresar a Inicio</button>
     </div>
-</div>
 
-<script>
-    // Cargar el nombre de usuario y correo desde localStorage
-    document.addEventListener("DOMContentLoaded", function() {
-        const username = localStorage.getItem("username");
-        const useremail = localStorage.getItem("useremail");
-        
-        if (username) {
-            document.getElementById("username").textContent = username;
+    <div class="main-container">
+        <div id="avatar-animation">
+            <img id="gami-avatar" src="img/gami.jpg" alt="Avatar de Gami" style="height: 150px;">
+        </div>
+
+        <div class="controls">
+            <button id="repeatButton" onclick="repetirNarracion()">Repetir</button>
+            <button id="muteButton" onclick="toggleMute()">Silenciar</button>
+     
+           
+        </div>
+    </div>
+
+    <script>
+        // Función para que Gami lea el texto
+        function leerContenido() {
+            const texto = `
+                Pon a prueba tus habilidades y busca el camino hacia la victoria, resolviendo problemas matemáticos en nuestro emocionante Bingo de Álgebra Lineal. 
+                Encuentra la combinación correcta de vectores y sé el primero en oprimir ¡Bingo! para ganar.
+                Selecciona el modo de juego.
+                Instrucciones: Gami será tu guía durante los niveles del juego, él narrará las actividades.
+                1. Escucha a Xilo: Quien leerá un sistema de ecuaciones lineales.
+                2. Resuelve el sistema: Debes resolver el sistema de ecuaciones para encontrar los valores de 𝑥 y 𝑦.
+                3. Marca tu tarjeta: Si la solución que obtuviste está en tu tarjeta de bingo, marca esa casilla.
+                4. Desafíos de Radicux: De vez en cuando, Gami leerá un "Desafío de Radicux", que es un sistema de ecuaciones más complicado.
+                5. Selecciona el botón de "Bingo": El primer jugador en completar una línea de 3 casillas en cualquier dirección (horizontal, vertical o diagonal) debe apretar el botón "Bingo". Gami verificará las soluciones marcadas para confirmar el ganador.
+                Reglas Adicionales:
+                Confirmación de Bingo: Cuando el jugador oprime "Bingo", Gami revisará las soluciones marcadas para asegurar que todas son correctas. Si alguna solución es incorrecta, el juego continúa. ¡Si fallas Radicux se burlará, no lo dejes!
+                Ayuda: Si necesitas ayuda para resolver un sistema, puedes pedir una pista a Xilo, pero no se te dará la solución completa.
+            `;
+            const speech = new SpeechSynthesisUtterance(texto);
+            speech.lang = "es-ES"; // Establecer el idioma a español
+            window.speechSynthesis.speak(speech);
         }
 
-        if (useremail) {
-            document.getElementById("useremail").textContent = useremail;
-        }
-    });
-</script>
+        // Ejecutar la función de lectura cuando la página cargue
+        document.addEventListener("DOMContentLoaded", function() {
+            leerContenido();
+        });
+    </script>
 
+    <script src="nivel 1.js"></script> <!-- Script para funciones de audio y animación -->
 </body>
 </html>

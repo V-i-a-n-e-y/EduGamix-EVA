@@ -3,26 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGamix - Álgebra Lineal</title>
+    <title>EduGamix - Mi espacio</title>
     <link rel="stylesheet" href="miespacio.css">
 </head>
 <body>
-
-  <!-- Encabezado -->
+    <!-- Encabezado -->
     <header>
-        <div img src=img/logo.jpg">EduGamix</div>
-        <h1>Álgebra lineal</h1>
+        <div class="logo">EduGamix</div>
+    </div>
+        <h1>Mi espacio</h1>
         <div class="user-info">
             <span class="icon" onclick="alert('Notificaciones');">🔔</span>
-            <span class="icon" onclick="alert('Favoritos');">⭐</span>
-            <span class="icon" onclick="alert('Inicio');">🏠</span>
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <div class="user-info">
                 <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
                 <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
                 <a class="logout-link" onclick="logout()">Cerrar sesión</a>
             </div>
-            <span class="icon" onclick="alert('Perfil');">👤</span>
+             <!-- Perfil -->
+             <span class="icon" onclick="window.location.href='miespacio.html';">👤</span>
         </div>
     </header>
 
+    <!-- Contenido principal -->
+    <main class="main-container">
+        <!-- Evaluación -->
+        <div class="evaluation-container">
+            <h2>Evaluación</h2>
+            <div class="evaluation-item">📍 Puntos obtenidos 0/1000</div>
+            <div class="evaluation-item">📍 Puntos obtenidos 0/1000</div>
+            <div class="evaluation-item">📍 Puntos obtenidos 0/1000</div>
+            <div class="evaluation-item">📍 Puntos obtenidos 0/1000</div>
+            <div class="evaluation-item">📍 Puntos obtenidos 0/1000</div>
+        </div>
 
+        <!-- Mi avance -->
+        <div class="progress-container">
+            <h2>Mi avance</h2>
+            <div class="progress-item">
+                👤 <span>Nombre de usuario</span>
+            </div>
+            <div class="progress-item">
+                📍 <span>Nivel</span>
+            </div>
+            <div class="progress-item">
+                🔋 <span>Porcentaje de avance</span>
+            </div>
+        </div>
+
+        <!-- Secciones Identificadores, Insignias y Potenciadores -->
+        <div class="identifiers-container">
+            <h2>Identificadores</h2>
+            <div class="identifier-item">
+                
+                <p>Descripción del identificador</p>
+            </div>
+        </div>
+
+        <div class="badges-container">
+            <h2>Insignias</h2>
+            <div class="badge-item">
+                
+                <p>Descripción de la insignia</p>
+            </div>
+        </div>
+
+        <div class="boosters-container">
+            <h2>Potenciadores</h2>
+            <div class="booster-item">
+                
+                <p>Descripción del potenciador</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const username = localStorage.getItem("username");
+            const useremail = localStorage.getItem("useremail");
+            
+            if (username) {
+                document.getElementById("username").textContent = username;
+            }
+
+            if (useremail) {
+                document.getElementById("useremail").textContent = useremail;
+            }
+        });
+
+        function logout() {
+            alert("Cerrando sesión...");
+        }
+    </script>
+</body>
+</html>

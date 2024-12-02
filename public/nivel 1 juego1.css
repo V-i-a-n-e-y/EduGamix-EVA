@@ -1,3 +1,110 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-bottom: 3px solid #fdd835;
+    display: flex;
+    justify-content: center;
+}
+
+.header-content {
+    max-width: 1200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.2em;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: #666;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+.user-info {
+    font-size: 0.9em;
+    color: #333;
+}
+
+.logout {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.progress-container {
+    background-color: #fefefe;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.progress-container h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.section {
+    margin: 20px 0;
+}
+
+.section h3 {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.item-icon {
+    font-size: 1.2em;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+.arrow {
+    font-size: 1.2em;
+    color: #007bff;
+}
+
 /* Estilo global */
 * {
     box-sizing: border-box;
@@ -13,6 +120,7 @@ html, body {
     align-items: center;
 }
 
+/* Contenedor principal del juego */
 .game-container {
     width: 100%;
     height: 100%;
@@ -38,12 +146,14 @@ header h1, header h2 {
     margin: 0.5rem 0;
 }
 
+/* Contenedor de contenido del juego */
 .content {
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
+/* Contenedor de ecuaciones */
 .equation-container {
     flex: 1;
     padding: 1rem;
@@ -58,6 +168,7 @@ header h1, header h2 {
     margin-bottom: 1rem;
 }
 
+/* Contenedor del bingo */
 .bingo-container {
     flex: 2;
     padding: 1rem;
@@ -68,15 +179,12 @@ header h1, header h2 {
 
 .bingo-board {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    gap: 15px; /* Espacio entre las celdas */
     margin-top: 1rem;
-}
-
-.bingo-row {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    max-width: 500px; /* Tamaño máximo para que el tablero no se haga demasiado grande */
+    width: 100%;
+    justify-content: center; /* Centrar el tablero */
 }
 
 /* Estilo de las casillas del bingo */
@@ -86,22 +194,35 @@ header h1, header h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #d76a1c;
+    border: 2px solid #d76a1c; /* Borde más grueso */
     background-color: #e9ecef;
     cursor: pointer;
     font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.3; /* Asegura que el texto no se sobrepase verticalmente */
     border-radius: 5px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s ease;
 }
 
+/* Asegura que el texto no se corte en casillas pequeñas */
+.cell p {
+    margin: 0;
+    word-wrap: break-word; /* Permite que el texto largo se ajuste a la celda */
+    text-align: center;
+}
+
+/* Efecto de hover */
 .cell:hover {
     background-color: #d76a1c;
     color: white;
 }
 
+/* Efecto al seleccionar la celda */
 .cell.selected {
     background-color: #d76a1c;
     color: white;
+    transform: scale(1.1); /* Efecto de aumento al seleccionar */
 }
 
 /* Estilo de los botones */
@@ -126,12 +247,12 @@ button:hover {
     display: flex;
     position: fixed;
     z-index: 1;
-    left: 0; /* Fijar el modal al lado izquierdo */
+    left: 0;
     top: 0;
-    width: 40%; /* Ajustar el ancho para que no ocupe toda la pantalla */
-    height: 100%; /* Altura completa para ocupar el lado izquierdo */
+    width: 40%;
+    height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -139,8 +260,8 @@ button:hover {
     margin: 0;
     padding: 10px;
     border: 1px solid #ce3535;
-    width: 90%; /* Ancho completo del modal */
-    height: 80%; /* Altura completa del modal */
+    width: 90%;
+    height: 80%;
     text-align: center;
     overflow-y: auto;
 }
@@ -161,34 +282,32 @@ button:hover {
 
 /* Estilos del avatar en la esquina inferior derecha */
 .avatar-container {
-    position: fixed; /* Posicionamiento fijo para que esté en la parte inferior derecha */
-    bottom: 20px; /* Distancia desde la parte inferior de la pantalla */
-    right: 20px; /* Distancia desde la parte derecha de la pantalla */
-    cursor: pointer; /* Cambiar el cursor cuando se pasa por encima */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    cursor: pointer;
 }
 
 .avatar {
-    width: 200px; /* Tamaño original del avatar, puedes ajustarlo a tu gusto */
-    height: auto; /* Mantener la proporción original */
-    display: block; /* Hacer que el avatar sea un bloque, para que no se recorte */
-    border-radius: 0; /* Eliminar cualquier borde redondeado */
+    width: 200px;
+    height: auto;
+    display: block;
+    border-radius: 0;
 }
 
-
-/* Estilos para el cuadro de diálogo del avatar */
+/* Estilos para el cuadro de diálogo del avatar (sin botones) */
 .avatar-dialog {
-    display: none; /* Oculto por defecto */
+    display: none;
     position: fixed;
-    bottom: 100px;
-    right: 20px;
+    bottom: 200px;
+    right: 100px;
     width: 200px;
     padding: 10px;
-    background-color: #fefefe;
-    border: 0px solid #ccc;
+    
     border-radius: 0px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0);
     text-align: center;
-    z-index: 11; /* Asegura que esté por encima del avatar */
+    z-index: 11;
 }
 
 .avatar-dialog .dialog-content {
@@ -196,13 +315,9 @@ button:hover {
     position: center;
 }
 
+/* Se eliminó la clase .close y otros botones en el cuadro del avatar */
 .avatar-dialog .close {
-    position: center;
-    top: 5px;
-    right: 10px;
-    font-size: 16px;
-    color: #f40000;
-    cursor: pointer;
+    display: none; /* Eliminar el botón de cerrar */
 }
 
 /* Estilos para la tabla de retroalimentación */
@@ -233,7 +348,7 @@ button:hover {
     justify-content: center;
     gap: 20px;
     width: 100%;
-    margin-top: 2rem; /* Espacio adecuado debajo de intentos */
+    margin-top: 2rem;
 }
 
 /* Botón de reinicio */
@@ -251,3 +366,133 @@ button {
 button:hover {
     background-color: hsl(39, 100%, 35%);
 }
+
+/* Contenedor de los botones de control superior (Comenzar y Configuración) */
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 0rem;
+}
+
+/* Estilo de los botones de control superior */
+.icon-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.icon-button:hover {
+    background-color: #0056b3;
+}
+
+/* Contenedor de los botones de control de audio en la parte inferior */
+.audio-buttons-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; /* Disposición horizontal */
+    justify-content: center;
+    gap: 10px; /* Espacio entre los botones */
+    z-index: 10;
+}
+
+/* Estilo de los botones de audio */
+.audio-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-button:hover {
+    background-color: #0056b3;
+}
+
+.audio-button i {
+    font-size: 20px;
+}
+
+#avatar.hablando {
+    animation: moverBoca 0.3s infinite;
+}
+
+@keyframes moverBoca {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.8);
+    }
+}
+        margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-bottom: 2px solid #f4d03f; /* Línea amarilla */
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin: 0;
+            color: #444;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info .icon {
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .user-details {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .user-details i {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .logout-link {
+            color: #007BFF;
+            text-decoration: none;
+            margin-left: 8px;
+            cursor: pointer;
+        }
+
+        .logout-link:hover {
+            text-decoration: underline;
+        }

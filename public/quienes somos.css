@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-bottom: 3px solid #fdd835;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    color: #333;
+    font-size: 1.5em;
+}
+
+h1 {
+    font-size: 1.5em;
+    color: #666;
+    margin-left: 20px;
+}
+
+.user-info {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon {
+    font-size: 1.2em;
+    cursor: pointer;
+}

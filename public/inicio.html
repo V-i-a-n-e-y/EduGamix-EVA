@@ -3,164 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGamix - Álgebra Lineal</title>
+    <title>EduGamix</title>
     <link rel="stylesheet" href="inicio.css">
- </head>
+    <style>
+      
+    </style>
+</head>
 <body>
-<!-- Encabezado -->
 <header>
-    <div img src=img/logo.jpg">EduGamix</div>
-    <h1>Álgebra lineal</h1>
+    <div class="logo">
+        <img src="img/logo.jpg" alt="Logo" /> EduGamix 
+    </div>
+    <h1>Niveles</h1>
     <div class="user-info">
         <span class="icon" onclick="alert('Notificaciones');">🔔</span>
-        <span class="icon" onclick="alert('Favoritos');">⭐</span>
-        <span class="icon" onclick="alert('Inicio');">🏠</span>
+        <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+        <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
         <div class="user-info">
             <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
             <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
             <a class="logout-link" onclick="logout()">Cerrar sesión</a>
         </div>
-        <span class="icon" onclick="alert('Perfil');">👤</span>
+         <!-- Perfil -->
+         <span class="icon" onclick="window.location.href='miespacio.html';">👤</span>
     </div>
 </header>
 
-<script>
-    // Cargar el nombre de usuario y correo desde localStorage
-    document.addEventListener("DOMContentLoaded", function() {
-        const username = localStorage.getItem("username");
-        const useremail = localStorage.getItem("useremail");
-        
-        if (username) {
-            document.getElementById("username").textContent = username;
-        }
 
-        if (useremail) {
-            document.getElementById("useremail").textContent = useremail;
-        }
-    });
-</script>
+<!-- Contenido principal -->
+<div class="main-content">
+    
+    <!-- Ruta de progreso -->
+    <div class="progress-road">
+        <div class="road">
+            <div class="road-point" onclick="openModal('modal1')">
+                <div class="point-icon yellow"></div>
+                <p>Definición de sistemas de ecuaciones lineales</p>
+            </div>
 
-    <!-- Contenido principal -->
-    <div class="main-content">
-        <!-- Ruta de progreso -->
-        <div class="progress-road">
-            <div class="road">
-                <div class="road-point" onclick="openModal('modal1')">
-                    <div class="point-icon yellow"></div>
-                    <p>Definición de sistemas de ecuaciones lineales</p>
-                </div>
+            <div class="road-point" onclick="openModal('modal2')">
+                <div class="point-icon red"></div>
+                <p>Clasificación de los sistemas de ecuaciones lineales</p>
+            </div>
 
-                <div class="road-point" onclick="openModal('modal2')">
-                    <div class="point-icon red"></div>
-                    <p>Clasificación de los sistemas de ecuaciones lineales</p>
-                </div>
+            <div class="road-point" onclick="openModal('modal3')">
+                <div class="point-icon green"></div>
+                <p>Métodos de solución de ecuaciones</p>
+            </div>
 
-                <div class="road-point" onclick="openModal('modal3')">
-                    <div class="point-icon green"></div>
-                    <p>Métodos de solución de ecuaciones</p>
-                </div>
+            <div class="road-point" onclick="openModal('modal4')">
+                <div class="point-icon light-green"></div>
+                <p>Interpretación geométrica</p>
+            </div>
 
-                <div class="road-point" onclick="openModal('modal4')">
-                    <div class="point-icon light-green"></div>
-                    <p>Interpretación geométrica</p>
-                </div>
-
-                <div class="road-point" onclick="openModal('modal5')">
-                    <div class="point-icon blue"></div>
-                    <p>Aplicaciones</p>
-                </div>
+            <div class="road-point" onclick="openModal('modal5')">
+                <div class="point-icon blue"></div>
+                <p>Aplicaciones</p>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-item" onclick="alert('Inicio');">
-            <i class="fas fa-home"></i>
-            <p>Inicio</p>
-        </div>
-        <div class="sidebar-item" onclick="openCalendar();">
-            <i class="fas fa-calendar-alt"></i>
-            <p>Calendario</p>
-        </div>
-        <div class="sidebar-item avatar">
-            <img src="img/xilo-avatar.jpg" alt="Avatar Xilo">
-            <p>Asesor Xilo</p>
-        </div>
+
+  <!-- Modales -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
+        <h2>Definición de sistemas de ecuaciones lineales</h2>
+        <p>Aquí aprenderás los fundamentos básicos de los sistemas de ecuaciones lineales.</p>
+        <button onclick="window.location.href='nivel 1.html'">Ir a Nivel 1</button>
     </div>
+</div>
 
-      <!-- Modales -->
-      <div id="modal1" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
-            <h2>Definición de sistemas de ecuaciones lineales</h2>
-            <p>Aquí aprenderás los fundamentos básicos de los sistemas de ecuaciones lineales.</p>
-            <button onclick="window.location.href='nivel 1.html'">Ir a Nivel 1</button>
-        </div>
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
+        <h2>Clasificación de los sistemas de ecuaciones lineales</h2>
+        <p>Aprende a clasificar los diferentes tipos de sistemas de ecuaciones.</p>
+        <button onclick="window.location.href='nivel 2.html'">Ir a Nivel 2</button>
     </div>
+</div>
 
-    <div id="modal2" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
-            <h2>Clasificación de los sistemas de ecuaciones lineales</h2>
-            <p>Aprende a clasificar los diferentes tipos de sistemas de ecuaciones.</p>
-            <button onclick="window.location.href='nivel 2.html'">Ir a Nivel 2</button>
-        </div>
+<div id="modal3" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
+        <h2>Métodos de solución de ecuaciones</h2>
+        <p>Explora los distintos métodos para resolver ecuaciones lineales.</p>
+        <button onclick="window.location.href='nivel 3.html'">Ir a Nivel 3</button>
     </div>
+</div>
 
-    <div id="modal3" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
-            <h2>Métodos de solución de ecuaciones</h2>
-            <p>Explora los distintos métodos para resolver ecuaciones lineales.</p>
-            <button onclick="window.location.href='nivel 3.html'">Ir a Nivel 3</button>
-        </div>
+<div id="modal4" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
+        <h2>Interpretación geométrica</h2>
+        <p>Comprende cómo se interpretan los sistemas de ecuaciones en el plano cartesiano.</p>
+        <button onclick="window.location.href='nivel 4.html'">Ir a Nivel 4</button>
     </div>
+</div>
 
-    <div id="modal4" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
-            <h2>Interpretación geométrica</h2>
-            <p>Comprende cómo se interpretan los sistemas de ecuaciones en el plano cartesiano.</p>
-            <button onclick="window.location.href='nivel 4.html'">Ir a Nivel 4</button>
-        </div>
+<div id="modal5" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal('modal5')">&times;</span>
+        <h2>Aplicaciones</h2>
+        <p>Descubre las aplicaciones prácticas de los sistemas de ecuaciones lineales.</p>
+        <button onclick="window.location.href='nivel 5.html'">Ir a Nivel 5</button>
     </div>
+</div>
+<!-- Avatar de Xilo -->
+<div id="avatar-container-xilo">
+    <img src="img/xilo-avatar.jpg" alt="Avatar Xilo" class="avatar" onclick="openAvatarDialog('xilo')">
+</div>
 
-    <div id="modal5" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('modal5')">&times;</span>
-            <h2>Aplicaciones</h2>
-            <p>Descubre las aplicaciones prácticas de los sistemas de ecuaciones lineales.</p>
-            <button onclick="window.location.href='nivel 5.html'">Ir a Nivel 5</button>
-        </div>
+<!-- Diálogo de Xilo -->
+<div id="avatar-dialog-xilo" class="avatar-dialog" style="display: none;">
+    <div class="dialog-content">
+        <span class="close" onclick="closeAvatarDialog('xilo')">&times;</span>
+        <p id="avatar-text-xilo">¡Hola! Soy Xilo, tu asistente de juego. Estos son los desafios que tenemos para ti</p>
     </div>
+</div>
 
-   
-    <!-- Modal de calendario -->
-         <div id="calendar-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('calendar-modal')">&times;</span>
-            <h2>Calendario</h2>
-            <div id="calendar"></div>
-        </div>
-    </div>
 
-    <script>
-        function openModal(modalId) {
-            document.getElementById(modalId).style.display = "block";
+<script>
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'block';
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+    // Función para abrir y mostrar el diálogo del avatar
+    function openAvatarDialog(avatar) {
+        if (avatar === 'xilo') {
+            document.getElementById('avatar-dialog-xilo').style.display = 'block';
+            typeText('xilo');
+        }
+    }
+
+    function closeAvatarDialog(avatar) {
+        if (avatar === 'xilo') {
+            document.getElementById('avatar-dialog-xilo').style.display = 'none';
+        }
+    }
+
+    // Función para escribir texto progresivamente y sincronizar con la voz
+    function typeText(avatar) {
+        const textElement = document.getElementById('avatar-text-xilo');
+        const text = textElement.innerText; // Obtener el texto original
+        const words = text.split(' '); // Dividir el texto en palabras
+        textElement.innerHTML = ''; // Limpiar el contenido inicial
+
+        let i = 0;
+
+        function speakWord(word) {
+            return new Promise((resolve) => {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'es-ES'; // Configurar idioma a español
+                utterance.rate = 2.2; // Ajustar velocidad de lectura
+                utterance.onend = resolve; // Resolver la promesa al terminar de leer la palabra
+                window.speechSynthesis.speak(utterance);
+            });
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
+        async function displayText() {
+            for (let word of words) {
+                textElement.innerHTML += word + ' '; // Mostrar palabra en pantalla
+                await speakWord(word); // Esperar a que la palabra se lea antes de mostrar la siguiente
+            }
         }
 
-        function logout() {
-            alert('Sesión cerrada');
-        }
-
-        function openCalendar() {
-            document.getElementById('calendar-modal').style.display = "block";
-        }
-    </script>
+        displayText(); // Iniciar el efecto y la sincronización
+    }
+    
+</script>
 </body>
 </html>

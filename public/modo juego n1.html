@@ -3,55 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGamix -Seleccionar Modo de Juego</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f0e9;
-        }
-        header {
-            background-color: #333;
-            color: #fbfbfb;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        .user-section {
-            margin-top: 10px;
-            font-size: 16px;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-        }
-        button {
-            padding: 15px 30px;
-            margin: 10px;
-            font-size: 16px;
-            color: white;
-            background-color: #d76a1b;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #d76a1c;
-        }
+    <title>EduGamix</title>
+    <link rel="stylesheet" href="modo juego n1.css">
+</head>
+<body>
+    <!-- Encabezado -->
+     <div img src="img/logo.jpg">EduGamix</div>
+        <h1>Social y Progreso</h1>
+        <div class="user-info">
+            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+            <div class="user-info">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+            </div>
+            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+        </div>
+    </header>
+    
+        
     </style>
 </head>
 <body>
-
-<header>
-    <h1>Selección de Modo de Juego</h1>
-    <div class="user-section">
-        <span id="username">No registrado</span> |
-        <span id="useremail">No registrado</span>
-    </div>
-</header>
 
 <div class="container">
     <h2>Selecciona un Modo de Juego:</h2>
