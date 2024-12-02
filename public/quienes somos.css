@@ -1,46 +1,42 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* Fondo general */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative; /* Permite posicionar el contenido encima */
 }
 
+.content {
+    position: relative; /* Asegura que el contenido esté encima del fondo */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para el contenido */
+    padding: 20px;
+    margin: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Encabezado */
 header {
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-bottom: 3px solid #fdd835;
+    background-color: #fff;
+    padding: 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
 }
 
 .logo {
+    font-size: 1.5em;
     font-weight: bold;
-    color: #333;
-    font-size: 1.5em;
-
-}.logo img {
-    height: 150px;
-}
-
-
-h1 {
-    font-size: 1.5em;
-    color: #666;
-    margin-left: 20px;
-}
-
-.user-info {
-    margin-left: auto;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.user-info .icon {
-    font-size: 1.2em;
-    cursor: pointer;
+.logo img {
+    width: 150px;
+    height: auto;
 }

@@ -25,6 +25,10 @@
                 <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
             </div>
             <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+            <a href="registro.html">
+                <button class="login-btn sign-in-btn">Unirse al Juego</button>
+              </a>
+              
         </div>
     </header>
 
@@ -198,32 +202,30 @@
         <p style="font-size: 1.2em; line-height: 1.8; text-align: justify;">
             En EduGamix, el aprendizaje cobra vida gracias a nuestros personajes únicos. Cada uno de ellos tiene su propia personalidad y habilidades especiales, diseñadas para acompañarte y motivarte en cada etapa del juego. ¡Descubre quiénes son y qué tienen para ofrecerte en tu camino hacia el conocimiento!
         </p>
-            <div id="descripcion-texto" style="font-size: 1.2em; line-height: 1.8; color: #333; margin-bottom: 30px; min-height: 100px;">
-            <!-- Aquí aparecerá el texto dinámicamente -->
-                <div id="indicador-clic" style="font-size: 1.1em; color: #666; margin-bottom: 20px; animation: parpadeo 1.5s infinite;">
-            👆 Haz clic en los personajes para escuchar quiénes son.
-        </div>
     
         <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
             <!-- Personaje Gami -->
             <div style="text-align: center; max-width: 250px; margin: 20px;">
                 <img id="gami" src="img/gami.jpg" alt="Gami - Tu guía" class="personaje-img" 
-                onclick="narrarConAnimacion('gami', 'Soy Gami,el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos.')">
+                onclick="narrarConAnimacion('texto-gami', 'Soy Gami, el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos.')">
                 <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Gami</h3>
+                <div id="texto-gami" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
             </div>
     
             <!-- Personaje Xilo -->
             <div style="text-align: center; max-width: 250px; margin: 20px;">
                 <img id="xilo" src="img/xilo-avatar.jpg" alt="Xilo - El narrador" class="personaje-img" 
-                onclick="narrarConAnimacion('xilo', 'Soy Xilo,  tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos.')">
+                onclick="narrarConAnimacion('texto-xilo', 'Soy Xilo, tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos.')">
                 <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Xilo</h3>
+                <div id="texto-xilo" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
             </div>
     
             <!-- Personaje Radicux -->
             <div style="text-align: center; max-width: 250px; margin: 20px;">
                 <img id="radicux" src="img/radicux.jpg" alt="Radicux - El desafío" class="personaje-img" 
-                onclick="narrarConAnimacion('radicux', 'Soy Radicux, tu mayor reto. Planteo los desafíos más complejos y emocionantes.')">
+                onclick="narrarConAnimacion('texto-radicux', 'Soy Radicux, tu mayor reto. Planteo los desafíos más complejos y emocionantes.')">
                 <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Radicux</h3>
+                <div id="texto-radicux" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
             </div>
         </div>
     </section>
@@ -231,15 +233,10 @@
     <script>
         const velocidad = 50; // Velocidad de aparición de letras (ms)
     
-        function narrarConAnimacion(id, texto) {
-            const textoDiv = document.getElementById("descripcion-texto");
+        function narrarConAnimacion(idTexto, texto) {
+            const textoDiv = document.getElementById(idTexto);
             textoDiv.innerHTML = ""; // Limpia el texto anterior
             let index = 0;
-    
-            // Añadir clase de animación a la imagen
-            const img = document.getElementById(id);
-            img.classList.add("clicked");
-            setTimeout(() => img.classList.remove("clicked"), 300); // Eliminar animación tras 300ms
     
             // Función que muestra el texto progresivamente
             function mostrarTexto() {
@@ -251,10 +248,16 @@
             }
     
             // Narración de texto
-            const narrador = new SpeechSynthesisUtterance(texto);
-            narrador.lang = "es-ES"; // Idioma español
-            window.speechSynthesis.cancel(); // Cancelar cualquier narración previa
-            window.speechSynthesis.speak(narrador);
+            if ('speechSynthesis' in window) {
+                const narrador = new SpeechSynthesisUtterance(texto);
+                narrador.lang = "es-ES"; // Idioma español
+                narrador.onend = () => console.log("Narración terminada.");
+                narrador.onerror = (err) => console.error("Error en narración: ", err);
+                window.speechSynthesis.cancel(); // Cancelar cualquier narración previa
+                window.speechSynthesis.speak(narrador);
+            } else {
+                console.error("API SpeechSynthesis no soportada en este navegador.");
+            }
     
             // Inicia el efecto de escritura
             mostrarTexto();
@@ -262,14 +265,6 @@
     </script>
     
     <style>
-        /* Animación para el indicador de clic */
-        @keyframes parpadeo {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
-        }
-    
-        /* Estilo base para las imágenes */
         .personaje-img {
             width: 100%;
             border-radius: 15px;
@@ -278,16 +273,18 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
     
-        /* Animación al hacer clic */
         .personaje-img.clicked {
-            transform: scale(1.1); /* Aumenta el tamaño ligeramente */
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Intensifica la sombra */
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
         }
     
-        /* Indicador visual al pasar el mouse */
         .personaje-img:hover {
-            transform: scale(1.05); /* Suavemente aumenta el tamaño */
+            transform: scale(1.05);
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+    
+        .texto-personaje {
+            min-height: 50px; /* Asegura un espacio para el texto */
         }
     </style>
     

@@ -1,38 +1,66 @@
-/* Reset básico */
-* {
+/* Fondo general */
+body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative; /* Permite posicionar el contenido encima */
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f0e9;
+.content {
+    position: relative; /* Asegura que el contenido esté encima del fondo */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para el contenido */
+    padding: 20px;
+    margin: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Encabezado */
 header {
     background-color: #fff;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 2px solid #f1c40f;
-    flex-wrap: wrap;
 }
 
 .logo {
+    font-size: 1.5em;
+    font-weight: bold;
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 .logo img {
-    height: 60px;
+    width: 150px;
+    height: auto;
 }
 
 h1 {
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info .icon {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+
+h1 {
     font-size: 1.2em;
-    color: #555;
+    color: #ffffff;
     flex-grow: 1;
     text-align: center;
 }
@@ -239,3 +267,22 @@ h1 {
     transform: translateY(1px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
+header {
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.main-content {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 20px;
+}
+
