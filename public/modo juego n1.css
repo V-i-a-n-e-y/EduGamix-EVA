@@ -182,16 +182,7 @@ button {
 button:hover {
     background-color: #d76a1c;
 }
-<stile>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #f9d423, #ff4e50, #1c92d2);
-        background-size: 400% 400%;
-        animation: gradientBackground 10s ease infinite;
-        color: #333;
-    }
+
 
     @keyframes gradientBackground {
         0% {

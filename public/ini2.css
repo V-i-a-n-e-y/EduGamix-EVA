@@ -228,16 +228,8 @@ body {
 
 .logout-link:hover {
     text-decoration: underline;
-}<stile>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #f9d423, #ff8c00, #32cd32);
-        background-size: 400% 400%;
-        animation: gradientBackground 10s ease infinite;
-        color: #d14444;
-    }
+}
+
 
 
 

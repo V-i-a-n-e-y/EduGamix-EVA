@@ -54,9 +54,9 @@ h1 {
     cursor: pointer;
 }
 
-.logout-link:hover 
+.logout-link:hover {
     text-decoration: underline;
-
+}
 
 /* Contenedor de la ruta de progreso centrado */
 .progress-road {
@@ -239,16 +239,7 @@ h1 {
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
-<stile>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #f9d423, #ff4e50, #1c92d2);
-        background-size: 400% 400%;
-        animation: gradientBackground 10s ease infinite;
-        color: #333;
-    }
+
 
     @keyframes gradientBackground {
         0% {

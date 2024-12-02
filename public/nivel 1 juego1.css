@@ -465,11 +465,11 @@ button:hover {
     50% {
         transform: scaleY(0.8);
     }
-}
-        margin: 0;
-            font-family: Arial, sans-serif;
     
-
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    
         header {
             display: flex;
             justify-content: space-between;
