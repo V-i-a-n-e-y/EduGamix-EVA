@@ -6,6 +6,16 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    position: relative; /* Permite posicionar el contenido encima */
+}
+
+.content {
+    position: relative; /* Asegura que el contenido esté encima del fondo */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para el contenido */
+    padding: 20px;
+    margin: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Encabezado */
@@ -128,27 +138,6 @@ p {
     color: #666;
 }
 
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(135deg, #f9d423, #ff4e50, #1c92d2);
-        background-size: 400% 400%;
-        animation: gradientBackground 10s ease infinite;
-        color: #333;
-    }
-
-    @keyframes gradientBackground {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
 
     header {
         background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */

@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGamix</title>
+    <title>EduGamix - Mi espacio</title>
     <link rel="stylesheet" href="nivel 1 juego1.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <!-- Encabezado -->
-      <div img src="img/logo.jpg">EduGamix</div>
-        <h1>Social y Progreso</h1>
+    <header>
+        <div class="logo">EduGamix</div>
+    </div>
+        <h1>Desafio del nivel 1</h1>
         <div class="user-info">
-            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+            <span class="icon" onclick="alert('Notificaciones');">🔔</span>
             <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
             <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <div class="user-info">
                 <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
                 <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+                <a class="logout-link" onclick="logout()">Cerrar sesión</a>
             </div>
-            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+             <!-- Perfil -->
+             <span class="icon" onclick="window.location.href='miespacio.html';">👤</span>
         </div>
     </header>
-    
 
     <script>
         // Cargar el nombre de usuario y correo desde localStorage
@@ -46,7 +47,7 @@
 
     <!-- Contenido Principal -->
     <div class="game-container">
-        <header>
+        
             <div class="challenge-header">
                 Desafío 1: Bingo de Ecuaciones Lineales
             </div>
@@ -57,7 +58,7 @@
                 <p>TIEMPO: <span id="timer">00:00</span></p>
                 <p>Puntos obtenidos: <span id="points">0</span></p>
             </div>
-        </header>
+       
 
         
 

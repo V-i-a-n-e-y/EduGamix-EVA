@@ -1,55 +1,84 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+/* Fondo general */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
+/* Encabezado */
 header {
-    background-color: #ffffff;
-    padding: 10px 20px;
-    border-bottom: 3px solid #fdd835;
-    display: flex;
-    justify-content: center;
-}
-
-.header-content {
-    max-width: 1200px;
+    position: fixed; /* Fija el encabezado en la parte superior */
+    top: 0;
     width: 100%;
+    background-color: #fff; /* Fondo blanco */
+    border-bottom: 2px solid #f1c40f; /* Línea amarilla decorativa */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); /* Sombras para resaltar */
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1000; /* Prioridad sobre otros elementos */
 }
 
+/* Logo y título */
 .logo {
-    font-weight: bold;
-    color: #333;
-    font-size: 1.2em;
-}
-
-h1 {
     font-size: 1.5em;
-    color: #666;
-}
-
-.icons {
+    font-weight: bold;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.icon {
-    font-size: 1.2em;
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: #ffffff; /* Texto en gris oscuro */
+    margin: 0;
+}
+
+/* Información del usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 0.9em;
+    color: #ffffff; /* Texto en gris */
+}
+
+.user-info i {
+    font-size: 1.5em;
+    color: #007bff; /* Icono azul */
+}
+
+.logout-link {
+    color: #007bff; /* Enlace azul */
+    text-decoration: none;
     cursor: pointer;
 }
 
-.user-info {
-    font-size: 0.9em;
-    color: #333;
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+/* Ajuste del resto del contenido para no solaparse con el encabezado */
+body {
+    padding-top: 50px; /* Espacio suficiente para que el contenido no quede detrás del encabezado */
+}
+
+/* Sombras y fondo translúcido para las áreas principales */
+.main-content {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 20px;
 }
 
 .logout {
@@ -131,20 +160,6 @@ html, body {
     background-color: #f9f0e9;
 }
 
-header {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-header h1, header h2 {
-    margin: 0.5rem 0;
-}
-
-.timer, .points, .attempts-info {
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
-}
 
 /* Contenedor de contenido del juego */
 .content {
@@ -440,7 +455,7 @@ button:hover {
 }
         margin: 0;
             font-family: Arial, sans-serif;
-        }
+    
 
         header {
             display: flex;
@@ -496,3 +511,23 @@ button:hover {
         .logout-link:hover {
             text-decoration: underline;
         }
+
+    
+
+    header {
+        background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .main-content {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        margin: 20px;
+    }
