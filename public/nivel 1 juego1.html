@@ -3,30 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGamix - Mi espacio</title>
+    <title>EduGamix</title>
     <link rel="stylesheet" href="nivel 1 juego1.css">
 </head>
 <body>
     <!-- Encabezado -->
     <header>
-        <div class="logo">EduGamix</div>
-    </div>
-        <h1>Desafio del nivel 1</h1>
+        <div class="logo">
+            <a href="quienes somos.html" target="_blank">
+                <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+            </a>
+        </div>
+        
+        <h1> Inicio</h1>
         <div class="user-info">
-            <span class="icon" onclick="alert('Notificaciones');">🔔</span>
+            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
             <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
             <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <div class="user-info">
                 <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
                 <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-                <a class="logout-link" onclick="logout()">Cerrar sesión</a>
+                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
             </div>
-             <!-- Perfil -->
-             <span class="icon" onclick="window.location.href='miespacio.html';">👤</span>
+            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
         </div>
     </header>
-
     <script>
+
         // Cargar el nombre de usuario y correo desde localStorage
         document.addEventListener("DOMContentLoaded", function() {
             const username = localStorage.getItem("username");
@@ -41,11 +44,8 @@
             }
         });
     </script>
-    
-         </div>
-        </header>
 
-    <!-- Contenido Principal -->
+        <!-- Contenido Principal -->
     <div class="game-container">
         
             <div class="challenge-header">
@@ -60,9 +60,7 @@
             </div>
        
 
-        
-
-        <!-- Avatar y diálogo -->
+                <!-- Avatar y diálogo -->
         <div id="avatar-container" class="avatar-container">
             <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
         </div>
@@ -96,14 +94,14 @@
         <!-- Intentos y botones -->
         <div class="attempts-info">
             <span id="attempts">Intentos restantes: 3</span>
-            <button onclick="verificarYMostrar()">Verificar</button>
+            <button onclick="feliBingo()">¡Bingo!</button> 
             <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
         </div>
 
         <!-- Botones adicionales -->
         <div class="buttons-container">
             <button class="icon-button" onclick="restartGame()">Comenzar</button>
-            <button class="icon-button" onclick="openSettings()">Configuración <i class="fas fa-cog"></i></button>
+            <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
         </div>
 
         <!-- Controles de audio -->
@@ -114,6 +112,17 @@
             <button class="audio-button" onclick="increaseVolume()"><i class="fas fa-volume-up"></i></button>
             <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
         </div>
+
+       <!-- Modal de Felicitación -->
+<div id="felicitacion-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+        <h2>¡Felicidades!</h2>
+        <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
+        <img src="img/gami.jpg" alt="Gami" class="avatar" />
+    </div>
+</div>
+
 
         <!-- Modal de retroalimentación -->
         <div id="feedback-modal" class="modal" style="display: none;">
@@ -132,7 +141,8 @@
                 </table>
                 <div class="avatar-feedback">
                     <img src="img/radicux.jpg" alt="Avatar" class="avatar">
-                    <p id="feedback-text">¡Fallaste! Suerte para la próxima</p>
+                    <p id="feedback-text">Estas fuerón tus respuestas</p>
+                    <button onclick="closeFeedback()">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -140,16 +150,14 @@
 
     <!-- Scripts -->
 
-
-
     <script src="nivel 1 juego1.js"></script>
     <script>
         let ecuaciones = [
-            { ecuacion: 'x + y = 2, 2x + y = 5', solucion: 'x = 3, y = -1', respuestaUsuario: '' },
-            { ecuacion: '2x + 4y = 0, x + 2y = 4', solucion: 'x = 2, y = -1', respuestaUsuario: '' },
-            { ecuacion: '3x + 2y = 11, 4x + 5y = 7', solucion: 'x = 3, y = 1', respuestaUsuario: '' },
-            { ecuacion: '2x + 3y = -1, 3x + 4y = 0', solucion: 'x = 4, y = -3', respuestaUsuario: '' },
-            { ecuacion: 'x + 2y = 5, 3x - 2y = 19', solucion: 'x = 7, y = 1', respuestaUsuario: '' },
+            { ecuacion: 'x + y = 2  2x + y = 5', solucion: 'x = 3 y = -1', respuestaUsuario: '' },
+            { ecuacion: '2x + 4y = 0  x + 2y = 4', solucion: 'x = 2 y = -1', respuestaUsuario: '' },
+            { ecuacion: '3x + 2y = 11  4x + 5y = 7', solucion: 'x = 3 y = 1', respuestaUsuario: '' },
+            { ecuacion: '2x + 3y = -1  3x + 4y = 0', solucion: 'x = 4 y = -3', respuestaUsuario: '' },
+            { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' },
 
         ];
 
@@ -159,11 +167,40 @@
             showFeedbackModal();
         }
 
-        // Lógica de checkBingo
         function checkBingo() {
-            console.log("Verificando bingo...");
-            // Aquí puedes agregar tu lógica de verificación
+    console.log("Verificando bingo...");
+
+   const solution = equationsHistory[currentEquationIndex].solucion; // Solución correcta de la ecuación actual
+    const userAnswer = selectedAnswers.join(", "); // Respuesta del usuario combinando casillas seleccionadas
+
+    // Guardar la respuesta del usuario en el historial de ecuaciones
+    equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
+
+    if (userAnswer === solution) {
+        // Incrementar puntos si la respuesta es correcta
+        totalPoints += pointsPerCorrectAnswer;
+        document.getElementById("points").textContent = totalPoints; // Actualizar los puntos en la pantalla
+        alert("¡Bingo! Has encontrado la solución correcta.");
+    } else {
+        // Reducir el número de intentos restantes
+        attempts--;
+        document.getElementById("attempts").textContent = `Intentos restantes: ${attempts}`;
+
+        if (attempts > 0) {
+            alert("Respuesta incorrecta. Sigue intentando.");
+        } else {
+            // Si no quedan intentos, bloquear el juego y mostrar retroalimentación
+            lockGame();
+            setTimeout(showFeedback, 1000); // Mostrar retroalimentación después de 1 segundo
         }
+    }
+
+    // Limpiar respuestas seleccionadas
+    selectedAnswers = [];
+    const cells = document.querySelectorAll(".cell.selected");
+    cells.forEach(cell => cell.classList.remove("selected"));
+}
+
 
         // Función para registrar la respuesta del usuario
         function registrarRespuesta(ecuacionIndex, respuesta) {
@@ -246,6 +283,8 @@
 
             window.speechSynthesis.speak(speech);
         }
+    
     </script>
+    
 </body>
 </html>

@@ -29,6 +29,22 @@
         </div>
     </header>
 
+    <script>
+        // Cargar el nombre de usuario y correo desde localStorage
+        document.addEventListener("DOMContentLoaded", function() {
+            const username = localStorage.getItem("username");
+            const useremail = localStorage.getItem("useremail");
+            
+            if (username) {
+                document.getElementById("username").textContent = username;
+            }
+    
+            if (useremail) {
+                document.getElementById("useremail").textContent = useremail;
+            }
+        });
+    </script>
+
     <!-- Contenido principal -->
     <main class="main-container">
         <!-- Evaluación -->

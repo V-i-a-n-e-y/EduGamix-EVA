@@ -127,57 +127,6 @@ h1 {
     }
 }
 
-/* Avatar */
-#avatar-container-xilo, #avatar-container-gami {
-    position: fixed;
-    bottom: 20px;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    z-index: 10;
-}
-
-.avatar {
-    max-width: 200px;
-    height: auto;
-    cursor: pointer;
-}
-
-.avatar-container-xilo {
-    left: 20px;
-}
-
-.avatar-container-gami {
-    right: 20px;
-}
-
-/* Dialogo del avatar */
-.avatar-dialog {
-    position: fixed;
-    bottom: 140px;
-    width: 300px;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    display: none;
-    z-index: 10;
-}
-
-.avatar-dialog .dialog-content {
-    text-align: left;
-    font-size: 1.2em;
-    line-height: 1.5;
-}
-
-.avatar-dialog .close {
-    cursor: pointer;
-    font-size: 1.5em;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-}
-
 /* Modales */
 .modal {
     display: none; 
@@ -213,31 +162,6 @@ h1 {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
-  /* Posición del avatar de Xilo */
-  #avatar-container-xilo {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 100px;
-    height: 100px;
-}
-
-#avatar-container-xilo img {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
-}
-
-.avatar-dialog {
-    position: fixed;
-    bottom: 140px;
-    right: 20px;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -284,3 +208,196 @@ h1 {
     .road-point p {
         color: #555;
     }
+
+
+
+/* Avatar de Xilo */
+#avatar-container-xilo {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+}
+
+.avatar-xilo {
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Avatar de Gami */
+#avatar-container-gami {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.avatar-gami {
+    width: 120px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Cuadro de diálogo */
+.avatar-dialog {
+    position: fixed;
+    bottom: 140px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 10;
+    width: 300px;
+}
+
+#dialogo-xilo {
+    left: 20px;
+}
+
+#dialogo-gami {
+    right: 20px;
+}
+
+.dialog-content {
+    text-align: left;
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+.close {
+    cursor: pointer;
+    font-size: 1.5em;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #333;
+}
+
+.close:hover {
+    color: #f1c40f;
+}
+/* Estilo base para el modal */
+.modal {
+    display: none; /* Oculta el modal por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+}
+
+/* Contenido del modal */
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto; /* Centra vertical y horizontalmente */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón de cerrar */
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover,
+.close-modal:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Estilo general de los modales */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 1000; /* Por encima de otros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Altura completa */
+    overflow: auto; /* Scroll si el contenido es demasiado grande */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo semitransparente */
+}
+
+/* Contenedor del contenido del modal */
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 10% auto; /* Centrarse verticalmente */
+    padding: 20px;
+    border-radius: 8px;
+    width: 60%; /* Ancho del modal */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animación para que el modal aparezca suavemente */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Botón de cierre del modal */
+.close-modal {
+    color: #aaa;
+    font-size: 24px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+/* Título del modal */
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+}
+
+/* Texto del modal */
+.modal-content p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Estilo del botón dentro del modal */
+.modal-content button {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #45a049; /* Más oscuro al pasar el ratón */
+}
+

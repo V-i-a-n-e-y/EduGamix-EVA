@@ -57,6 +57,16 @@ h1 {
     cursor: pointer;
 }
 
+.logout-link {
+    color: #007bff; /* Enlace azul */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
 
 .main-container {
     display: grid;

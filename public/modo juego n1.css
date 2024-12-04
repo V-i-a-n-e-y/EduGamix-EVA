@@ -47,6 +47,18 @@ h1 {
     cursor: pointer;
 }
 
+.logout-link {
+    margin-left: 10px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+
 /* Contenedor principal */
 .main-container {
     display: flex;
@@ -64,12 +76,14 @@ h1 {
 
 /* Estilo del contenido */
 .content {
-    flex-grow: 3;
-    background: white;
-    margin: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  
+
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    height: 70vh; /* Aumentamos el espacio para elevar los puntos */
 }
+
 
 /* Botones generales */
 button {
@@ -206,24 +220,3 @@ button:hover {
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     }
 
-    .main-content {
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-        margin: 20px;
-    }
-
-    .progress-road {
-        margin: 20px 0;
-    }
-
-    .road {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .road-point p {
-        color: #555;
-    }

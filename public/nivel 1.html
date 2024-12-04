@@ -29,19 +29,19 @@
     </header>
 
     <div class="content">
-        <p>"Pon a prueba tus habilidades y busca el camino hacia la victoria, resolviendo problemas matemáticos en nuestro emocionante Bingo de Álgebra Lineal. Encuentra la combinación correcta de vectores y sé el primero en oprimir ¡Bingo! para ganar."</p>
-        <p>Selecciona el modo de juego.</p>
-        <p>Instrucciones: Gami será tu guía durante los niveles del juego, él narrará las actividades.</p> 
-        <p>1. Escucha a Xilo: Quien leerá un sistema de ecuaciones lineales.</p>
-        <p>2. Resuelve el sistema: Debes resolver el sistema de ecuaciones para encontrar los valores de 𝑥 y 𝑦.</p>      
-        <p>3. Marca tu tarjeta: Si la solución que obtuviste está en tu tarjeta de bingo, marca esa casilla.</p>
-        <p>4. Desafíos de Radicux: De vez en cuando, Gami leerá un "Desafío de Radicux", que es un sistema de ecuaciones más complicado.</p>
-        <p>5. Selecciona el botón de "Bingo": El primer jugador en completar una línea de 3 casillas en cualquier dirección (horizontal, vertical o diagonal) debe apretar el botón "Bingo". Gami verificará las soluciones marcadas para confirmar el ganador.</p>
-        <p>Reglas Adicionales:</p>
-        <p>Confirmación de Bingo: Cuando el jugador oprime "Bingo", Gami revisará las soluciones marcadas para asegurar que todas son correctas. Si alguna solución es incorrecta, el juego continúa. ¡Si fallas Radicux se burlará, no lo dejes!</p>
-        <p>Ayuda: Si necesitas ayuda para resolver un sistema, puedes pedir una pista a Xilo, pero no se te dará la solución completa.</p>
-        <button onclick="window.location.href='modo juego n1.html'">Siguiente</button>
-        <button onclick="window.location.href='inicio.html'">Regresar a Inicio</button>
+        <p id="texto1">Pon a prueba tus habilidades y busca el camino hacia la victoria, resolviendo problemas matemáticos en nuestro emocionante Bingo de Álgebra Lineal. Encuentra la combinación correcta de vectores y sé el primero en oprimir ¡Bingo! para ganar.</p>
+        <p id="texto2">Selecciona el modo de juego.</p>
+        <p id="texto3">Instrucciones: Gami será tu guía durante los niveles del juego, él narrará las actividades.</p> 
+        <p id="texto4">1. Escucha a Xilo: Quien leerá un sistema de ecuaciones lineales.</p>
+        <p id="texto5">2. Resuelve el sistema: Debes resolver el sistema de ecuaciones para encontrar los valores de 𝑥 y 𝑦.</p>      
+        <p id="texto6">3. Marca tu tarjeta: Si la solución que obtuviste está en tu tarjeta de bingo, marca esa casilla.</p>
+        <p id="texto7">4. Desafíos de Radicux: De vez en cuando, Gami leerá un "Desafío de Radicux", que es un sistema de ecuaciones más complicado.</p>
+        <p id="texto8">5. Selecciona el botón de "Bingo": El primer jugador en completar una línea de 3 casillas en cualquier dirección (horizontal, vertical o diagonal) debe apretar el botón "Bingo". Gami verificará las soluciones marcadas para confirmar el ganador.</p>
+        <p id="texto9">Reglas Adicionales:</p>
+        <p id="texto10">Confirmación de Bingo: Cuando el jugador oprime "Bingo", Gami revisará las soluciones marcadas para asegurar que todas son correctas. Si alguna solución es incorrecta, el juego continúa. ¡Si fallas Radicux se burlará, no lo dejes!</p>
+        <p id="texto11">Ayuda: Si necesitas ayuda para resolver un sistema, puedes pedir una pista a Xilo, pero no se te dará la solución completa.</p>
+        <button onclick="window.location.href='modo juego n1.html'; detenerNarracion();">Siguiente</button>
+        <button onclick="window.location.href='inicio.html'; detenerNarracion();">Regresar a Inicio</button>
     </div>
 
     <div class="main-container">
@@ -50,41 +50,57 @@
         </div>
 
         <div class="controls">
-            <button id="repeatButton" onclick="repetirNarracion()">Repetir</button>
+            <button id="repeatButton" onclick="leerContenido()">Repetir</button>
             <button id="muteButton" onclick="toggleMute()">Silenciar</button>
-     
-           
         </div>
     </div>
 
     <script>
-        // Función para que Gami lea el texto
-        function leerContenido() {
-            const texto = `
-                Pon a prueba tus habilidades y busca el camino hacia la victoria, resolviendo problemas matemáticos en nuestro emocionante Bingo de Álgebra Lineal. 
-                Encuentra la combinación correcta de vectores y sé el primero en oprimir ¡Bingo! para ganar.
-                Selecciona el modo de juego.
-                Instrucciones: Gami será tu guía durante los niveles del juego, él narrará las actividades.
-                1. Escucha a Xilo: Quien leerá un sistema de ecuaciones lineales.
-                2. Resuelve el sistema: Debes resolver el sistema de ecuaciones para encontrar los valores de 𝑥 y 𝑦.
-                3. Marca tu tarjeta: Si la solución que obtuviste está en tu tarjeta de bingo, marca esa casilla.
-                4. Desafíos de Radicux: De vez en cuando, Gami leerá un "Desafío de Radicux", que es un sistema de ecuaciones más complicado.
-                5. Selecciona el botón de "Bingo": El primer jugador en completar una línea de 3 casillas en cualquier dirección (horizontal, vertical o diagonal) debe apretar el botón "Bingo". Gami verificará las soluciones marcadas para confirmar el ganador.
-                Reglas Adicionales:
-                Confirmación de Bingo: Cuando el jugador oprime "Bingo", Gami revisará las soluciones marcadas para asegurar que todas son correctas. Si alguna solución es incorrecta, el juego continúa. ¡Si fallas Radicux se burlará, no lo dejes!
-                Ayuda: Si necesitas ayuda para resolver un sistema, puedes pedir una pista a Xilo, pero no se te dará la solución completa.
-            `;
-            const speech = new SpeechSynthesisUtterance(texto);
-            speech.lang = "es-ES"; // Establecer el idioma a español
-            window.speechSynthesis.speak(speech);
+        let isMuted = false;
+        let currentSpeech = null;
+
+        // Detener narración
+        function detenerNarracion() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
         }
 
-        // Ejecutar la función de lectura cuando la página cargue
-        document.addEventListener("DOMContentLoaded", function() {
-            leerContenido();
-        });
+        // Leer contenido con narración
+        function leerContenido() {
+            detenerNarracion(); // Asegurar que no haya narración activa
+            const textos = document.querySelectorAll(".content p");
+            textos.forEach((parrafo, index) => {
+                setTimeout(() => {
+                    narrarTexto(parrafo.innerText);
+                }, index * 5000); // Retraso ajustado para cada párrafo
+            });
+        }
+
+        // Narrar texto
+        function narrarTexto(texto) {
+            if (isMuted) return;
+            currentSpeech = new SpeechSynthesisUtterance(texto);
+            currentSpeech.lang = "es-ES";
+            currentSpeech.rate = 1;
+            currentSpeech.onend = () => console.log("Narración terminada.");
+            window.speechSynthesis.speak(currentSpeech);
+        }
+
+        // Alternar silencio
+        function toggleMute() {
+            isMuted = !isMuted;
+            detenerNarracion();
+            document.getElementById("muteButton").innerText = isMuted ? "Activar Sonido" : "Silenciar";
+        }
+
+        // Detener narración al salir de la página
+        window.addEventListener('beforeunload', detenerNarracion);
+
+        // Iniciar lectura al cargar
+        document.addEventListener("DOMContentLoaded", leerContenido);
     </script>
 
-    <script src="nivel 1.js"></script> <!-- Script para funciones de audio y animación -->
+    <script src="nivel 1.js"></script>
 </body>
 </html>

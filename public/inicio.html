@@ -109,71 +109,33 @@
         <button onclick="window.location.href='nivel 5.html'">Ir a Nivel 5</button>
     </div>
 </div>
-<!-- Avatar de Xilo -->
-<div id="avatar-container-xilo">
-    <img src="img/xilo-avatar.jpg" alt="Avatar Xilo" class="avatar" onclick="openAvatarDialog('xilo')">
+
+
+ <!-- Avatar de Xilo -->
+ <div id="avatar-container-xilo">
+    <img src="img/xilo-avatar.jpg" alt="Xilo" class="avatar" 
+        onclick="narrarConAnimacion('texto-xilo', 'Soy Xilo, tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos.', 'xilo')">
 </div>
 
-<!-- Diálogo de Xilo -->
-<div id="avatar-dialog-xilo" class="avatar-dialog" style="display: none;">
-    <div class="dialog-content">
-        <span class="close" onclick="closeAvatarDialog('xilo')">&times;</span>
-        <p id="avatar-text-xilo">¡Hola! Soy Xilo, tu asistente de juego. Estos son los desafios que tenemos para ti</p>
-    </div>
+<!-- Avatar de Gami -->
+<div id="avatar-container-gami">
+    <img src="img/gami.jpg" alt="Gami" class="avatar-gami" 
+        onclick="narrarConAnimacion('texto-gami', 'Soy Gami, el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos.', 'gami')">
+</div>
+
+<!-- Cuadro de diálogo de Xilo -->
+<div id="dialogo-xilo" class="avatar-dialog">
+    <span class="close" onclick="cerrarDialogo('dialogo-xilo')">&times;</span>
+    <div class="dialog-content" id="texto-xilo"></div>
+</div>
+
+<!-- Cuadro de diálogo de Gami -->
+<div id="dialogo-gami" class="avatar-dialog">
+    <span class="close" onclick="cerrarDialogo('dialogo-gami')">&times;</span>
+    <div class="dialog-content" id="texto-gami"></div>
 </div>
 
 
-<script>
-    function openModal(modalId) {
-        document.getElementById(modalId).style.display = 'block';
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
-    // Función para abrir y mostrar el diálogo del avatar
-    function openAvatarDialog(avatar) {
-        if (avatar === 'xilo') {
-            document.getElementById('avatar-dialog-xilo').style.display = 'block';
-            typeText('xilo');
-        }
-    }
-
-    function closeAvatarDialog(avatar) {
-        if (avatar === 'xilo') {
-            document.getElementById('avatar-dialog-xilo').style.display = 'none';
-        }
-    }
-
-    // Función para escribir texto progresivamente y sincronizar con la voz
-    function typeText(avatar) {
-        const textElement = document.getElementById('avatar-text-xilo');
-        const text = textElement.innerText; // Obtener el texto original
-        const words = text.split(' '); // Dividir el texto en palabras
-        textElement.innerHTML = ''; // Limpiar el contenido inicial
-
-        let i = 0;
-
-        function speakWord(word) {
-            return new Promise((resolve) => {
-                const utterance = new SpeechSynthesisUtterance(word);
-                utterance.lang = 'es-ES'; // Configurar idioma a español
-                utterance.rate = 2.2; // Ajustar velocidad de lectura
-                utterance.onend = resolve; // Resolver la promesa al terminar de leer la palabra
-                window.speechSynthesis.speak(utterance);
-            });
-        }
-
-        async function displayText() {
-            for (let word of words) {
-                textElement.innerHTML += word + ' '; // Mostrar palabra en pantalla
-                await speakWord(word); // Esperar a que la palabra se lea antes de mostrar la siguiente
-            }
-        }
-
-        displayText(); // Iniciar el efecto y la sincronización
-    }
-    
-</script>
+<script src="inicio.js"></script>
 </body>
 </html>

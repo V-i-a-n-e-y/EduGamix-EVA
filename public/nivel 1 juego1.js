@@ -1,31 +1,31 @@
-let attempts = 3;
-let selectedAnswers = [];
+let attempts = 1; // Limitar a un solo intento
+let selectedAnswers = [];  // Lista para almacenar las respuestas de las ecuaciones
 let timerInterval;
 let equationsHistory = [
-    { ecuacion: 'x + y = 2, 2x + y = 5', solucion: 'x = 3, y = -1', respuestaUsuario: '' },
-    { ecuacion: '2x + 4y = 0, x + 2y = 4', solucion: 'x = 2, y = -1', respuestaUsuario: '' },
-    { ecuacion: '3x + 2y = 11, 4x + 5y = 7', solucion: 'x = 3, y = 1', respuestaUsuario: '' },
-    { ecuacion: '2x + 3y = -1, 3x + 4y = 0', solucion: 'x = 4, y = -3', respuestaUsuario: '' },
-    { ecuacion: 'x + 2y = 5, 3x - 2y = 19', solucion: 'x = 7, y = 1', respuestaUsuario: '' }
-].slice(0, 5);
+    { ecuacion: 'x + y = 2, 2x + y = 5', solucion: 'x = 3 y = -1', respuestaUsuario: '', casillaSeleccionada: '' },
+    { ecuacion: '2x + 4y = 0, x + 2y = 4', solucion: 'x = 2 y = -1', respuestaUsuario: '', casillaSeleccionada: '' },
+    { ecuacion: '3x + 2y = 11, 4x + 5y = 7', solucion: 'x = 3 y = 1', respuestaUsuario: '', casillaSeleccionada: '' },
+    { ecuacion: '2x + 3y = -1, 3x + 4y = 0', solucion: 'x = 4 y = -3', respuestaUsuario: '', casillaSeleccionada: '' },
+    { ecuacion: 'x + 2y = 5, 3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '', casillaSeleccionada: '' }
+].slice(0, 5); // Limitar el array a 5 ecuaciones
 
-let currentEquationIndex = 5;
-const maxEquations = 5; // Limitar a 5 ecuaciones
+let currentEquationIndex = 0;
+const maxEquations = 5; // Máximo de ecuaciones permitido
 const pointsPerCorrectAnswer = 200; // Puntos por respuesta correcta
-let totalPoints = 0; // Variable para almacenar los puntos totales
+let totalPoints = 0;
 
 // Función para generar una respuesta aleatoria
 function getRandomSolution() {
     const randomSolutions = [
-        'x= 1, y= 1',
-        'x= 3, y= 1',
-        'x= 5, y= -4',
-        'x= 0, y= 0',
-        'x= -1, y= 2',
-        'x= 4, y= -3',
-        'x= 2, y= -1',
-        'x= 3, y= -1',
-        'x= 7, y= 1'
+        'x= 1 y= 1',
+        'x= 3 y= 1',
+        'x= 5 y= -4',
+        'x= 0 y= 0',
+        'x= -1 y= 2',
+        'x= 4 y= -3',
+        'x= 2 y= -1',
+        'x= 3 y= -1',
+        'x= 7 y= 1'
     ];
     const randomIndex = Math.floor(Math.random() * randomSolutions.length);
     return randomSolutions[randomIndex];
@@ -33,9 +33,9 @@ function getRandomSolution() {
 
 // Función para mezclar el orden de las respuestas en el tablero
 function shuffleArray(array) {
-    for (let i = array.length - 5; i > 0; i--) {
+    for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]]; // Intercambiar elementos
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
@@ -63,20 +63,16 @@ function renderBingoBoard() {
     board.innerHTML = "";
 
     const bingoValues = generateBingoValues();
-    shuffleArray(bingoValues); // Mezclar las respuestas para el tablero
+    shuffleArray(bingoValues);
     bingoValues.forEach(value => {
         const cell = document.createElement("div");
         cell.className = "cell";
         cell.textContent = value;
         cell.onclick = () => {
-            if (cell.classList.contains("selected")) {
-                cell.classList.remove("selected");
-                selectedAnswers = selectedAnswers.filter(answer => answer !== value);
-            } else if (selectedAnswers.length < 5) { // Cambiar a máximo 1 selección
+            // Si ya se ha seleccionado una respuesta para esta ecuación, no se puede cambiar
+            if (selectedAnswers[currentEquationIndex] === undefined) { // Solo permitir selección si no hay respuesta
                 cell.classList.add("selected");
-                selectedAnswers.push(value);
-            } else {
-                alert("Solo puedes seleccionar 5 casilla.");
+                selectedAnswers[currentEquationIndex] = value;  // Almacenar la respuesta para la ecuación actual
             }
         };
         board.appendChild(cell);
@@ -87,7 +83,7 @@ function renderBingoBoard() {
 function generateBingoValues() {
     const values = [];
 
-    while (values.length < 9) { // Genera solo 9 valores
+    while (values.length < 9) {
         const randomSolution = getRandomSolution();
         if (!values.includes(randomSolution)) {
             values.push(randomSolution);
@@ -99,20 +95,35 @@ function generateBingoValues() {
 
 // Cambiar al siguiente sistema de ecuaciones
 function nextEquation() {
-    if (currentEquationIndex < equationsHistory.length - 5) {
-        currentEquationIndex++;
-    } else {
-        alert("Se ha alcanzado el número máximo de ecuaciones.");
-    }
+    if (selectedAnswers[currentEquationIndex]) {  // Solo avanzar si hay una respuesta seleccionada
+        // Guardar la respuesta seleccionada para la ecuación actual
+        equationsHistory[currentEquationIndex].respuestaUsuario = selectedAnswers[currentEquationIndex];
+        equationsHistory[currentEquationIndex].casillaSeleccionada = selectedAnswers[currentEquationIndex];
 
-    updateEquation();
+        if (currentEquationIndex < maxEquations - 1) {
+            currentEquationIndex++;
+            updateEquation();
+        } else {
+            alert("Se ha alcanzado el número máximo de ecuaciones.");
+        }
+    } else {
+        alert("Por favor, selecciona una respuesta para la ecuación actual.");
+    }
 }
 
 // Cambiar al sistema de ecuaciones anterior
 function prevEquation() {
-    if (currentEquationIndex > 0) {
-        currentEquationIndex--;
-        updateEquation();
+    if (selectedAnswers[currentEquationIndex]) {  // Solo permitir retroceder si hay una respuesta seleccionada
+        // Guardar la respuesta seleccionada para la ecuación actual
+        equationsHistory[currentEquationIndex].respuestaUsuario = selectedAnswers[currentEquationIndex];
+        equationsHistory[currentEquationIndex].casillaSeleccionada = selectedAnswers[currentEquationIndex];
+
+        if (currentEquationIndex > 0) {
+            currentEquationIndex--;
+            updateEquation();
+        }
+    } else {
+        alert("Por favor, selecciona una respuesta para la ecuación actual.");
     }
 }
 
@@ -121,32 +132,37 @@ function updateEquation() {
     const equation = equationsHistory[currentEquationIndex];
     if (equation) {
         document.getElementById("equation").textContent = `Ecuación ${currentEquationIndex + 1}: ${equation.ecuacion}`;
+        // Mostrar la respuesta seleccionada para la ecuación actual
+        const selectedCell = equation.casillaSeleccionada || "N/A"; // Si no tiene respuesta, poner "N/A"
+        document.getElementById("selected-answer").textContent = `Respuesta seleccionada: ${selectedCell}`;
     }
 }
 
 // Función para verificar si se ha encontrado el bingo
 function checkBingo() {
-    const solution = equationsHistory[currentEquationIndex].solucion;
-    const userAnswer = selectedAnswers.join(", "); // Combinar respuestas seleccionadas
+    console.log("Verificando bingo...");
 
-    // Guardar la respuesta del usuario en el historial de ecuaciones
-    equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
+    // Suponiendo que se usan las ecuaciones actuales directamente
+    const currentEquation = ecuaciones[currentEquationIndex];
+    const solution = currentEquation.solucion;
+    const userAnswer = selectedAnswers.join(", ");
+
+    // Guardar la respuesta del usuario
+    currentEquation.respuestaUsuario = userAnswer;
 
     if (userAnswer === solution) {
-        // Sumar puntos al total
         totalPoints += pointsPerCorrectAnswer;
-        document.getElementById("points").textContent = totalPoints; // Actualizar puntos en el DOM
+        document.getElementById("points").textContent = totalPoints;
         alert("¡Bingo! Has encontrado la solución correcta.");
     } else {
         attempts--;
         document.getElementById("attempts").textContent = `Intentos restantes: ${attempts}`;
-
-        // Verificar si se han agotado los intentos
+        
         if (attempts > 0) {
             alert("Respuesta incorrecta. Sigue intentando.");
         } else {
-            lockGame(); // Bloquea el juego
-            setTimeout(showFeedback, 1000); // Mostrar retroalimentación después de 1 segundo
+            lockGame();
+            setTimeout(showFeedback, 1000);
         }
     }
 
@@ -156,13 +172,16 @@ function checkBingo() {
     cells.forEach(cell => cell.classList.remove("selected"));
 }
 
-// Función para mostrar retroalimentación en tabla
+
+// Mostrar retroalimentación
 function showFeedback() {
     const feedbackTable = document.querySelector("#feedback tbody");
-    feedbackTable.innerHTML = ""; // Limpiar la tabla
+    feedbackTable.innerHTML = "";  // Limpiar tabla antes de agregar nuevas filas
 
     equationsHistory.forEach((equation, index) => {
-        const userAnswer = equation.respuestaUsuario || "N/A"; // Mostrar la respuesta del usuario guardada en la ecuación
+        const userAnswer = equation.respuestaUsuario || "N/A"; // Mostrar respuesta seleccionada o "N/A" si no se seleccionó nada
+        const casillaSeleccionada = equation.casillaSeleccionada || "N/A"; // Mostrar casilla seleccionada
+
         const row = `
             <tr>
                 <td>${equation.ecuacion}</td>
@@ -170,33 +189,52 @@ function showFeedback() {
                 <td>${userAnswer}</td>
             </tr>
         `;
-        feedbackTable.innerHTML += row;
+        feedbackTable.innerHTML += row;  // Agregar nueva fila a la tabla de retroalimentación
     });
 
     document.getElementById("feedback-modal").style.display = "block"; // Mostrar el modal de retroalimentación
 }
 
-// Función para cerrar la ventana de retroalimentación
+// Cerrar ventana de retroalimentación
 function closeFeedback() {
     document.getElementById("feedback-modal").style.display = "none";
 }
 
+function feliBingo() {
+    const cells = document.querySelectorAll('.cell.selected');
+    if (cells.length >= 3) { // Suponiendo que se necesitan al menos 3 casillas seleccionadas
+        mostrarFelicitacion();
+    } else {
+        alert("¡Aún no has completado el Bingo! Sigue intentando.");
+    }
+}
+
+function mostrarFelicitacion() {
+    const modal = document.getElementById("felicitacion-modal");
+    modal.style.display = "flex"; // Asegura que el modal sea visible
+}
+
+function cerrarFelicitacion() {
+    const modal = document.getElementById("felicitacion-modal");
+    modal.style.display = "none"; // Oculta el modal
+}
+
+ 
 // Reiniciar el juego
 function restartGame() {
-    attempts = 3;
+    attempts = 1;
     selectedAnswers = [];
-    equationsHistory.forEach(equation => equation.respuestaUsuario = ''); // Resetear las respuestas
-    currentEquationIndex = -1;
+    equationsHistory.forEach(equation => equation.respuestaUsuario = '', equation.casillaSeleccionada = '');
+    currentEquationIndex = 0;
     totalPoints = 0;
 
     clearInterval(timerInterval);
-    document.getElementById("timer").textContent = "00:00";    
-
-    document.getElementById("points").textContent = "0"; 
-    document.getElementById("attempts").textContent = "Intentos restantes: 3";
+    document.getElementById("timer").textContent = "00:00";
+    document.getElementById("points").textContent = "0";
+    document.getElementById("attempts").textContent = "Intentos restantes: 1";
     document.getElementById("feedback-modal").style.display = "none";
 
     renderBingoBoard();
     startTimer();
-    nextEquation();
+    updateEquation();
 }
