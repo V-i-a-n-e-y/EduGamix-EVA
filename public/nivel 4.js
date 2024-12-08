@@ -19,8 +19,9 @@ function leerContenido() {
            Participa Activamente: No dejes pasar mucho tiempo, por cada error te quitara tiempo Radicux. 
            Pide Ayuda si la Necesitas: No dudes en pedir una pista a “Xilo” si la necesitas.
 
-`;
-            detenerNarracion(); // Detener cualquier narración en curso antes de empezar
+ `;
+
+    detenerNarracion(); // Detener cualquier narración en curso antes de empezar
 
     // Crear una nueva instancia de SpeechSynthesisUtterance para la narración
     speech = new SpeechSynthesisUtterance(texto);

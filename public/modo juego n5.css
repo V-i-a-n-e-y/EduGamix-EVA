@@ -1,0 +1,222 @@
+/* Fondo general */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-image: url('img/fond0.jpg'); /* Ruta a la imagen de fondo */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Encabezado */
+header {
+    background-color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    width: 150px;
+    height: auto;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: rgb(255, 255, 255);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info .icon {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.logout-link {
+    margin-left: 10px;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+}
+
+/* Estilo del avatar */
+.avatar {
+    flex-grow: 1;
+    margin: 10px;
+    text-align: center;
+}
+
+/* Estilo del contenido */
+.content {
+  
+
+    display: flex;
+    justify-content: center; /* Centrado horizontal */
+    align-items: center; /* Centrado vertical */
+    height: 70vh; /* Aumentamos el espacio para elevar los puntos */
+}
+
+
+/* Botones generales */
+button {
+    padding: 10px 20px;
+    background-color: #d76a1c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #b85a10;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Estilo para mostrar el nombre y correo */
+.user-section {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #131313;
+    margin: 10px 0;
+}
+
+.user-section span {
+    margin: 0 5px;
+}
+
+/* Estilos para el encabezado */
+header {
+    background-color: #fff;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f1c40f;
+}
+
+/* Estilo para el logo en el header */
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Estilo para los títulos */
+h1 {
+    font-size: 1.5em;
+    color: #fffefe;
+}
+
+/* Estilos para la sección de usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1em;
+    color: #fffafa;
+}
+
+.logout-link {
+    font-size: 1em;
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-link:hover {
+    text-decoration: underline;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f0e9;
+}
+header {
+    background-color: #fefefe;
+    color: #040404;
+    padding: 10px 20px;
+    text-align: center;
+}
+.user-section {
+    margin-top: 10px;
+    font-size: 16px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+button {
+    padding: 15px 30px;
+    margin: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #d76a1b;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+button:hover {
+    background-color: #d76a1c;
+}
+
+
+    @keyframes gradientBackground {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+
+    header {
+        background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+

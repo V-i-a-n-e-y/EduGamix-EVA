@@ -17,7 +17,7 @@ function leerContenido() {
     Reglas Adicionales:
      erifica tu Trabajo: Asegúrate de que tus coordenadas sean correctas antes de gráficar.
     Pide Ayuda si la Necesitas: No dudes en pedir una pista a “Xilo” si te quedas atascado.
-     `;
+    `;
 
     detenerNarracion(); // Detener cualquier narración en curso antes de empezar
 

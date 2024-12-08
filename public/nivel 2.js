@@ -8,7 +8,7 @@ let volumeSlider = document.getElementById('volumeSlider');
 // Función para iniciar la narración
 function leerContenido() {
     const texto = `
-        Bienvenid@ al emocionante juego de Explorando Soluciones Lineales, en donde tendrás clasificar los sistemas de ecuaciones lineales . 
+        Bienvenido al emocionante juego de Explorando Soluciones Lineales, en donde tendrás clasificar los sistemas de ecuaciones lineales . 
         Sigue las instrucciones para jugar y divertirte mientras refuerzas tus conocimientos para resolver la clasificación y tipos de sistemas de ecuaciones lineales, ¡Éxito!.
         Instrucciones: Gami será tu guía durante los niveles del juego, el narrará las actividades.
         Selecciona el modo de juego.

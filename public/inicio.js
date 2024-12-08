@@ -1,8 +1,8 @@
 // Selección de elementos del DOM
 const xiloAvatar = document.getElementById('avatar-container-xilo');
 const gamiAvatar = document.getElementById('avatar-container-gami');
-const dialogoXilo = document.getElementById('dialogo-xilo');
-const dialogoGami = document.getElementById('dialogo-gami');
+//const dialogoXilo = document.getElementById('dialogo-xilo');
+//const dialogoGami = document.getElementById('dialogo-gami');
 const closeButtons = document.querySelectorAll('.close');
 
 // Función para mostrar un cuadro de diálogo
