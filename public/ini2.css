@@ -280,7 +280,7 @@ body {
         border-radius: 10px;
         box-shadow: 0px 
     }
-    /* Consultas de medios para hacer el sitio responsive */
+    /* Consultas de medios para hacer el sitio responsive el sitio*/
 @media (max-width: 768px) {
     header {
         flex-direction: column;
@@ -398,4 +398,5 @@ header {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     margin: 20px;
+
 }
