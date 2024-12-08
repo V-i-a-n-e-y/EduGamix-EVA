@@ -10,7 +10,7 @@
     <!-- Encabezado -->
     <header>
         <div class="logo">
-            <a href="quienes somos.html" target="_blank">
+            <a href="index.html" target="_blank">
                 <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
             </a>
         </div>
@@ -94,9 +94,11 @@
         <!-- Intentos y botones -->
         <div class="attempts-info">
             <span id="attempts">Intentos restantes: 3</span>
-            <button onclick="feliBingo()">¡Bingo!</button> 
+            <button onclick="feliBingo(); reproducirSonidoTrompetas()">¡Bingo!</button>
+
             <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
         </div>
+
 
         <!-- Botones adicionales -->
         <div class="buttons-container">
@@ -113,15 +115,16 @@
             <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
         </div>
 
-       <!-- Modal de Felicitación -->
-<div id="felicitacion-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-        <h2>¡Felicidades!</h2>
-        <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
-        <img src="img/gami.jpg" alt="Gami" class="avatar" />
-    </div>
-</div>
+
+        <!-- Modal de Felicitación -->
+        <div id="felicitacion-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+                <h2>🎉 ¡Felicidades! 🎉</h2>
+                <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
+                <img src="img/gami.jpg" alt="Gami" class="avatar" />
+            </div>
+        </div>
 
 
         <!-- Modal de retroalimentación -->

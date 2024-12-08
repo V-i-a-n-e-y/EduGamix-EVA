@@ -92,7 +92,7 @@ function narrarConAnimacion(idTexto, texto, avatar) {
     if ('speechSynthesis' in window) {
         const narrador = new SpeechSynthesisUtterance(texto);
         narrador.lang = "es-ES";
-        narrador.rate = 1;
+        narrador.rate = 2;
         narrador.onend = () => console.log("Narración terminada.");
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(narrador);

@@ -40,3 +40,40 @@ header {
     width: 150px;
     height: auto;
 }
+ body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        #personajes {
+            text-align: center;
+            margin: 50px auto;
+            max-width: 1000px;
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .personaje-container {
+            text-align: center;
+            max-width: 250px;
+            margin: 20px;
+            display: inline-block;
+        }
+        .personaje-img {
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .personaje-img:hover {
+            transform: scale(1.1);
+        }
+        h3 {
+            color: #5a2cd6;
+        }
+        .clic-indicador {
+            font-size: 0.9em;
+            color: #555;
+        }

@@ -304,8 +304,8 @@ button:hover {
 /* Estilos del avatar en la esquina inferior derecha */
 .avatar-container {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 10px;
+    right: 200px;
     cursor: pointer;
 }
 

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix - Álgebra Lineal</title>
+    <link rel="stylesheet" href="style inicio.css">
+</head>
+<body>
+    <!-- Encabezado -->
+    <div img src="img/logo.jpg">EduGamix</div>
+    <h1>Social y Progreso</h1>
+    <div class="user-info">
+        <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+        <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+        <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+        <div class="user-info">
+            <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+            <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+            <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+        </div>
+        <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+    </div>
+</header>
+
+
+    <script>
+    // Cargar el nombre de usuario y correo desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+        const useremail = localStorage.getItem("useremail");
+        
+        if (username) {
+            document.getElementById("username").textContent = username;
+        }
+
+        if (useremail) {
+            document.getElementById("useremail").textContent = useremail;
+        }
+    });
+</script>
+
+        </div>
+    </header>
+<body>
+    <div class="container">
+        <!-- Formulario de Registro -->
+        <div id="register-form" class="form-container">
+            <h2>Crear una cuenta</h2>
+            <form action="/register" method="POST">
+                <input type="text" name="nombre" placeholder="Nombre" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="contrasena" placeholder="Contraseña" required>
+                <button type="submit">Registrarme</button>
+            </form>
+            <p>¿Ya tienes una cuenta? <a href="#" id="go-to-login">Inicia sesión aquí</a></p>
+        </div>
+
+        <!-- Formulario de Inicio de Sesión -->
+        <div id="login-form" class="form-container" style="display: none;">
+            <h2>Iniciar Sesión</h2>
+            <form action="/login" method="POST">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="contrasena" placeholder="Contraseña" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+            <p>¿No tienes una cuenta? <a href="#" id="go-to-register">Regístrate aquí</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Alternar entre formularios
+        document.getElementById('go-to-login').addEventListener('click', function() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        });
+
+        document.getElementById('go-to-register').addEventListener('click', function() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+        });
+    </script>
+</body>
+
+</html>
