@@ -3,83 +3,333 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGamix - Álgebra Lineal</title>
+    <title>EduGamix</title>
     <link rel="stylesheet" href="ini2.css">
 </head>
 <body>
+    <style>
+    /* Estilos básicos */
+    body {
+        font-family: 'Roboto', sans-serif;
+    }
+
+    /* Animación de las imágenes */
+    .personaje-img {
+        width: 150px;
+        height: 150px;
+        cursor: pointer;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .personaje-img:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Indicador de clic */
+    .clic-indicador {
+        font-size: 0.9em;
+        color: #555;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    /* Ícono animado */
+    .clic-indicador i {
+        font-size: 1.2em;
+        color: #327e9f;
+        animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
+    }
+</style>
+
     <!-- Encabezado -->
-    <div img src="img/logo.jpg">EduGamix</div>
-    <h1>Social y Progreso</h1>
-    <div class="user-info">
-        <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
-        <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-        <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
-        <div class="user-info">
-            <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-            <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-            <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+    <header>
+        <div class="logo">
+            <a href= "" target="_blank">
+                <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+            </a>
         </div>
-        <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
-    </div>
-</header>
-
-
-    <script>
-    // Cargar el nombre de usuario y correo desde localStorage
-    document.addEventListener("DOMContentLoaded", function() {
-        const username = localStorage.getItem("username");
-        const useremail = localStorage.getItem("useremail");
-        
-        if (username) {
-            document.getElementById("username").textContent = username;
-        }
-
-        if (useremail) {
-            document.getElementById("useremail").textContent = useremail;
-        }
-    });
-</script>
-
+        <h1> Sobre nosotros</h1>
+        <div class="user-info">
+            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+            <div class="user-info">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+            </div>
+            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+            <a href="registro.html">
+                <button class="login-btn sign-in-btn">Unirse al Juego</button>
+              </a>
+              
         </div>
     </header>
-<body>
-    <div class="container">
-        <!-- Formulario de Registro -->
-        <div id="register-form" class="form-container">
-            <h2>Crear una cuenta</h2>
-            <form action="/register" method="POST">
-                <input type="text" name="nombre" placeholder="Nombre" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="contrasena" placeholder="Contraseña" required>
-                <button type="submit">Registrarme</button>
-            </form>
-            <p>¿Ya tienes una cuenta? <a href="#" id="go-to-login">Inicia sesión aquí</a></p>
-        </div>
 
-        <!-- Formulario de Inicio de Sesión -->
-        <div id="login-form" class="form-container" style="display: none;">
-            <h2>Iniciar Sesión</h2>
-            <form action="/login" method="POST">
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="password" name="contrasena" placeholder="Contraseña" required>
-                <button type="submit">Iniciar Sesión</button>
-            </form>
-            <p>¿No tienes una cuenta? <a href="#" id="go-to-register">Regístrate aquí</a></p>
+    <section id="hero-section" style="position: relative; text-align: center; color: white; margin-bottom: 40px;">
+        <!-- Carrusel con imágenes -->
+        <div id="carousel" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
+            <!-- Imagen de fondo para el carrusel -->
+            <div class="carousel-item" style="background-image: url('img/EduGamix.jpg'); background-size: cover; background-position: center; height: 400px; filter: brightness(0.6);"></div>
+            <div class="carousel-item" style="background-image: url('img/hero-background-2.jpg'); background-size: cover; background-position: center; height: 400px; filter: brightness(0.6);"></div>
+            <div class="carousel-item" style="background-image: url('img/hero-background-3.jpg'); background-size: cover; background-position: center; height: 400px; filter: brightness(0.6);"></div>
+    
+            <!-- Controles del carrusel -->
+            <button id="prev" onclick="moveSlide(-1)" class="carousel-arrow">❮</button>
+            <button id="next" onclick="moveSlide(1)" class="carousel-arrow">❯</button>
         </div>
+    
+        <!-- Contenido superpuesto -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); max-width: 600px; text-align: center;">
+            <h2 id="carousel-text" style="font-size: 2.5rem; font-weight: bold; text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);">Bienvenido a EduGamix</h2>
+            <p id="carousel-description" style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 20px; text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);">
+                Aprende y juega desde cualquier lugar. Conoce a tus guías y disfruta de desafíos que convertirán el aprendizaje en una aventura.
+            </p>
+            <!-- Botón para desplazarse hacia la sección "Historia" -->
+            <a href="#quienes-somos" style="background-color: #ff6200; color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; font-size: 1rem; font-weight: bold; transition: background-color 0.3s;">Conoce Más</a>
+        </div>
+    </section>
+    
+    <!-- Sección de historia de EduGamix -->
+    <section id="quienes-somos" style="padding: 50px 0; background-color: #8cc65f; text-align: center;">
+        <h2>¿Quiénes Somos?</h2>
+        <div>
+        <p>EduGamix es un Entorno Virtual de Aprendizaje diseñado para fortalecer el conocimiento en el fascinante campo del álgebra lineal.</p>
+        <!-- Más contenido sobre la historia de EduGamix -->
     </div>
-
+    </section>
+    
+    <!-- Estilos del Carrusel -->
+    <style>
+        .carousel-item {
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+        .carousel-item.active {
+            display: block;
+        }
+    
+        /* Estilo de las flechas */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 30px;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    
+        /* Flecha previa */
+        #prev {
+            left: 10px;
+        }
+    
+        /* Flecha siguiente */
+        #next {
+            right: 10px;
+        }
+    
+        /* Animación de las flechas al pasar el puntero */
+        .carousel-arrow:hover {
+            transform: translateY(-50%) scale(1.2);
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+    </style>
+    
+    <!-- Script del Carrusel -->
     <script>
-        // Alternar entre formularios
-        document.getElementById('go-to-login').addEventListener('click', function() {
-            document.getElementById('register-form').style.display = 'none';
-            document.getElementById('login-form').style.display = 'block';
-        });
-
-        document.getElementById('go-to-register').addEventListener('click', function() {
-            document.getElementById('login-form').style.display = 'none';
-            document.getElementById('register-form').style.display = 'block';
+        let slideIndex = 0;
+    
+        // Textos para cada slide
+        const texts = [
+            { title: "Bienvenido a EduGamix", description: "Aprende y juega desde cualquier lugar. Conoce a tus guías y disfruta de desafíos que convertirán el aprendizaje en una aventura." },
+            { title: "Nuestra Misión", description: "Transformamos la educación en una experiencia única para cada estudiante, utilizando herramientas modernas e innovadoras." },
+            { title: "Tu Camino de Aprendizaje", description: "Te guiamos en tu viaje educativo, siempre acompañándote con retos y motivación." }
+        ];
+    
+        // Imágenes para cada slide
+        const images = [
+            'img/pexels-mart-production-8472979.jpg',
+            'img/pexels-pixabay-289737.jpg',
+            'img/pexels-gabby-k-6237967.jpg'
+        ];
+    
+        // Función para mover las imágenes en el carrusel
+        function moveSlide(direction) {
+            let slides = document.querySelectorAll(".carousel-item");
+            slideIndex += direction;
+    
+            // Ciclar las imágenes
+            if (slideIndex < 0) {
+                slideIndex = slides.length - 1;
+            }
+            if (slideIndex >= slides.length) {
+                slideIndex = 0;
+            }
+    
+            // Ocultar todas las imágenes
+            slides.forEach((slide, index) => {
+                slide.classList.remove("active");
+            });
+    
+            // Mostrar la imagen actual
+            slides[slideIndex].classList.add("active");
+    
+            // Cambiar texto e imagen dinámica
+            updateTextAndImage(slideIndex);
+        }
+    
+        // Función para actualizar el texto y la imagen
+        function updateTextAndImage(index) {
+            const title = texts[index].title;
+            const description = texts[index].description;
+            const image = images[index];
+    
+            // Cambiar texto
+            document.getElementById("carousel-text").textContent = title;
+            document.getElementById("carousel-description").textContent = description;
+    
+            // Cambiar imagen de fondo
+            document.querySelector(".carousel-item.active").style.backgroundImage = `url('${image}')`;
+        }
+    
+        // Inicializar el carrusel con la primera imagen visible
+        document.addEventListener("DOMContentLoaded", function () {
+            let slides = document.querySelectorAll(".carousel-item");
+            slides[slideIndex].classList.add("active");
+            updateTextAndImage(slideIndex);
         });
     </script>
-</body>
+    
+    
+  
 
-</html>
+    <section id="introduccion-edugamix" style="text-align: center; margin: 50px auto; padding: 50px; max-width: 1200px; background-color: #f9f9f9; border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); font-family: 'Roboto', sans-serif;">
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center;">
+            <!-- Logo -->
+            <div style="flex: 1; text-align: center; padding: 20px;">
+                <img src="img/EduGamix.jpg" alt="Logo de EduGamix" style="max-width: 500px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+            </div>
+            
+            <!-- Historia -->
+            <div style="flex: 2; text-align: left; padding: 20px; color: #333;">
+                <h2 style="color: #327e9f; font-size: 2.5em; font-weight: bold; margin-bottom: 20px;">Nuestra Historia</h2>
+                
+                <p style="font-size: 1.2em; line-height: 1.8; text-align: justify;">
+                    EduGamix nació con la misión de transformar el aprendizaje en una experiencia interactiva y emocionante. 
+                    Nuestra plataforma combina el poder de la tecnología, el entretenimiento y la educación para ayudar a estudiantes 
+                    a desarrollar habilidades clave en matemáticas y resolución de problemas. Con personajes únicos y desafíos adaptativos.
+                    
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    
+     
+     <!-- Sección de personajes -->
+     <section id="personajes" style="text-align: center; margin: 50px auto; max-width: 1000px; background-color: #ffffff; padding: 50px; border-radius: 15px; box-shadow: 0 8px 16px rgba(0,0,0,0.2);">
+        <h2 style="color: #327e9f; font-size: 2.5em; font-weight: bold; margin-bottom: 20px;">Conoce a Nuestros Personajes: Tus Compañeros de Aventura</h2>
+        <p style="font-size: 1.2em; line-height: 1.8; text-align: justify;">
+            En EduGamix, el aprendizaje cobra vida gracias a nuestros personajes únicos. Cada uno de ellos tiene su propia personalidad y habilidades especiales, diseñadas para acompañarte y motivarte en cada etapa del juego. ¡Descubre quiénes son y qué tienen para ofrecerte en tu camino hacia el conocimiento!
+        </p>
+       
+
+        <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+            <!-- Personaje Gami -->
+            <div style="text-align: center; max-width: 250px; margin: 20px;">
+                <img id="gami" src="img/gami.jpg" alt="Gami - Tu guía" class="personaje-img" 
+                    onclick="narrarConAnimacion('texto-gami', 'Soy Gami, el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos.', gamiVoice)">
+                <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Gami</h3>
+                <p class="clic-indicador"><i>👆</i>(Haz clic en mí para saber más)</p>
+                <div id="texto-gami" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
+            </div>
+        
+            <!-- Personaje Xilo -->
+            <div style="text-align: center; max-width: 250px; margin: 20px;">
+                <img id="xilo" src="img/xilo-avatar.jpg" alt="Xilo - El narrador" class="personaje-img" 
+                    onclick="narrarConAnimacion('texto-xilo', 'Soy Xilo, tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos.', xiloVoice)">
+                <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Xilo</h3>
+                <p class="clic-indicador"><i>👆</i>(Haz clic en mí para saber más)</p>
+                <div id="texto-xilo" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
+            </div>
+        
+            <!-- Personaje Radicux -->
+            <div style="text-align: center; max-width: 250px; margin: 20px;">
+                <img id="radicux" src="img/radicux.jpg" alt="Radicux - El desafío" class="personaje-img" 
+                    onclick="narrarConAnimacion('texto-radicux', 'Soy Radicux, tu mayor reto. Planteo los desafíos más complejos y emocionantes.', radicuxVoice)">
+                <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Radicux</h3>
+                <p class="clic-indicador"><i>👆</i>(Haz clic en mí para saber más)</p>
+                <div id="texto-radicux" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
+            </div>
+        </div>
+        
+        <script>
+            let gamiVoice = null, xiloVoice = null, radicuxVoice = null;
+        
+            // Cargar las voces disponibles
+            function cargarVoces() {
+                const voces = window.speechSynthesis.getVoices();
+                gamiVoice = voces.find(v => v.name.includes("Microsoft Sabina Online")) || voces[1];
+                xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
+                radicuxVoice = voces.find(v => v.name.includes("Microsoft Pablo Online")) || voces[0];
+            }
+        
+            // Escuchar cambios de voces (algunos navegadores cargan voces de forma asincrónica)
+            if ('speechSynthesis' in window && speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = cargarVoces;
+            } else {
+                cargarVoces();
+            }
+        
+            const velocidad = 50; // Velocidad de aparición de letras (ms)
+        
+            // Función para narrar con animación de texto
+            function narrarConAnimacion(idTexto, texto, voz) {
+                const textoDiv = document.getElementById(idTexto);
+                textoDiv.innerHTML = ""; // Limpia el texto anterior
+                let index = 0;
+        
+                // Mostrar texto letra por letra
+                function mostrarTexto() {
+                    if (index < texto.length) {
+                        textoDiv.innerHTML += texto.charAt(index);
+                        index++;
+                        setTimeout(mostrarTexto, velocidad);
+                    }
+                }
+        
+                // Narrar el texto
+                if ('speechSynthesis' in window) {
+                    const narrador = new SpeechSynthesisUtterance(texto);
+                    narrador.voice = voz;
+                    narrador.lang = 'es-ES';
+                    speechSynthesis.cancel(); // Cancelar cualquier narración en curso
+                    speechSynthesis.speak(narrador);
+                }
+        
+                mostrarTexto();
+            }
+        </script>
+        

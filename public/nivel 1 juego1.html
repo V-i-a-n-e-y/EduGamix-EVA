@@ -10,7 +10,7 @@
     <!-- Encabezado -->
     <header>
         <div class="logo">
-            <a href="quienes somos.html" target="_blank">
+            <a href="index.html" target="_blank">
                 <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
             </a>
         </div>
@@ -94,9 +94,11 @@
         <!-- Intentos y botones -->
         <div class="attempts-info">
             <span id="attempts">Intentos restantes: 3</span>
-            <button onclick="feliBingo()">¡Bingo!</button> 
+            <button onclick="feliBingo(); reproducirSonidoTrompetas()">¡Bingo!</button>
+
             <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
         </div>
+
 
         <!-- Botones adicionales -->
         <div class="buttons-container">
@@ -113,15 +115,16 @@
             <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
         </div>
 
-       <!-- Modal de Felicitación -->
-<div id="felicitacion-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-        <h2>¡Felicidades!</h2>
-        <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
-        <img src="img/gami.jpg" alt="Gami" class="avatar" />
-    </div>
-</div>
+
+        <!-- Modal de Felicitación -->
+        <div id="felicitacion-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+                <h2>🎉 ¡Felicidades! 🎉</h2>
+                <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
+                <img src="img/gami.jpg" alt="Gami" class="avatar" />
+            </div>
+        </div>
 
 
         <!-- Modal de retroalimentación -->
@@ -239,8 +242,10 @@
 
         // Narrar retroalimentación
         function narrarFeedback() {
+            const voces = window.speechSynthesis.getVoices();
             const texto = document.getElementById('feedback-text').textContent;
             const speech = new SpeechSynthesisUtterance(texto);
+            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
             speech.lang = 'es-ES';
             speech.pitch = 1;
             speech.rate = 1;
@@ -266,10 +271,12 @@
         }
 
         function narrarContenido() {
+            const voces = window.speechSynthesis.getVoices();
             const texto = document.getElementById('avatar-text').textContent;
             const speech = new SpeechSynthesisUtterance(texto);
+            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
             speech.lang = 'es-ES';
-            speech.pitch = 1;
+            speech.pitch = 2;
             speech.rate = 1;
             speech.volume = 1;
 

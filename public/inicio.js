@@ -5,14 +5,40 @@ const dialogoXilo = document.getElementById('dialogo-xilo');
 const dialogoGami = document.getElementById('dialogo-gami');
 const closeButtons = document.querySelectorAll('.close');
 
-// Función para mostrar un cuadro de diálogo
-function mostrarDialogo(idDialogo, texto) {
+// Variables para las voces de Xilo y Gami
+let xiloVoice = null;
+let gamiVoice = null;
+
+// Cargar voces disponibles y asignarlas
+function cargarVoces() {
+    const voces = window.speechSynthesis.getVoices();
+
+    // Asignar voces específicas a los personajes
+    xiloVoice = voces.find(voice => voice.name.includes("Google español") && voice.gender === "male") || voces[0];
+    gamiVoice = voces.find(voice => voice.name.includes("Google español") && voice.gender === "female") || voces[1];
+
+    if (!xiloVoice || !gamiVoice) {
+        console.warn("No se encontraron las voces deseadas. Usando voces predeterminadas.");
+    }
+}
+
+// Escuchar cambios en las voces (algunos navegadores cargan voces de forma asincrónica)
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = cargarVoces;
+} else {
+    cargarVoces(); // Cargar las voces inmediatamente si ya están disponibles
+}
+
+// Función para mostrar un cuadro de diálogo y narrar el texto
+function mostrarDialogo(idDialogo, texto, voz) {
     const dialogo = document.getElementById(idDialogo);
     const contenido = dialogo.querySelector('.dialog-content');
 
     cerrarTodosLosDialogos(); // Asegúrate de cerrar los demás diálogos
     contenido.innerHTML = texto;
     dialogo.style.display = 'block';
+
+    narrarTexto(texto, voz); // Llama a la función para narrar el texto con una voz específica
 }
 
 // Función para cerrar todos los diálogos
@@ -27,13 +53,28 @@ function cerrarDialogo(idDialogo) {
     dialogo.style.display = 'none';
 }
 
+// Función para narrar texto usando una voz específica
+function narrarTexto(texto, voz) {
+    if ('speechSynthesis' in window) {
+        const synth = window.speechSynthesis;
+        const utterance = new SpeechSynthesisUtterance(texto);
+
+        utterance.lang = 'es-ES'; // Establece el idioma (español)
+        utterance.voice = voz; // Asigna la voz específica
+        synth.cancel(); // Detén cualquier narración en curso
+        synth.speak(utterance); // Inicia la narración
+    } else {
+        console.warn('La API de Speech Synthesis no es compatible con este navegador.');
+    }
+}
+
 // Eventos para los avatares
 xiloAvatar.addEventListener('click', () => {
-    mostrarDialogo('dialogo-xilo', '¡Hola! Soy Xilo, ¿en qué puedo ayudarte hoy?');
+    mostrarDialogo('dialogo-xilo', '¡Soy Xilo, tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos!', xiloVoice);
 });
 
 gamiAvatar.addEventListener('click', () => {
-    mostrarDialogo('dialogo-gami', '¡Hola! Soy Gami, lista para trabajar contigo.');
+    mostrarDialogo('dialogo-gami', '¡Soy Gami, el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos!', gamiVoice);
 });
 
 // Eventos de cierre de diálogos
@@ -92,7 +133,7 @@ function narrarConAnimacion(idTexto, texto, avatar) {
     if ('speechSynthesis' in window) {
         const narrador = new SpeechSynthesisUtterance(texto);
         narrador.lang = "es-ES";
-        narrador.rate = 1;
+        narrador.rate = 2;
         narrador.onend = () => console.log("Narración terminada.");
         window.speechSynthesis.cancel();
         window.speechSynthesis.speak(narrador);

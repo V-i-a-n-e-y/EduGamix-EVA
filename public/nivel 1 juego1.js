@@ -201,6 +201,8 @@ function closeFeedback() {
 }
 
 function feliBingo() {
+    const audio = new Audio('img/trompetas.mp3');
+
     const cells = document.querySelectorAll('.cell.selected');
     if (cells.length >= 3) { // Suponiendo que se necesitan al menos 3 casillas seleccionadas
         mostrarFelicitacion();
@@ -217,6 +219,17 @@ function mostrarFelicitacion() {
 function cerrarFelicitacion() {
     const modal = document.getElementById("felicitacion-modal");
     modal.style.display = "none"; // Oculta el modal
+}
+
+function reproducirSonidoTrompetas() {
+    const audio = new Audio('img/trompetas.mp3'); // Cambia la ruta a tu archivo de audio
+    audio.play();
+}
+function reproducirSonidoTrompetas() {
+    const audio = new Audio('img/trompetas.mp3'); // Ruta al archivo
+    audio.play().catch(error => {
+        console.log("Error al reproducir el sonido: ", error);
+    });
 }
 
  

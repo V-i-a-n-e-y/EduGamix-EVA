@@ -1,153 +1,111 @@
 <!DOCTYPE html>
 <html lang="es">
+<link rel="icon" href="img/icono.jpg" type="image.jpg">
+
 <head>
     <meta charset="UTF-8">
-    <title>EduGamix - Nivel 1</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
-        }
-        .header-info {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 10px;
-            color: white;
-            font-size: 14px;
-        }
-        .main-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 20px;
-        }
-        .avatar {
-            flex-grow: 1;
-            margin: 10px;
-            text-align: center;
-        }
-        .content {
-            flex-grow: 3;
-            background: white;
-            margin: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .timer {
-            flex-grow: 1;
-            margin: 10px;
-            text-align: center;
-            font-size: 22px;
-            background: #ddd;
-            padding: 20px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #4cae4c;
-        }
-        /* Estilo para mostrar el nombre y correo */
-        .user-section {
-            display: flex;
-            align-items: center;
-            /*justify-content: center;*/
-            font-size: 14px;
-            color: #333;
-            margin: 10px 0;
-        }
-        .user-section span {
-            margin: 0 5px;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix</title>
+    <link rel="stylesheet" href="nivel 1.css">
 </head>
 <body>
-<header>
-    <h1>EduGamix - Nivel 3: Interpretación geométrica de las soluciones
-    </h1>
-        
-</header>
+    <!-- Encabezado -->
+    <header>
+        <div class="logo">
+            <a href="index.html" target="_blank">
+                <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+                
+            </a>
+        </div>
+        <h1>Nivel 2</h1>
+        <div class="user-info">
+            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+            <div class="user-info">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+            </div>
+            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+        </div>
+    </header>
 
-<!-- Información del usuario -->
-<div class="header-info">
-    <div class="user-section">
-        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-        <span id="username">No registrado</span> |
-        <span id="useremail">No registrado</span>
-    </div>
-</div>
-
-<div class="main-container">
-    <div class="avatar">
-        <img src="img/gami.jpg" alt="Gami Guía" style="height: 150px;">
     </div>
     <div class="content">
-        <p>Bienvenid@ al emocionante juego de Laberinto Espacial, en donde tendrás que ayudar a Xilo a llegar a su casa, ¡Ten cuidado! No lo vayas a guiar a la guarida de Radicux. Sigue las instrucciones para jugar y divertirte mientras refuerzas tus conocimientos ¡Éxito!.</p></p> 
-        <p>Selecciona el modo de juego.</p>
 
-            <p>1. Escucha a Gami: El leerá un sistema de ecuaciones lineales en voz alta además de presentarlo visualmente. {x+y=22x+2y=4​</p>
-            <p>2. Clasifica el Sistema: Deberás identificar el tipo de solución del sistema de ecuaciones presentado. </p>      
-            <p>3. Selecciona la casilla: Marca la casilla con la respuesta correcta que te dará cuantos pasos y la dirección que dará Xilo en el camino.</p>
-            <p>4. Desafíos de Radicux: De vez en cuando, Gami leerá un "Desafío de Radicux", que es un sistema de ecuaciones más complicado.</p> 
-            <p>5. Oprime "¡Finalizar!": Cundo tengas todas las coordenadas Xilo avanzará, Gami te dirá si lo llevaste por el buen camino o al camino de la oscuridad</p>                   
-                   
-           Reglas Adicionales:
-           Verifica tu Trabajo: Asegúrate de que tus coordenadas sean correctas antes de gráficar.
-           Pide Ayuda si la Necesitas: No dudes en pedir una pista a “Xilo” si te quedas atascado.</p>
-                   <button>Siguiente</button>
+         <p id="texto1">Bienvenido al emocionante juego de Laberinto Espacial, en donde tendrás que ayudar a Xilo a llegar a su casa, ¡Ten cuidado! No lo vayas a guiar a la guarida de Radicux. Sigue las instrucciones para jugar y divertirte mientras refuerzas tus conocimientos ¡Éxito!.</p></p> 
+         <p id="texto1">Selecciona el modo de juego.</p>
+         <p id="texto1">Escucha a Gami: El leerá un sistema de ecuaciones lineales en voz alta además de presentarlo visualmente. {x+y=22x+2y=4​</p>
+        <p id="texto1">Clasifica el Sistema: Deberás identificar el tipo de solución del sistema de ecuaciones presentado. </p>      
+        <p id="texto1">Selecciona la casilla: Marca la casilla con la respuesta correcta que te dará cuantos pasos y la dirección que dará Xilo en el camino.</p>
+        <p id="texto1">. Desafíos de Radicux: De vez en cuando, Gami leerá un "Desafío de Radicux", que es un sistema de ecuaciones más complicado.</p> 
+        <p id="texto1"> Oprime "¡Finalizar!": Cundo tengas todas las coordenadas Xilo avanzará, Gami te dirá si lo llevaste por el buen camino o al camino de la oscuridad</p>                      
+        <p id="texto1"></p>Reglas Adicionales:
+        <p id="texto1"></p>Verifica tu Trabajo: Asegúrate de que tus coordenadas sean correctas antes de gráficar.
+        <p id="texto1"></p>Pide Ayuda si la Necesitas: No dudes en pedir una pista a “Xilo” si te quedas atascado.</p>
+        <button onclick="window.location.href='modo juego n3.html'; detenerNarracion();">Siguiente</button>
         <button onclick="window.location.href='inicio.html'">Regresar a Inicio</button>
     </div>
-    <div class="timer">
-        TIEMPO: 03:00:00
+    
+ 
+    <div class="main-container">
+        <div id="avatar-animation">
+            <img id="gami-avatar" src="img/gami.jpg" alt="Avatar de Gami" style="height: 150px;">
+        </div>
+
+        <div class="controls">
+            <button id="repeatButton" onclick="leerContenido()">Repetir</button>
+            <button id="muteButton" onclick="toggleMute()">Silenciar</button>
+        </div>
     </div>
-</div>
 
+    <script>
+        let isMuted = false;
+        let currentSpeech = null;
 
-<script>
-    // Cargar el nombre de usuario y correo desde localStorage
-    document.addEventListener("DOMContentLoaded", function() {
-        const username = localStorage.getItem("username");
-        const useremail = localStorage.getItem("useremail");
-        
-        if (username) {
-            document.getElementById("username").textContent =  username;
+        // Detener narración
+        function detenerNarracion() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
         }
 
-        if (useremail) {
-            document.getElementById("useremail").textContent = useremail;
+        // Leer contenido con narración
+        function leerContenido() {
+            detenerNarracion(); // Asegurar que no haya narración activa
+            const textos = document.querySelectorAll(".content p");
+            textos.forEach((parrafo, index) => {
+                setTimeout(() => {
+                    narrarTexto(parrafo.innerText);
+                }, index * 5000); // Retraso ajustado para cada párrafo
+            });
         }
-    });
 
-    var countDownDate = new Date(new Date().getTime() + 5 * 60 * 1000); // 5 minutos
-
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.querySelector('.timer').innerHTML = "TIEMPO: " + minutes + "m " + seconds + "s ";
-
-        if (distance < 0) {
-            clearInterval(x);
-            document.querySelector('.timer').innerHTML = "EXPIRADO";
+        // Narrar texto
+        function narrarTexto(texto) {
+            if (isMuted) return;
+            currentSpeech = new SpeechSynthesisUtterance(texto);
+            currentSpeech.lang = "es-ES";
+            currentSpeech.rate = 1;
+            currentSpeech.onend = () => console.log("Narración terminada.");
+            window.speechSynthesis.speak(currentSpeech);
         }
-    }, 1000);
-</script>
+
+        // Alternar silencio
+        function toggleMute() {
+            isMuted = !isMuted;
+            detenerNarracion();
+            document.getElementById("muteButton").innerText = isMuted ? "Activar Sonido" : "Silenciar";
+        }
+
+        // Detener narración al salir de la página
+        window.addEventListener('beforeunload', detenerNarracion);
+
+        // Iniciar lectura al cargar
+        document.addEventListener("DOMContentLoaded", leerContenido);
+    </script>
+
+    <script src="nivel 3.js"></script>
 </body>
 </html>
