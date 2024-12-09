@@ -1,0 +1,158 @@
+<?php
+session_start();
+$username = isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : 'Jugador';
+$useremail = isset($_SESSION['useremail']) ? htmlspecialchars($_SESSION['useremail']) : 'correo@ejemplo.com';
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix-Social y progreso</title>
+    <link rel="stylesheet" href="ini2.css">
+    <link rel="icon" href="img/icono.jpg" type="image.jpg">
+    <style>
+      
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">
+        <a href="index.html" target="_blank">
+            <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+        </a>
+    </div>
+    <h1>Social y progreso</h1>
+    <div class="user-info">
+        <span class="icon" onclick="alert('Notificaciones');">🔔</span>
+        <span class="icon" title="Difusión" onclick="window.location.href='ini2.php';">📢</span>
+        <span class="icon" title="Inicio" onclick="window.location.href='inicio.php';">🏠</span>
+        <div class="user-info">
+            <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+            <span id="username"><?php echo $username; ?></span> | <!--<span id="useremail"><?php echo $useremail; ?></span>-->
+            <a class="logout-link" href="logout.php">Cerrar sesión</a>
+        </div>
+         <!-- Perfil -->
+         <span class="icon" onclick="window.location.href='miespacio.php';">👤</span>
+    </div>
+</header>
+
+    
+
+    <script>
+    // Cargar el nombre de usuario y correo desde localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+        const username = localStorage.getItem("username");
+        const useremail = localStorage.getItem("useremail");
+        
+        if (username) {
+            document.getElementById("username").textContent = username;
+        }
+
+        if (useremail) {
+            document.getElementById("useremail").textContent = useremail;
+        }
+    });
+</script>
+
+        </div>
+    </header>
+
+    <!-- Área de Progreso -->
+    <main>
+        <section class="progress-area">
+            <h2>Área de Progreso</h2>
+            
+             <!-- Potenciadores con Flechas de Navegación -->
+             <div class="boosters">
+                <h3>Potenciadores</h3>
+                <div class="slider">
+                    <span class="arrow left" onclick="scrollContent('boosters', 'left')">⬅️</span>
+                    <div class="booster-icons slider-content">
+                        <span>⏰ Tiempo extra</span>
+                        <span>⚔️ Duplicar puntos</span>
+                        <span>🔄 Cambio de Pregunta</span>
+                        <span>⭐ Ayuda del Equipo</span>
+                        <span>❌ Opción de eliminar</span>
+                        <span>🛡️ Escudo de Fallos</span>
+                    </div>
+                    <span class="arrow right" onclick="scrollContent('boosters', 'right')">➡️</span>
+                </div>
+            </div>
+
+                  <!-- Insignias con Flechas de Navegación -->
+                  <div class="badges">
+                    <h3>Insignias</h3>
+                    <div class="slider">
+                        <span class="arrow left" onclick="scrollContent('badges', 'left')">⬅️</span>
+                        <div class="badge-icons slider-content">
+                                                      
+                                   <span>🌟 Aprendiz Estrella</span>
+                                    <span>🌟 Explorador del Conocimiento</span>
+                                    <span>🏆 Visionario del Aprendizaje</span>
+                                    <span>🛡️ Guardián del Conocimiento</span>
+                                    <span>🎖️ Maestro de Desafíos</span>
+                                    <span>🧠 Genio del Juego</span>
+                                    <span>🏅 Campeón del Saber</span>
+                            </div>
+                            
+                        <span class="arrow right" onclick="scrollContent('badges', 'right')">➡️</span>
+                    </div>
+                </div>
+    
+                <!-- Identificadores con Flechas de Navegación -->
+                <div class="identifiers">
+                    <h3>Identificadores</h3>
+                    <div class="slider">
+                        <span class="arrow left" onclick="scrollContent('identifiers', 'left')">⬅️</span>
+                        <div class="identifier-icons slider-content">
+                            <span>🚴 Principiante: 1,666 puntos</span>
+                            <span>🚗 Intermedio: 3,332 puntos</span>
+                            <span>🚚 Avanzado: 4,000 puntos</span>
+                        </div>
+                        <span class="arrow right" onclick="scrollContent('identifiers', 'right')">➡️</span>
+                    </div>
+                </div>
+            </section>
+
+ <!-- Zona Social y Rankings -->
+ <section class="social-area">
+    <h2>Zona Social y Rankings</h2>
+    
+    <!-- Zona Social y Chat -->
+    <div class="social-chat">
+        <p>Únete a la conversación y resuelve tus dudas</p>
+        <ul>
+            <li>👤 Usuario 1 <span class="icon chat-button" onclick="openPopup()">💬</span></li>
+            <li>👤 Usuario 2 <span class="icon chat-button" onclick="openPopup()">💬</span></li>
+            <li>👤 Usuario 3 <span class="icon chat-button" onclick="openPopup()">💬</span></li>
+            <li>👤 Usuario 4 <span class="icon chat-button" onclick="openPopup()">💬</span></li>
+        </ul>
+    </div>
+    
+    <!-- Rankings -->
+    <div class="rankings">
+        <p>Ranking</p>
+        <div class="ranking-user">
+             1. 👤 Nombre de usuario 🥇
+        </div>
+        <div class="ranking-user">
+             2. 👤 Nombre de usuario 🥈
+        </div>
+        <div class="ranking-user">
+             3. 👤 Nombre de usuario 🥉
+        </div>
+    </div>
+</section>
+
+Ventana Emergente para Mensajes -->
+<div id="messagePopup" class="message-popup">
+    <h3>Enviar mensaje a 👤 Nombre de usuario</h3>
+    <textarea placeholder="Escribe tu mensaje aquí..."></textarea>
+    <button onclick="sendMessage()">Enviar</button>
+    <button onclick="closePopup()">Cerrar</button>
+</div>
+
+<script src="ini2.js"></script>
+</body>
+</html>
