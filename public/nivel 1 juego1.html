@@ -242,8 +242,10 @@
 
         // Narrar retroalimentación
         function narrarFeedback() {
+            const voces = window.speechSynthesis.getVoices();
             const texto = document.getElementById('feedback-text').textContent;
             const speech = new SpeechSynthesisUtterance(texto);
+            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
             speech.lang = 'es-ES';
             speech.pitch = 1;
             speech.rate = 1;
@@ -269,10 +271,12 @@
         }
 
         function narrarContenido() {
+            const voces = window.speechSynthesis.getVoices();
             const texto = document.getElementById('avatar-text').textContent;
             const speech = new SpeechSynthesisUtterance(texto);
+            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
             speech.lang = 'es-ES';
-            speech.pitch = 1;
+            speech.pitch = 2;
             speech.rate = 1;
             speech.volume = 1;
 

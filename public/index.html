@@ -260,103 +260,76 @@
             <!-- Personaje Gami -->
             <div style="text-align: center; max-width: 250px; margin: 20px;">
                 <img id="gami" src="img/gami.jpg" alt="Gami - Tu guía" class="personaje-img" 
-                onclick="narrarConAnimacion('texto-gami', 'Soy Gami, el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos.', 'Microsoft Sabina Online (Natural)')">
+                    onclick="narrarConAnimacion('texto-gami', 'Soy Gami, el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos.', gamiVoice)">
                 <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Gami</h3>
                 <p class="clic-indicador"><i>👆</i>(Haz clic en mí para saber más)</p>
                 <div id="texto-gami" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
             </div>
-
+        
             <!-- Personaje Xilo -->
             <div style="text-align: center; max-width: 250px; margin: 20px;">
                 <img id="xilo" src="img/xilo-avatar.jpg" alt="Xilo - El narrador" class="personaje-img" 
-                onclick="narrarConAnimacion('texto-xilo', 'Soy Xilo, tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos.', 'Microsoft Raul Online (Natural)')">
+                    onclick="narrarConAnimacion('texto-xilo', 'Soy Xilo, tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos.', xiloVoice)">
                 <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Xilo</h3>
                 <p class="clic-indicador"><i>👆</i>(Haz clic en mí para saber más)</p>
                 <div id="texto-xilo" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
             </div>
-
+        
             <!-- Personaje Radicux -->
             <div style="text-align: center; max-width: 250px; margin: 20px;">
                 <img id="radicux" src="img/radicux.jpg" alt="Radicux - El desafío" class="personaje-img" 
-                onclick="narrarConAnimacion('texto-radicux', 'Soy Radicux, tu mayor reto. Planteo los desafíos más complejos y emocionantes.', 'Microsoft Pablo Online (Natural)')">
+                    onclick="narrarConAnimacion('texto-radicux', 'Soy Radicux, tu mayor reto. Planteo los desafíos más complejos y emocionantes.', radicuxVoice)">
                 <h3 style="color: #5a2cd6; margin-top: 15px; font-size: 1.5em;">Radicux</h3>
                 <p class="clic-indicador"><i>👆</i>(Haz clic en mí para saber más)</p>
                 <div id="texto-radicux" class="texto-personaje" style="font-size: 1.2em; line-height: 1.5; color: #333; margin-top: 10px;"></div>
             </div>
         </div>
-    </section>
-
-    <script>
-        const velocidad = 50; // Velocidad de aparición de letras (ms)
-        let vocesDisponibles = [];
-
-        // Cargar las voces disponibles al inicio
-        function cargarVoces() {
-            vocesDisponibles = speechSynthesis.getVoices();
-            if (vocesDisponibles.length === 0) {
-                speechSynthesis.onvoiceschanged = () => {
-                    vocesDisponibles = speechSynthesis.getVoices();
-                };
+        
+        <script>
+            let gamiVoice = null, xiloVoice = null, radicuxVoice = null;
+        
+            // Cargar las voces disponibles
+            function cargarVoces() {
+                const voces = window.speechSynthesis.getVoices();
+                gamiVoice = voces.find(v => v.name.includes("Microsoft Sabina Online")) || voces[1];
+                xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
+                radicuxVoice = voces.find(v => v.name.includes("Microsoft Pablo Online")) || voces[0];
             }
-        }
-
-        // Función para narrar con animación de texto
-        function narrarConAnimacion(idTexto, texto, vozNombre) {
-            const textoDiv = document.getElementById(idTexto);
-            textoDiv.innerHTML = ""; // Limpia el texto anterior
-            let index = 0;
-
-            // Mostrar texto letra por letra
-            function mostrarTexto() {
-                if (index < texto.length) {
-                    textoDiv.innerHTML += texto.charAt(index);
-                    index++;
-                    setTimeout(mostrarTexto, velocidad);
+        
+            // Escuchar cambios de voces (algunos navegadores cargan voces de forma asincrónica)
+            if ('speechSynthesis' in window && speechSynthesis.onvoiceschanged !== undefined) {
+                speechSynthesis.onvoiceschanged = cargarVoces;
+            } else {
+                cargarVoces();
+            }
+        
+            const velocidad = 50; // Velocidad de aparición de letras (ms)
+        
+            // Función para narrar con animación de texto
+            function narrarConAnimacion(idTexto, texto, voz) {
+                const textoDiv = document.getElementById(idTexto);
+                textoDiv.innerHTML = ""; // Limpia el texto anterior
+                let index = 0;
+        
+                // Mostrar texto letra por letra
+                function mostrarTexto() {
+                    if (index < texto.length) {
+                        textoDiv.innerHTML += texto.charAt(index);
+                        index++;
+                        setTimeout(mostrarTexto, velocidad);
+                    }
                 }
-            }
-
-            // Configurar la narración
-            if ("speechSynthesis" in window) {
-                const narrador = new SpeechSynthesisUtterance(texto);
-                narrador.lang = "es-ES"; // Idioma español
-                const vozSeleccionada = vocesDisponibles.find(voz => voz.name === vozNombre);
-                if (vozSeleccionada) {
-                    narrador.voice = vozSeleccionada;
+        
+                // Narrar el texto
+                if ('speechSynthesis' in window) {
+                    const narrador = new SpeechSynthesisUtterance(texto);
+                    narrador.voice = voz;
+                    narrador.lang = 'es-ES';
+                    speechSynthesis.cancel(); // Cancelar cualquier narración en curso
+                    speechSynthesis.speak(narrador);
                 }
-                speechSynthesis.cancel(); // Cancelar cualquier narración en curso
-                speechSynthesis.speak(narrador);
+        
+                mostrarTexto();
             }
-
-            mostrarTexto();
-        }
-
-        // Asignar eventos de clic a cada personaje
-        document.getElementById("gami").onclick = () => {
-            narrarConAnimacion(
-                "texto-gami",
-                "Soy Gami, el narrador de tus retos matemáticos. Siempre estoy listo para plantearte nuevos desafíos.",
-                "Microsoft Sabina Online (Natural)"
-            );
-        };
-
-        document.getElementById("xilo").onclick = () => {
-            narrarConAnimacion(
-                "texto-xilo",
-                "Soy Xilo, tu guía en esta aventura. Siempre estoy dispuesto a ayudarte a superar los desafíos.",
-                "Microsoft Raul Online (Natural)"
-            );
-        };
-
-        document.getElementById("radicux").onclick = () => {
-            narrarConAnimacion(
-                "texto-radicux",
-                "Soy Radicux, tu mayor reto. Planteo los desafíos más complejos y emocionantes.",
-                "Microsoft Pablo Online (Natural)"
-            );
-        };
-
-        // Cargar voces cuando la página esté lista
-        window.onload = cargarVoces;
-    </script>
-</body>
-</html>
+        </script>
+        
