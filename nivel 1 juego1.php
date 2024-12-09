@@ -21,7 +21,7 @@ $useremail = isset($_SESSION['useremail']) ? htmlspecialchars($_SESSION['userema
             </a>
         </div>
         
-        <h1> Inicio</h1>
+        <h1> Desafio 1</h1>
         <div class="user-info">
             <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
             <span class="icon" title="Difusión" onclick="window.location.href='ini2.php';">📢</span>
