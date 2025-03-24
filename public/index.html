@@ -7,57 +7,143 @@
     <link rel="stylesheet" href="ini2.css">
     <link rel="icon" href="img/icono.jpg" type="image.jpg">
     <script defer src="iniciocierre.js"></script>
+
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+    
+        /* Animación de las imágenes */
+        .personaje-img {
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+    
+        .personaje-img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+    
+        /* Indicador de clic */
+        .clic-indicador {
+            font-size: 0.9em;
+            color: #555;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+    
+        /* Ícono animado */
+        .clic-indicador i {
+            font-size: 1.2em;
+            color: #327e9f;
+            animation: bounce 1.5s infinite;
+        }
+    
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+        /* Estilos del Carrusel*/    
+        .carousel-item {
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+        .carousel-item.active {
+            display: block;
+        }
+    
+        /* Estilo de las flechas */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 30px;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    
+        /* Flecha previa */
+        #prev {
+            left: 10px;
+        }
+    
+        /* Flecha siguiente */
+        #next {
+            right: 10px;
+        }
+    
+        /* Animación de las flechas al pasar el puntero */
+        .carousel-arrow:hover {
+            transform: translateY(-50%) scale(1.2);
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+   /* Contenedor flotante del video */
+    </style>
 </head>
 <body>
-    <style>
-    /* Estilos básicos */
-    body {
-        font-family: 'Roboto', sans-serif;
-    }
+    <!-- Video introductorio -->
+    <div id="intro-video-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; z-index: 1000; display: flex; align-items: center; justify-content: center;">
+        <video id="intro-video" width="100%" height="100%" autoplay muted>
+            <source src="img/videoEduGami.mp4" type="video/mp4">
+            Tu navegador no soporta el video.
+        </video>
+        <button id="toggle-sound" onclick="toggleSonido()">Activar Sonido</button>
+        <button id="skip-video" style="position: absolute; top: 20px; right: 20px; background: rgba(0, 0, 0, 0.7); color: rgb(240, 7, 7); border: none; padding: 10px 20px; cursor: pointer; font-size: 16px;">X</button>
+</button>
+</button>
 
-    /* Animación de las imágenes */
-    .personaje-img {
-        width: 150px;
-        height: 150px;
-        cursor: pointer;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-    .personaje-img:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    }
+    </div>
+    
+    <script>
+         document.getElementById("skip-video").addEventListener("click", function() {
+        let video = document.getElementById("intro-video");
+        let container = document.getElementById("intro-video-container");
 
-    /* Indicador de clic */
-    .clic-indicador {
-        font-size: 0.9em;
-        color: #555;
-        margin-top: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-    }
+        video.pause(); // Detiene la reproducción
+        video.currentTime = 0; // Reinicia el video
+        container.style.display = "none"; // Oculta el contenedor del video
+    });
+        function toggleSonido() {
+        let video = document.getElementById("intro-video");
+        let button = document.getElementById("toggle-sound");
 
-    /* Ícono animado */
-    .clic-indicador i {
-        font-size: 1.2em;
-        color: #327e9f;
-        animation: bounce 1.5s infinite;
-    }
-
-    @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {
-            transform: translateY(0);
-        }
-        40% {
-            transform: translateY(-10px);
-        }
-        60% {
-            transform: translateY(-5px);
+        // Alternar el estado de silencio
+        if (video.muted) {
+            video.muted = false;
+            button.textContent = "Desactivar Sonido"; // Cambia el texto del botón
+        } else {
+            video.muted = true;
+            button.textContent = "Activar Sonido"; // Cambia el texto del botón
         }
     }
-</style>
+        document.getElementById("intro-video").addEventListener("ended", function() {
+            document.getElementById("intro-video-container").style.display = "none";
+        });
+        document.getElementById("skip-video").addEventListener("click", function() {
+            document.getElementById("intro-video-container").style.display = "none";
+        });
+    </script>
+
 
     <!-- Encabezado -->
     <header>
@@ -117,51 +203,11 @@
         <!-- Más contenido sobre la historia de EduGamix -->
     </div>
     </section>
-    
-    <!-- Estilos del Carrusel -->
-    <style>
-        .carousel-item {
-            display: none;
-            transition: opacity 1s ease-in-out;
-        }
-        .carousel-item.active {
-            display: block;
-        }
-    
-        /* Estilo de las flechas */
-        .carousel-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            font-size: 30px;
-            padding: 15px;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-    
-        /* Flecha previa */
-        #prev {
-            left: 10px;
-        }
-    
-        /* Flecha siguiente */
-        #next {
-            right: 10px;
-        }
-    
-        /* Animación de las flechas al pasar el puntero */
-        .carousel-arrow:hover {
-            transform: translateY(-50%) scale(1.2);
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-    </style>
-    
-    <!-- Script del Carrusel -->
+     
+   
     <script>
+        // Script del Carrusel
+
         let slideIndex = 0;
     
         // Textos para cada slide
