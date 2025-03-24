@@ -6,7 +6,7 @@
   <title>EduGamix - Desafío Nivel 3</title>
   <link rel="stylesheet" href="nivel 1 juego1.css">
   <style>
-    /* Estilos para el avatar y el fondo */
+    /* Estilos generales */
     body {
       font-family: 'Arial', sans-serif;
       text-align: center;
@@ -62,7 +62,7 @@
       font-weight: bold;
     }
     
-    /* Estilos para los modales */
+    /* Estilos para los modales centrados */
     .modal {
       position: fixed;
       top: 0;
@@ -71,7 +71,7 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(5px);
-      display: none;
+      display: none; /* Se mostrará con "flex" para centrar */
       justify-content: center;
       align-items: center;
       z-index: 1000;
@@ -83,13 +83,6 @@
       position: relative;
       width: 80%;
       max-width: 400px;
-    }
-    .modal-content .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      cursor: pointer;
-      font-size: 24px;
     }
     /* Animación de aparición */
     @keyframes fadeIn {
@@ -105,21 +98,16 @@
       transition: transform 0.5s ease;
       z-index: 1000;
       animation: fadeIn 1s ease forwards;
+      cursor: pointer;
     }
     .avatar-feedback:hover {
       transform: scale(1.1);
-    }
-    .felicitacion-modal .close {
-      float: right;
-      font-size: 28px;
-      cursor: pointer;
     }
     .felicitacion-modal {
       background-color: white;
       padding: 20px;
       border-radius: 10px;
       width: 30%;
-      margin: 15% auto;
       text-align: center;
       position: relative;
       z-index: 500;
@@ -142,9 +130,10 @@
     </div>
     <h1>Inicio</h1>
     <div class="user-info">
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
       <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
       <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      
       <div class="user-info">
         <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
         <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
@@ -173,52 +162,136 @@
     }
   </script>
 
-  <!-- Funciones para modales -->
+  <!-- Variables globales y funciones generales -->
   <script>
+    // Variables para las pistas y errores
+    let pistas = [
+      "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
+      "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
+      "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
+      "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
+      "Pregunta 5: Una matriz con este determinante no tiene inversa."
+    ];
+    let pistasRandomOrder = [];
+    let pistasRandomOrderIndex = 0;
+    let errorCount = 0;
+    let maxErrors = 3;
+
+    // Función para barajar un array (Fisher-Yates)
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Inicializa o reinicializa el array de índices barajados
+    function initPistasRandomOrder() {
+      pistasRandomOrder = [];
+      for (let i = 0; i < pistas.length; i++) {
+        pistasRandomOrder.push(i);
+      }
+      shuffleArray(pistasRandomOrder);
+      pistasRandomOrderIndex = 0;
+    }
+    initPistasRandomOrder();
+
+    // Cierra el modal de retroalimentación y detiene la narración
     function cerrarRetroalimentacion() {
       document.getElementById("retroalimentacion-modal").style.display = "none";
+      window.speechSynthesis.cancel();
     }
+
+    // Muestra el modal de retroalimentación y narra una pista sin repeticiones
     function mostrarRetroalimentacion() {
-      document.getElementById("retroalimentacion-modal").style.display = "block";
+      const modal = document.getElementById("retroalimentacion-modal");
+      const retroalimentacion = document.querySelector('#retroalimentacion-modal .retroalimentacion p');
+
+      if (pistasRandomOrderIndex >= pistasRandomOrder.length) {
+        initPistasRandomOrder();
+      }
+      const randomIndex = pistasRandomOrder[pistasRandomOrderIndex];
+      pistasRandomOrderIndex++;
+
+      retroalimentacion.innerText = pistas[randomIndex];
+      modal.style.display = "flex";
+      narrarTexto(retroalimentacion.innerText);
     }
+
     function cerrarFelicitacion() {
       document.getElementById("felicitacion-modal").style.display = "none";
     }
+
     function cerrarFinJuego() {
       document.getElementById("fin-juego-modal").style.display = "none";
     }
+
+    // Función para obtener y seleccionar una voz natural en español
+  function obtenerVozNatural() {
+    let voices = window.speechSynthesis.getVoices();
+    // Intenta seleccionar una voz que contenga "Google" en su nombre, si no, la primera que sea en español.
+    let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+    if (!voz) {
+      voz = voices.find(voice => voice.lang === 'es-ES');
+    }
+    return voz;
+  }
+
+  // Función para narrar texto usando la API SpeechSynthesis
+  function narrarTexto(texto) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      let mensaje = new SpeechSynthesisUtterance(texto);
+      mensaje.lang = 'es-ES';
+      mensaje.rate = 1.0; // Ajusta la velocidad para mayor naturalidad
+      mensaje.pitch = 1;  // Puedes ajustar este valor si es necesario
+
+      // Esperar a que se carguen las voces
+      let vozNatural = obtenerVozNatural();
+      if (vozNatural) {
+        mensaje.voice = vozNatural;
+      }
+      window.speechSynthesis.speak(mensaje);
+    } else {
+      alert('Tu navegador no soporta la síntesis de voz.');
+    }
+  }
+
+  // Asegurarse de que las voces se carguen (especialmente en Chrome)
+  window.speechSynthesis.onvoiceschanged = function() {
+    obtenerVozNatural();
+  };
   </script>
 
   <!-- Modal de retroalimentación (pistas) -->
-  <div id="retroalimentacion-modal" class="modal">
+  <div id="retroalimentacion-modal" class="modal" style="display:none;">
     <div class="modal-content">
       <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
       <div class="retroalimentacion">
-        <p><strong>Pregunta 1:</strong> Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.</p>
+        <p></p>
       </div>
     </div>
   </div>
 
+  <!-- Botón de retroalimentación (Avatar) -->
+  <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
 
-  <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" style="cursor: pointer;" title="Da clic para tener una pista">
-
-  
+  <!-- Contenido del desafío -->
   <div class="container">
     <p>TIEMPO: <span id="timer">05:00</span></p>
     <h2 id="question"></h2>
     <div id="options"></div>
     <p id="feedback"></p>
     <p>Puntaje: <span id="score">0</span></p>
-    
     <button id="retry-btn">Intentar de nuevo</button>
     <button id="next-btn" style="display:none;">Siguiente</button>
     <button id="exit-btn" onclick="window.location.href='inicio.html';">Salir</button>
-  </div>
+  </div>  
 
-  <!-- Modal de felicitación (para finalizar las preguntas) -->
+  <!-- Modal de felicitación -->
   <div id="felicitacion-modal" class="modal">
     <div class="felicitacion-modal">
-      <span class="close" onclick="cerrarFelicitacion()">&times;</span>
       <h2>🎉 ¡Felicidades! 🎉</h2>
       <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
@@ -229,10 +302,9 @@
     </div>
   </div>
 
-  
+  <!-- Modal de fin del juego -->
   <div id="fin-juego-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="cerrarFinJuego()">&times;</span>
       <h2>Fin del juego</h2>
       <p>Puntaje final: <span id="final-score-fj"></span></p>
       <p>Tiempo total: <span id="final-time-fj"></span></p>
@@ -242,13 +314,37 @@
     </div>
   </div>
 
- 
+  <!-- Modal de Error -->
+  <div id="error-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarError()">&times;</span>
+      <h2>⚠️ Incorrecto. Intenta de nuevo. ⚠️</h2>
+      <p>¡Al fin perderás muahaha!.</p>
+      <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
+    </div>
+  </div>
+
+  <!-- Funciones específicas del modal de error -->
   <script>
-    let timeRemaining = 300; // 3 minutos = 180 segundos
+    function mostrarError() {
+      // Si aún no se ha alcanzado el máximo de errores, mostrar el modal de error
+      if (errorCount < maxErrors) {
+        document.getElementById("error-modal").style.display = "flex";
+        reproducirSonidoErro();
+      }
+    }
+
+    function cerrarError() {
+      document.getElementById("error-modal").style.display = "none";
+    }
+  </script>
+
+  <!-- SCRIPT DEL JUEGO CON TEMPORIZADOR DE 5 MINUTOS -->
+  <script>
+    let timeRemaining = 300; 
     let timerInterval;
     let isGameOver = false;
 
-   
     function updateTimerDisplay() {
       let minutes = Math.floor(timeRemaining / 60);
       let seconds = timeRemaining % 60;
@@ -263,15 +359,14 @@
           timeRemaining = 0;
           updateTimerDisplay();
           clearInterval(timerInterval);
-          disableGame();  
-          mostrarFinJuego(); 
+          disableGame();
+          mostrarFinJuego();
         } else {
           timeRemaining--;
           updateTimerDisplay();
         }
       }, 1000);
     }
-
 
     function stopTimer() {
       clearInterval(timerInterval);
@@ -280,7 +375,6 @@
       let secondsElapsed = elapsed % 60;
       let timeStr = (minutesElapsed < 10 ? "0" + minutesElapsed : minutesElapsed) + ":" +
                     (secondsElapsed < 10 ? "0" + secondsElapsed : secondsElapsed);
-  
       let finalTimeFj = document.getElementById("final-time-fj");
       if(finalTimeFj) finalTimeFj.innerText = timeStr;
       let finalTimeFel = document.getElementById("final-time");
@@ -288,36 +382,31 @@
     }
 
     function disableGame() {
-      const optionButtons = document.querySelectorAll(".option");
-      optionButtons.forEach(btn => btn.disabled = true);
+      document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
       document.getElementById("retry-btn").disabled = true;
       document.getElementById("next-btn").disabled = true;
     }
 
-   
     function mostrarFinJuego() {
       isGameOver = true;
       stopTimer();
       document.getElementById("final-score-fj").innerText = document.getElementById("score").innerText;
-      document.getElementById("fin-juego-modal").style.display = "block";
-      reproducirSonidoTrompetas();
+      document.getElementById("fin-juego-modal").style.display = "flex";
+      reproducirSonidoFinjuego();
     }
 
-  
     function mostrarFelicitacion() {
       isGameOver = true;
       stopTimer();
       document.getElementById("final-score").innerText = document.getElementById("score").innerText;
-      document.getElementById("felicitacion-modal").style.display = "block";
+      document.getElementById("felicitacion-modal").style.display = "flex";
       reproducirSonidoTrompetas();
     }
 
-    
     function finalizarJuego() {
       mostrarFelicitacion();
     }
 
-    
     document.addEventListener("DOMContentLoaded", () => {
       let questions = [
         { 
@@ -354,7 +443,6 @@
         questions = questions.sort(() => Math.random() - 0.5);
       }
 
-     
       function loadQuestion() {
         if (currentQuestion >= questions.length) {
           finalizarJuego();
@@ -381,28 +469,59 @@
         resetGame();
       }
 
-      
       function checkAnswer(button, isCorrect) {
         document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
         const feedbackElement = document.getElementById("feedback");
         const scoreElement = document.getElementById("score");
         const nextButton = document.getElementById("next-btn");
+        if (!questionElement || !optionsContainer || !nextButton) return;
 
-        if (!feedbackElement || !scoreElement || !nextButton) return;
+questionElement.innerText = `Pregunta ${currentQuestion + 1} de ${questions.length}: ${q.question}`;
+optionsContainer.innerHTML = "";
 
-        if (isCorrect) {
-          button.classList.add("correct");
-          feedbackElement.innerText = "¡Correcto!";
-          score += 20;
-          scoreElement.innerText = score;
-          nextButton.style.display = "block";
-        } else {
-          button.classList.add("incorrect");
-          feedbackElement.innerText = "Incorrecto, intenta de nuevo.";
-        }
-      }
+q.options.forEach((option, index) => {
+  const button = document.createElement("button");
+  button.classList.add("option");
+  button.innerText = option;
+  button.onclick = () => checkAnswer(button, index === q.correct);
+  optionsContainer.appendChild(button);
+});
 
-      // Reinicia la pregunta actual
+resetGame();
+}
+
+function checkAnswer(button, isCorrect) {
+document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
+const feedbackElement = document.getElementById("feedback");
+const scoreElement = document.getElementById("score");
+const nextButton = document.getElementById("next-btn");
+
+if (!feedbackElement || !scoreElement || !nextButton) return;
+
+if (isCorrect) {
+  button.classList.add("correct");
+  feedbackElement.innerText = "¡Correcto!";
+  score += 20;
+  scoreElement.innerText = score;
+  nextButton.style.display = "block";
+  reproducirSonidoCorrecto();
+} else {
+  button.classList.add("incorrect");
+  feedbackElement.innerText = "Incorrecto, intenta de nuevo.";
+  errorCount++;
+  if (errorCount >= maxErrors) {
+mostrarFinJuego();
+  } else {
+mostrarError();
+  }
+}
+}
+
+function reproducirSonidoCorrecto() {
+const audio = new Audio("img/correcto.mp3");
+audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+}
+
       function resetGame() {
         document.querySelectorAll(".option").forEach(btn => {
           btn.disabled = false;
@@ -412,19 +531,16 @@
         document.getElementById("next-btn").style.display = "none";
       }
 
-      // Función para reintentar la pregunta actual
       function retryQuestion() {
         resetGame();
         loadQuestion();
       }
 
-      // Pasa a la siguiente pregunta
       function nextQuestion() {
         currentQuestion++;
         loadQuestion();
       }
 
-      // Agrega los event listeners para botones
       document.getElementById("next-btn").addEventListener("click", nextQuestion);
       document.getElementById("retry-btn").addEventListener("click", retryQuestion);
       document.getElementById("restart-btn").addEventListener("click", reiniciarJuego);
@@ -433,26 +549,31 @@
       loadQuestion();
     });
 
-    // Inicia el temporizador al cargar la página
     window.addEventListener("load", startTimer);
 
-    // Función para reproducir sonido de trompetas
     function reproducirSonidoTrompetas() {
       const audio = new Audio("img/trompetas.mp3");
       audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
     }
 
-    // Función para reproducir sonido de clic de botón
     function reproducirSonidoBoton() {
       const audio = new Audio("img/click.mp3");
       audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
     }
 
-    // Función global para reiniciar el juego
+    function reproducirSonidoFinjuego() {
+      const audio = new Audio("img/fin del juego.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+
+    function reproducirSonidoErro() {
+      const audio = new Audio("img/error.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+
     function reiniciarJuego() {
       location.reload();
     }
   </script>
-
 </body>
 </html>

@@ -17,9 +17,10 @@
         
         
         <div class="user-info">
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
             <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+            
             <div class="user-info">
                 <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
                 <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
@@ -55,7 +56,7 @@
         function startGame(mode) {
           if (mode === 'practica') {
             alert('Modo Práctica seleccionado. ¡Buena suerte!');
-            window.location.href = 'nivel 3 juego1.html';
+            window.location.href = 'nivel 1 juego1.html';
           } else if (mode === 'desafio') {  
             window.location.href = 'nivel 1 juego1.1.html?mode=desafio&time=180';
           } else if (mode === 'supervivencia') {

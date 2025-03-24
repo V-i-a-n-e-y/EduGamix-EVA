@@ -59,30 +59,32 @@ h1 {
 }
 
 
+/* Contenedor principal de la ruta de progreso */
 .progress-road {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    height: 70vh;
+    justify-content: center;
+    align-items: center;
+    height: 70vh; /* Ajusta según necesites */
 }
 
+/* Contenedor que agrupa los puntos de la ruta */
 .road {
     display: flex;
-    justify-content: space-evenly; 
-    align-items: flex-start; 
-    width: 80%; 
+    justify-content: space-evenly;
+    align-items: flex-start;
+    width: 80%;
 }
 
+/* Cada "punto" de la ruta */
 .road-point {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;       /* Para colocar icono arriba y texto abajo */
+    align-items: column-reverse;  /* Invierte el orden de los elementos */
+    justify-content: flex-start;  /* El icono queda arriba y el texto debajo */
     text-align: center;
-    display: flex;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    margin: 0 15px; 
+    margin: 0 15px;
     padding: 15px 0;
     font-weight: bold;
     color: white;
@@ -92,42 +94,64 @@ h1 {
     transform: scale(1.1);
 }
 
+/* Círculo de color que contiene el ícono */
 .point-icon {
-    width: 40px;
-    height: 40px;
+    width: 80px;  /* Icono más pequeño */
+    height: 220px;
     border-radius: 50%;
-    margin: 10px auto;
+    margin: 10px auto; /* Centra horizontalmente */
     transition: all 0.3s ease-in-out;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
     color: white;
-
 }
 
+/* Imagen del pin dentro del círculo */
+.pin-icon {
+    max-width: 70%;  /* Ajusta el tamaño del pin dentro del círculo */
+    max-height: 70%;
+}
+
+/* Colores y animaciones (opcional) */
 .point-icon.yellow {
-    background-color: #d7ad04;
+    background-color: #ffffff;
     animation: bounce 1.5s infinite;
 }
 
 .point-icon.red {
-    background-color: #e74c3c;
+    background-color: #ffffff;
     animation: bounce 1.5s infinite 0.2s;
 }
 
 .point-icon.green {
-    background-color: #2ecc71;
+    background-color: #ffffff;
     animation: bounce 1.5s infinite 0.4s;
 }
 
 .point-icon.light-green {
-    background-color: #27ae60;
+    background-color: #ffffff;
     animation: bounce 1.5s infinite 0.6s;
 }
 
 .point-icon.blue {
-    background-color: #3498db;
+    background-color: #ffffff;
+    animation: bounce 1.5s infinite 0.8s;
+}
+
+/* Ejemplo de keyframes para la animación bounce */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.point-icon.blue {
+    background-color: #ffffff;
     animation: bounce 1.5s infinite 0.8s;
 }
 
@@ -174,7 +198,6 @@ h1 {
     align-items: center;
     justify-content: center;
 }
-
 .modal-content {
     background-color: #ff914d; /* Color de fondo vibrante */
     color: white; /* Texto blanco para contraste */
@@ -188,7 +211,23 @@ h1 {
     text-align: center; /* Centra el texto */
     font-size: 18px;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+/* Contenedor de la imagen */
+.modal-image-container {
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Imagen que se mostrará abajo */
+.modal-image-container img {
+    width: 100%; /* Ocupar todo el ancho del modal */
+    border-radius: 0 0 10px 10px; /* Redondear solo la parte inferior */
+}
+
 
 .close-modal {
     color: white;
@@ -237,7 +276,7 @@ h1 {
     }
 
     .progress-road {
-        margin: 20px 0;
+        margin: -140px 0;
     }
 
     .road {
@@ -442,3 +481,29 @@ h1 {
     background-color: #45a049; /* Más oscuro al pasar el ratón */
 }
 
+/* Contenedor de los avatares con la imagen en el medio */
+.avatars-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Espaciado entre elementos */
+    margin-top: 30px;
+}
+
+/* Contenedor específico para la imagen en medio */
+.middle-image {
+    
+        display: block;
+        margin: 50px auto; /* Centra la imagen debajo del contenido */
+        width: 100%; /* Ajusta el tamaño de la imagen dentro del modal */
+        max-width: 300px; /* Tamaño máximo para mantener buena apariencia */
+        height: auto;
+    }
+    
+
+
+.middle-image-container img {
+    width: 1459px; /* Ajusta el tamaño según necesites */
+    height: auto;
+    border-radius: 10px;
+}

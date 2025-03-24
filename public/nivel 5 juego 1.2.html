@@ -1,26 +1,47 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduGamix</title>
-  <link rel="stylesheet" href="nivel 1 juego1.css">
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; }
-    .container { width: 80%; margin: auto; padding: 20px; border: 2px solid #000; border-radius: 10px; }
-    .header { font-size: 24px; font-weight: bold; }
-    .dropzone {
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduGamix</title>
+    <link rel="stylesheet" href="nivel 1 juego1.css" />
+    <style>
+      /* Estilos globales */
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+      /* Contenedor principal */
+      .container {
+        width: 50%;
+        margin: auto;
+        padding: 20px;
+        border: 2px solid #000;
+        border-radius: 10px;
+        margin-bottom: 30px;
+      }
+      .header {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+      /* Estilos para dropzone y elementos de arrastre */
+      .dropzone {
         width: 120px;
         height: 120px;
         border: 2px dashed blue;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: auto;
+        margin: 20px auto;
         overflow: hidden;
-    }
-    .drag-container { display: flex; justify-content: center; margin-top: 20px; }
-    .option {
+      }
+      .drag-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      .option {
         width: 100px;
         height: 100px;
         border: 2px solid blue;
@@ -30,217 +51,469 @@
         cursor: grab;
         margin: 10px;
         overflow: hidden;
-    }
-    .option img {
+      }
+      .option img {
         width: 100%;
         height: 100%;
         object-fit: contain;
-    }
-    .button { background-color: green; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-    .modal {
+      }
+      /* Botones */
+      .button {
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      /* Modal */
+      .modal {
         display: none;
         position: fixed;
-        z-index: 1;
+        z-index: 9999; /* Asegura que el modal esté por encima de otros elementos */
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .modal-content {
         background-color: white;
         margin: 15% auto;
         padding: 20px;
         border: 1px solid #888;
         width: 50%;
         text-align: center;
-    }
-    .close {
-        float: right;
+        position: relative;
+      }
+      .close {
+        position: absolute;
+        right: 10px;
+        top: 5px;
         font-size: 28px;
         cursor: pointer;
+      }
+      /* Avatares */
+      .avatar,
+      .avatar-error,
+      .avatar-modal {
+        width: 150px;
+        display: block;
+        margin: 10px auto;
+      }
+      /* Otros estilos */
+      .resources,
+      .tasks {
+        text-align: left;
+        margin-top: 10px;
+      }
+      .feedback {
+        font-style: italic;
+        margin-top: 10px;
+      }
+      .timer {
+        font-size: 20px;
+        color: blue;
+        margin-bottom: 20px;
+      }
+      .avatar-feedback {
+      position: fixed;
+      bottom: 20px;
+      right: 180px;
+      width: 150px;
+      height: 150px;
+      transition: transform 0.5s ease;
+      z-index: 1000;
+      animation: fadeIn 1s ease forwards;
     }
-    .avatar {
-  width: 150px;
-  display: block;
-  margin: 10px auto;
-}
-.avatar-error {
-  width: 150px;
-  display: block;
-  margin: 10px auto;
-}
-
-  </style>
-</head>
-
-<body>
-  <header>
-    <div class="logo">
-      <a href="index.html" target="_blank">
-        <img src="img/EduGamix.jpg" alt="EduGamix Logo">
-      </a>
-    </div>
-    <h1>Nivel 5</h1>
-    <div class="user-info">
-      <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
-      <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+    .avatar-feedback:hover {
+      transform: scale(1.1);
+    }
+    
+    </style>
+  </head>
+  <body>
+    <!-- Encabezado -->
+    <header>
+      <div class="logo">
+        <a href="index.html" target="_blank">
+          <img src="img/EduGamix.jpg" alt="EduGamix Logo" />
+        </a>
+      </div>
+      <h1>Nivel 5</h1>
       <div class="user-info">
-        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-        <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-        <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+        <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+        <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+        <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+       
+        <div class="user-info">
+          <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+          <span id="username">Nombre de Usuario</span> | 
+          <span id="useremail">correo@ejemplo.com</span>
+          <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+        </div>
+        <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
       </div>
-      <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
-    </div>
-  </header>
-
-  <div class="container">
-    <main>
+    </header>
+    
+    <!-- Contenedor unificado del desafío -->
+    <div class="container">
+      <div class="timer" id="timer">00:00</div>
       <h2>Desafío: Optimización de Recursos</h2>
-      <p>Arrastra la matriz correcta al recuadro central.</p>
-    </main>
-
-    <div class="dropzone" id="dropzone">Suelta aquí</div>
-
-    <div class="drag-container" id="drag-container">
-      <div class="option" draggable="true" id="option1">
-        <img src="img/matriz1.png" alt="Matriz 1">
+      <p>
+        Introducción: Un centro de datos necesita optimizar la asignación de recursos 
+        (CPU y memoria) entre diferentes servidores. Ayuda a determinar la mejor asignación 
+        para cumplir con los requisitos de las tareas.
+      </p>
+      <div class="resources">
+        <h3>Datos proporcionados:</h3>
+        <ul>
+          <li>Servidor 1: 4 unidades de CPU y 1 unidad de memoria</li>
+          <li>Servidor 2: 2 unidades de CPU y 2 unidades de memoria</li>
+          <li>Servidor 3: 3 unidades de CPU y 3 unidades de memoria</li>
+        </ul>
       </div>
-      <div class="option" draggable="true" id="option2">
-        <img src="img/matriz2.png" alt="Matriz 2">
+      <div class="tasks">
+        <h3>Requerimientos de recursos:</h3>
+        <ul>
+          <li>Tarea A: 10 unidades de CPU</li>
+          <li>Tarea B: 12 unidades de memoria</li>
+          <li>Tarea C: 15 unidades de recursos combinados</li>
+        </ul>
       </div>
-      <div class="option" draggable="true" id="option3">
-        <img src="img/matriz3.png" alt="Matriz 3">
+      <div class="resources"></div>
+      <h4>Arrastra la matriz correcta al recuadro central.</h4>
+      <div class="dropzone" id="dropzone">Suelta aquí</div>
+      <div class="drag-container" id="drag-container">
+        <div class="option" draggable="true" id="option1">
+          <img src="img/matriz1.png" alt="Matriz 1" />
+        </div>
+        <div class="option" draggable="true" id="option2">
+          <img src="img/matriz2.png" alt="Matriz 2" />
+        </div>
+        <div class="option" draggable="true" id="option3">
+          <img src="img/matriz3.png" alt="Matriz 3" />
+        </div>
+        <div class="option" draggable="true" id="option4">
+          <img src="img/matriz4.png" alt="Matriz 4" />
+        </div>
       </div>
-      <div class="option" draggable="true" id="option4">
-        <img src="img/matriz4.png" alt="Matriz 4">
-      </div>
+      <button class="button" onclick="checkAnswer()">Verificar</button>
+      <p>Puntuación: <span id="score">0</span></p>
+      <div class="feedback"></div>
     </div>
 
-    <button class="button" onclick="checkAnswer()">Verificar</button>
-    <p>Puntuación: <span id="score">0</span></p>
-  </div>
-
-  <!-- Modal de Felicitación -->
-  <div id="felicitacion-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-      <h2>🎉 ¡Felicidades! 🎉</h2>
-      <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
-      <p id="modalScore">Puntuación final: <span id="finalScoreValue"></span></p>
-      <img src="img/gami.jpg" alt="Gami" class="avatar" />
-      <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
-      <button id="modo-btn" onclick="window.location.href='modo juego n5.html';">Regresar</button>
-    </div>
-  </div>
-
-  <!-- Modal de Error -->
-  <div id="error-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarError()">&times;</span>
-      <h2>⚠️Incorrecto. Intenta de nuevo.⚠️</h2>
-      <p>¡Al fin perderás muahaha!.</p>
-      <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
-      <button id="restart-btn-error" onclick="reiniciarJuego()">Reintentar</button>
-    </div>
-  </div>
-
+     <!-- Variables globales para las pistas -->
   <script>
-    let correctOption = "option1";
-    let selectedOption = null;
-    let score = 0;
+    let pistas = [
+      "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
+      "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
+      "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
+      "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
+      "Pregunta 5: Una matriz con este determinante no tiene inversa."
+    ];
+    let pistasRandomOrder = [];
+    let pistasRandomOrderIndex = 0;
 
-    document.querySelectorAll(".option").forEach(option => {
+    // Barajar array con el algoritmo Fisher-Yates
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Inicializa el orden aleatorio de pistas
+    function initPistasRandomOrder() {
+      pistasRandomOrder = [];
+      for (let i = 0; i < pistas.length; i++) {
+        pistasRandomOrder.push(i);
+      }
+      shuffleArray(pistasRandomOrder);
+      pistasRandomOrderIndex = 0;
+    }
+
+    // Inicializa la secuencia al cargar la página
+    initPistasRandomOrder();
+  </script>
+
+<div id="retroalimentacion-modal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
+    <div class="retroalimentacion">
+      <p></p>
+    </div>
+  </div>
+</div>
+
+<img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" 
+     onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista"
+     style="position: fixed; bottom: 10px; left: 10px; width: 80px; z-index: 1000;">
+     <script>
+     // Funciones de síntesis de voz
+     function narrarTexto(texto) {
+       if ('speechSynthesis' in window) {
+         window.speechSynthesis.cancel();
+         let mensaje = new SpeechSynthesisUtterance(texto);
+         mensaje.lang = 'es-ES';
+         mensaje.rate = 1.0;
+         mensaje.pitch = 1;
+         let vozNatural = obtenerVozNatural();
+         if (vozNatural) {
+           mensaje.voice = vozNatural;
+         }
+         window.speechSynthesis.speak(mensaje);
+       } else {
+         alert('Tu navegador no soporta la síntesis de voz.');
+       }
+     }
+     function obtenerVozNatural() {
+       let voices = window.speechSynthesis.getVoices();
+       let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+       if (!voz) {
+         voz = voices.find(voice => voice.lang === 'es-ES');
+       }
+       return voz;
+     }
+     window.speechSynthesis.onvoiceschanged = function() {
+       obtenerVozNatural();
+     };
+ 
+    </script>
+
+    
+    <!-- Modal de Felicitación -->
+    <div id="felicitacion-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+        <h2>🎉Felicidades🎉</h2>
+        <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+        <p id="modalScore">
+          Puntuación final: <span id="finalScoreValue"></span>
+        </p>
+        <img src="img/gami.jpg" alt="Gami" class="avatar" />
+        <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
+        <button id="modo-btn" onclick="window.location.href='modo juego n5.html';">
+          Regresar
+        </button>
+      </div>
+    </div>
+    
+    <!-- Modal de Error (para el primer intento fallido) -->
+    <div id="error-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarError()">&times;</span>
+        <h2>⚠️ Incorrecto. Intenta de nuevo. </h2>
+        <p>¡Al fin perderás muahaha!</p>
+        <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
+        <!-- Aquí se usa la función reintentar() para mantener el orden de las fichas -->
+        <button id="restart-btn-error" onclick="reintentar()">Reintentar</button>
+      </div>
+    </div>
+    
+    <!-- Modal de Fin del Juego (después de dos intentos fallidos) -->
+    <div id="fin-juego-modal" class="modal">
+      <div class="modal-content">
+        <h2>Fin del juego</h2>
+        <p>Puntaje final: <span id="final-score-fj"></span></p>
+        <p>Tiempo total: <span id="final-time-fj"></span></p>
+        <img src="img/radicux.jpg" alt="Avatar" class="avatar-modal" />
+        <button onclick="reiniciarJuego()">Reiniciar Juego</button>
+        <button onclick="window.location.href='inicio.html';">Salir</button>
+      </div>
+    </div>
+    
+    <script>
+      let correctOption = "option1";
+      let selectedOption = null;
+      let score = 0;
+      let errorCount = 0;
+      let seconds = 0, minutes = 0, timerInterval;
+      
+      function startTimer() {
+        timerInterval = setInterval(() => {
+          seconds++;
+          if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+          }
+          document.getElementById("timer").textContent =
+            (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }, 1000);
+      }
+      
+      document.addEventListener("DOMContentLoaded", startTimer);
+      
+      // Configuración del evento drag and drop para cada opción
+      document.querySelectorAll(".option").forEach(option => {
         option.addEventListener("dragstart", event => {
-            selectedOption = option.id;
-            event.dataTransfer.setData("text", option.id);
+          selectedOption = option.id;
+          event.dataTransfer.setData("text", option.id);
         });
-    });
-
-    document.getElementById("dropzone").addEventListener("dragover", event => {
+      });
+      
+      document.getElementById("dropzone").addEventListener("dragover", event => {
         event.preventDefault();
-    });
-
-    document.getElementById("dropzone").addEventListener("drop", event => {
+      });
+      
+      document.getElementById("dropzone").addEventListener("drop", event => {
         event.preventDefault();
         let droppedId = event.dataTransfer.getData("text");
         let droppedElement = document.getElementById(droppedId);
         if (droppedElement) {
-            event.target.innerHTML = "";
-            let clone = droppedElement.cloneNode(true);
-            clone.id = "dropped";
-            event.target.appendChild(clone);
-            selectedOption = droppedId;
+          event.target.innerHTML = "";
+          let clone = droppedElement.cloneNode(true);
+          clone.id = "dropped";
+          event.target.appendChild(clone);
+          selectedOption = droppedId;
         }
-    });
-
-    function checkAnswer() {
+      });
+      
+      function checkAnswer() {
         if (selectedOption === correctOption) {
-            score += 10;
-            document.getElementById("score").textContent = score;
-            finalizarJuego();
+          score += 10;
+          document.getElementById("score").textContent = score;
+          finalizarJuegoFelicitacion();
         } else {
+          errorCount++;
+          console.log("Errores:", errorCount);
+          reproducirSonidoError();
+          
+          // Reiniciar el dropzone y la selección para permitir otro intento
+          document.getElementById("dropzone").innerHTML = "Suelta aquí";
+          selectedOption = null;
+          
+          // Si es el primer intento fallido, se muestra el modal de error (sin reordenar las fichas)
+          if (errorCount === 1) {
             mostrarErrorModal();
+          }
+          // Si es el segundo intento fallido, se muestra el modal de fin del juego
+          else if (errorCount === 2) {
+            finalizarJuegoFin();
+          }
         }
-    }
+      }
 
-    function mostrarErrorModal() {
-        // Ocultar el modal de felicitación (si está visible)
+        function mostrarRetroalimentacion() {
+        // Muestra el modal
+        document.getElementById("retroalimentacion-modal").style.display = "block";
+        // Actualiza el contenido con una pista (ejemplo: la pista correspondiente al índice actual)
+        const pistaActual = pistas[pistasRandomOrder[pistasRandomOrderIndex]];
+        document.querySelector("#retroalimentacion-modal .retroalimentacion p").textContent = pistaActual;
+        // Opcional: avanzar al siguiente índice para la próxima vez
+        pistasRandomOrderIndex = (pistasRandomOrderIndex + 1) % pistas.length;
+        }
+        function cerrarRetroalimentacion() {
+        document.getElementById("retroalimentacion-modal").style.display = "none";
+        }
+
+      
+      function mostrarErrorModal() {
+        // Aseguramos que no se muestren otros modales
         document.getElementById("felicitacion-modal").style.display = "none";
-        // Mostrar el modal de error
         document.getElementById("error-modal").style.display = "block";
-    }
-
-    function reproducirSonidoTrompetas() {
+      }
+      
+      // Función de reintento que NO mezcla las fichas
+      function reintentar() {
+        document.getElementById("dropzone").innerHTML = "Suelta aquí";
+        selectedOption = null;
+        document.getElementById("error-modal").style.display = "none";
+      }
+      
+      function reproducirSonidoTrompetas() {
         const audio = new Audio("img/trompetas.mp3");
-        audio.play();
-    }
-
-    function reproducirSonidoBoton() {
-        const audio = new Audio("sonidos/click.mp3");
-        audio.play();
-    }
-
-    function feliBingo() {
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
+      
+      function reproducirSonidoFinJuego() {
+        const audio = new Audio("img/fin del juego.mp3");
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
+      
+      function reproducirSonidoError() {
+        const audio = new Audio("img/error.mp3");
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
+      
+      function finalizarJuegoFelicitacion() {
+        clearInterval(timerInterval);
+        document.getElementById("finalScoreValue").textContent = score;
         document.getElementById("felicitacion-modal").style.display = "block";
         reproducirSonidoTrompetas();
-    }
-
-    function finalizarJuego() {
-        document.getElementById("finalScoreValue").textContent = score;
-        feliBingo();
-    }
-
-    function cerrarFelicitacion() {
+      }
+      
+      function finalizarJuegoFin() {
+        clearInterval(timerInterval);
+        const finalTime =
+          (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        document.getElementById("final-score-fj").textContent = score;
+        document.getElementById("final-time-fj").textContent = finalTime;
+        // Se ocultan los demás modales antes de mostrar el modal de fin del juego
         document.getElementById("felicitacion-modal").style.display = "none";
-    }
-
-    function cerrarError() {
         document.getElementById("error-modal").style.display = "none";
-    }
-
-    function reiniciarJuego() {
+        document.getElementById("fin-juego-modal").style.display = "block";
+        reproducirSonidoFinJuego();
+      }
+      
+      function cerrarFelicitacion() {
+        document.getElementById("felicitacion-modal").style.display = "none";
+      }
+      
+      function cerrarError() {
+        document.getElementById("error-modal").style.display = "none";
+      }
+      
+      // Al reiniciar el juego se reinician todos los valores y se mezclan las fichas (orden aleatorio)
+      function reiniciarJuego() {
         score = 0;
+        errorCount = 0;
+        seconds = 0;
+        minutes = 0;
         document.getElementById("score").textContent = score;
         document.getElementById("dropzone").innerHTML = "Suelta aquí";
-        document.querySelectorAll(".drag-container .option").forEach(option => {
-            option.style.pointerEvents = "auto";
-        });
-        selectedOption = null;
         document.getElementById("felicitacion-modal").style.display = "none";
         document.getElementById("error-modal").style.display = "none";
+        document.getElementById("fin-juego-modal").style.display = "none";
+        selectedOption = null;
+        clearInterval(timerInterval);
+        startTimer();
         mezclarTarjetas();
-    }
-
-    function mezclarTarjetas() {
+      }
+      
+      function mezclarTarjetas() {
         const container = document.getElementById("drag-container");
         const opciones = Array.from(container.children);
+        // Se realiza la mezcla de las fichas
         for (let i = opciones.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            container.appendChild(opciones[j]);
+          const j = Math.floor(Math.random() * (i + 1));
+          container.appendChild(opciones[j]);
         }
-    }
-  </script>
-</body>
+      }
+      
+      function logout() {
+        // Lógica para cerrar sesión
+        alert("Cerrando sesión...");
+      }
+    </script>
+    <script>
+      // Función para mostrar el modal de retroalimentación y actualizar la pista
+      function mostrarRetroalimentacion() {
+        // Mostrar el modal
+        document.getElementById("retroalimentacion-modal").style.display = "block";
+        // Seleccionar la pista usando el array ya barajado
+        const pistaActual = pistas[pistasRandomOrder[pistasRandomOrderIndex]];
+        document.querySelector("#retroalimentacion-modal .retroalimentacion p").textContent = pistaActual;
+        // Avanzar al siguiente índice para la próxima vez
+        pistasRandomOrderIndex = (pistasRandomOrderIndex + 1) % pistas.length;
+      }
+    
+      // Función para cerrar el modal de retroalimentación
+      function cerrarRetroalimentacion() {
+        document.getElementById("retroalimentacion-modal").style.display = "none";
+      }
+    </script>
+    
+  </body>
 </html>

@@ -367,6 +367,15 @@ button:hover {
 .feedback-table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
+.avatar-feedback {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    width: 80px; /* Ajusta el tamaño según sea necesario */
+    height: auto;
+    cursor: pointer;
+    z-index: 1000; /* Asegura que esté sobre otros elementos */
+}
 
 /* Contenedor de los botones de reinicio y otras acciones */
 .button-container {

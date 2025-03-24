@@ -172,9 +172,10 @@
     </div>
     <h1>Inicio</h1>
     <div class="user-info">
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
       <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
       <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      
       <div class="user-info">
         <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
         <span id="username">Nombre de Usuario</span> | 
@@ -185,89 +186,215 @@
     </div>
   </header>
 
-  <!-- Modal de Retroalimentación (pista) -->
-  <div id="retroalimentacion-modal" class="modal">
+  <!-- Variables globales para las pistas -->
+  <script>
+    let pistas = [
+      "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
+      "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
+      "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
+      "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
+      "Pregunta 5: Una matriz con este determinante no tiene inversa."
+    ];
+    let pistasRandomOrder = [];
+    let pistasRandomOrderIndex = 0;
+
+    // Barajar array con el algoritmo Fisher-Yates
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Inicializa el orden aleatorio de pistas
+    function initPistasRandomOrder() {
+      pistasRandomOrder = [];
+      for (let i = 0; i < pistas.length; i++) {
+        pistasRandomOrder.push(i);
+      }
+      shuffleArray(pistasRandomOrder);
+      pistasRandomOrderIndex = 0;
+    }
+
+    // Inicializa la secuencia al cargar la página
+    initPistasRandomOrder();
+  </script>
+  
+ <!-- Modal de retroalimentación (pistas) -->
+ <div id="retroalimentacion-modal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
+    <div class="retroalimentacion">
+      <p></p>
+    </div>
+  </div>
+</div>
+
+<!-- Botón de retroalimentación (Avatar) -->
+<img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
+
+
+  <!-- Modal de Felicitación -->
+  <div id="felicitacion-modal" class="modal">
+    <div class="felicitacion-modal">
+      <h2>🎉 Felicidades 🎉</h2>
+      <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+      <p>Puntaje final: <span id="final-score"></span></p>
+      <p>Tiempo total: <span id="final-time"></span></p>
+      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
+      <button id="restart-btn">Reiniciar Juego</button>
+      <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
+    </div>
+  </div>
+  
+  <!-- Modal de Fin del Juego (alternativo) -->
+  <div id="fin-juego-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
-      <div class="retroalimentacion">
-        <p>
-          <strong>Pregunta 1:</strong> Este método recibe el nombre de un matemático famoso y utiliza 
-          determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.
-        </p>
-      </div>
+      <h2>Fin del juego</h2>
+      <p>Puntaje final: <span id="final-score-fj"></span></p>
+      <p>Tiempo total: <span id="final-time-fj"></span></p>
+      <img src="img/radicux.jpg" alt="Avatar" class="avatar-modal">
+      <button onclick="reiniciarJuego()">Reiniciar Juego</button>
+      <button onclick="window.location.href='inicio.html';">Salir</button>
     </div>
   </div>
 
-  <!-- Botón de retroalimentación -->
-  <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" 
-       onclick="mostrarRetroalimentacion()" 
-       style="cursor: pointer;" 
-       title="Da clic para tener una pista" />
+  <!-- Modal de Error (actualizado con contador de errores) -->
+  <div id="error-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarError()">&times;</span>
+      <h2>⚠️ Incorrecto. intenta de nuevo.</h2>
+      <p>Llevas <span id="error-count">0</span> error.</p>
+      <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
+    </div>
+  </div>
 
-  <!-- Sección de desafío (cuestionario) -->
+  <!-- Funciones de los modales y otras utilidades -->
+  <script>
+    // Funciones para mostrar y cerrar modales
+    function cerrarRetroalimentacion() {
+      document.getElementById("retroalimentacion-modal").style.display = "none";
+      window.speechSynthesis.cancel();
+    }
+    function mostrarRetroalimentacion() {
+      const modal = document.getElementById("retroalimentacion-modal");
+      const retroalimentacion = document.querySelector('#retroalimentacion-modal .retroalimentacion p');
+      if (pistasRandomOrderIndex >= pistasRandomOrder.length) {
+        initPistasRandomOrder();
+      }
+      const randomIndex = pistasRandomOrder[pistasRandomOrderIndex];
+      pistasRandomOrderIndex++;
+      retroalimentacion.innerText = pistas[randomIndex];
+      modal.style.display = "flex";
+      narrarTexto(retroalimentacion.innerText);
+    }
+    function cerrarFelicitacion() {
+      document.getElementById("felicitacion-modal").style.display = "none";
+    }
+    function cerrarFinJuego() {
+      document.getElementById("fin-juego-modal").style.display = "none";
+    }
+    function cerrarError() {
+      document.getElementById("error-modal").style.display = "none";
+    }
+
+    // Funciones de síntesis de voz
+    function narrarTexto(texto) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        let mensaje = new SpeechSynthesisUtterance(texto);
+        mensaje.lang = 'es-ES';
+        mensaje.rate = 1.0;
+        mensaje.pitch = 1;
+        let vozNatural = obtenerVozNatural();
+        if (vozNatural) {
+          mensaje.voice = vozNatural;
+        }
+        window.speechSynthesis.speak(mensaje);
+      } else {
+        alert('Tu navegador no soporta la síntesis de voz.');
+      }
+    }
+    function obtenerVozNatural() {
+      let voices = window.speechSynthesis.getVoices();
+      let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+      if (!voz) {
+        voz = voices.find(voice => voice.lang === 'es-ES');
+      }
+      return voz;
+    }
+    window.speechSynthesis.onvoiceschanged = function() {
+      obtenerVozNatural();
+    };
+
+    // Funciones de sonido unificadas
+    function reproducirSonidoError() {
+      const audio = new Audio("img/error.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    // Función para reproducir el sonido de trompetas (modal de felicitaciones)
+    function reproducirSonidoTrompetas() {
+      const audio = new Audio("img/trompetas.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    // Función para reproducir el sonido de fin del juego (modal de derrota)
+    function reproducirSonidoFinJuego() {
+      const audio = new Audio("img/fin del juego.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    function reproducirSonidoBoton() {
+      const audio = new Audio("img/click.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    // NUEVA: Función para reproducir sonido de respuesta correcta
+    function reproducirSonidoCorrecto() {
+    const audio = new Audio("img/correcto.mp3");
+    audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    function reiniciarJuego() {
+      location.reload();
+    }
+  </script>
+
+  <!-- Sección del Memorama y desafío -->
   <div class="container">
-    <!-- Temporizador -->
     <h2 id="question"></h2>
     <div id="options"></div>
     <p id="feedback"></p>
-    
-    <!-- Modal de Felicitación (Feedback final) -->
-    <div id="felicitacion-modal" class="modal">
-      <div class="felicitacion-modal">
-        <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-        <h2>🎉 ¡Felicidades! 🎉</h2>
-        <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
-        <p>Puntaje final: <span id="final-score"></span></p>
-        <p>Tiempo total: <span id="final-time"></span></p>
-        <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
-        <button id="restart-btn">Reiniciar Juego</button>
-        <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
-      </div>
-    </div>
   </div>
-
-  <!-- Sección del Memorama -->
+  
   <main>
     <h2>Memorama de Métodos de Solución</h2>
     <p>Encuentra las parejas correctas de métodos y sus representaciones.</p>
     <p>TIEMPO: <span id="timer">05:00</span></p>
     <p id="score-memorama">Puntuación: 0</p>
     <div class="grid" id="grid"></div>
-
-    <!-- Contenedor de botones para el Memorama -->
     <div class="button-container">
       <button onclick="finalizarJuego(); reproducirSonidoBoton();">Fin del Juego</button>
       <button id="exit-memorama-btn" onclick="window.location.href='inicio.html';">Salir</button>
     </div>
   </main>
 
-  <!-- JavaScript Consolidado -->
+  <!-- Funciones de juego, temporizador y Memorama -->
   <script>
-    /* Función para cerrar sesión */
     function logout() {
       localStorage.removeItem("username");
       localStorage.removeItem("useremail");
       window.location.href = "login.html";
     }
 
-    /* Temporizador en cuenta regresiva desde 5 minutos */
+    // Temporizador (5 minutos)
     let seconds = 0, minutes = 5, timerInterval;
     let isGameOver = false;
-
     function startTimer() {
       timerInterval = setInterval(() => {
         if (!isGameOver) {
-          // Si el tiempo se ha agotado, detenemos el juego
           if (minutes === 0 && seconds === 0) {
             isGameOver = true;
             stopTimer();
-            // Si no se ha contestado nada, aseguramos que el puntaje sea 0
-            if(scoreMemorama === 0) {
-              scoreMemorama = 0;
-            }
             finalizarJuego();
           } else {
-            // Lógica de cuenta regresiva
             if (seconds === 0) {
               if (minutes > 0) {
                 minutes--;
@@ -277,68 +404,36 @@
               seconds--;
             }
           }
-          // Actualizamos la visualización del temporizador
           document.getElementById("timer").innerText =
             (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
         }
       }, 1000);
     }
-
-    // Función para detener el temporizador y actualizar el tiempo final
     function stopTimer() {
       clearInterval(timerInterval);
       document.getElementById("final-time").innerText =
         (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }
-
-    /* Modales: Felicitación y Retroalimentación */
     function mostrarFelicitacion() {
       isGameOver = true;
       stopTimer();
       document.getElementById("final-score").textContent = scoreMemorama;
       document.getElementById("felicitacion-modal").style.display = "flex";
+      reproducirSonidoTrompetas();
     }
-
-    function cerrarFelicitacion() {
-      document.getElementById("felicitacion-modal").style.display = "none";
-    }
-
-    function mostrarRetroalimentacion() {
-      document.getElementById("retroalimentacion-modal").style.display = "flex";
-      const narrador = new SpeechSynthesisUtterance();
-      narrador.text = `Pregunta: ¿Qué método se usa para resolver sistemas de ecuaciones lineales utilizando determinantes de matrices?
-Pista: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.
-
-Pregunta: ¿Cuál de los siguientes es un espacio vectorial?
-Pista: Busca un conjunto que, junto con las operaciones de suma y multiplicación por un escalar, cumple todos los axiomas necesarios para ser considerado un espacio vectorial. Piensa en un conjunto donde la estructura algebraica es especialmente flexible y se pueden definir polinomios de cualquier grado.
-
-Pregunta: ¿Qué operación es fundamental en la eliminación de Gauss?
-Pista: Durante este proceso, es habitual reordenar las filas para evitar divisiones por cero o para facilitar la transformación del sistema en una forma escalonada. ¿Qué operación permite cambiar el orden de las ecuaciones?
-
-Pregunta: ¿Cuál es la dimensión del espacio vectorial R³?
-Pista: La dimensión de un espacio vectorial se corresponde con el número de componentes que tiene cada vector en él. ¿Qué número representa el “n” en Rⁿ cuando n = 3?
-
-Pregunta: Si una matriz tiene un determinante igual a 0, ¿qué significa?
-Pista: Cuando el determinante de una matriz es cero, la matriz pierde la propiedad de tener una inversa. Se dice que posee una característica especial que la clasifica de cierta forma en el álgebra lineal.`;
-      narrador.lang = 'es-ES';
-      speechSynthesis.speak(narrador);
-    }
-
-    function cerrarRetroalimentacion() {
-      document.getElementById("retroalimentacion-modal").style.display = "none";
-      if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
-      }
-    }
-
-    /* Memorama */
+    
+    // Variables y lógica del Memorama
     let scoreMemorama = localStorage.getItem("scoreMemorama") 
                            ? parseInt(localStorage.getItem("scoreMemorama")) 
                            : 0;
+    let errorCount = 0;
+    const maxErrors = 5;
     const totalPairs = 4;
     let matchedPairs = 0;
     let selectedCards = [];
-
+    // Variable para detectar si el usuario ha interactuado (respondido)
+    let hasResponded = false;
+    
     const cards = [
       { image: "img/cramer.jpg", pair: 1 },
       { image: "img/regla de cramer.png", pair: 1 },
@@ -349,87 +444,95 @@ Pista: Cuando el determinante de una matriz es cero, la matriz pierde la propied
       { image: "img/inversa.jpg", pair: 4 },
       { image: "img/m inversa.png", pair: 4 }
     ];
-
     let shuffledCards = [...cards].sort(() => Math.random() - 0.5);
-
     function createCard(card, index) {
       const div = document.createElement("div");
       div.classList.add("card", "hidden");
       div.dataset.pair = card.pair;
       div.dataset.index = index;
-
       const img = document.createElement("img");
       img.src = card.image;
       img.alt = `Imagen de método ${card.pair}`;
-
       div.appendChild(img);
       div.addEventListener("click", () => flipCard(div));
       return div;
     }
-
+    // Se marca que el usuario ha interactuado al hacer clic en una carta
     function flipCard(card) {
       if (!card || selectedCards.length >= 2 || card.classList.contains("revealed")) return;
+      hasResponded = true;
       card.classList.remove("hidden");
       card.classList.add("revealed");
       selectedCards.push(card);
-
       if (selectedCards.length === 2) {
         setTimeout(checkMatch, 1000);
       }
     }
-
     function checkMatch() {
       if (selectedCards.length === 2) {
-        const [firstCard, secondCard] = selectedCards;
-        if (firstCard.dataset.pair === secondCard.dataset.pair) {
-          scoreMemorama += 10;
-          matchedPairs++;
-          document.getElementById("score-memorama").textContent = `Puntuación: ${scoreMemorama}`;
-          localStorage.setItem("scoreMemorama", scoreMemorama);
-          selectedCards = [];
-          if (matchedPairs === totalPairs) {
-            finalizarJuego();
-          }
-        } else {
-          setTimeout(() => {
-            selectedCards.forEach(card => {
-              card.classList.add("hidden");
-              card.classList.remove("revealed");
-            });
-            selectedCards = [];
-          }, 1000);
+      const [firstCard, secondCard] = selectedCards;
+      if (firstCard.dataset.pair === secondCard.dataset.pair) {
+        // Cada respuesta correcta vale 20 puntos (modificado de 10)
+        scoreMemorama += 10;
+        matchedPairs++;
+        document.getElementById("score-memorama").textContent = `Puntuación: ${scoreMemorama}`;
+        localStorage.setItem("scoreMemorama", scoreMemorama);
+        reproducirSonidoCorrecto(); // Reproducir sonido de correcto
+        selectedCards = [];
+        if (matchedPairs === totalPairs) {
+        finalizarJuego();
         }
+      } else {
+        errorCount++;
+        document.getElementById("error-count").textContent = errorCount;
+        reproducirSonidoError();
+        if (errorCount >= maxErrors) {
+        finalizarJuego();
+        } else {
+        document.getElementById("error-modal").style.display = "flex";
+        }
+        setTimeout(() => {
+        selectedCards.forEach(card => {
+          card.classList.add("hidden");
+          card.classList.remove("revealed");
+        });
+        selectedCards = [];
+        }, 1000);
+      }
       }
     }
-
-    function reproducirSonidoTrompetas() {
-      const audio = new Audio("img/trompetas.mp3");
-      audio.play();
-    }
     
-    function reproducirSonidoBoton() {
-      const audio = new Audio("sonidos/click.mp3");
-      audio.play();
-    }
-    
-    // Función para mostrar el modal final (felicitación)
-    function feliBingo() {
-      stopTimer();
-      document.getElementById("felicitacion-modal").style.display = "flex";
-      reproducirSonidoTrompetas();
-    }
-    
+    // Función de finalización de juego modificada:
     function finalizarJuego() {
-      // Si no se ha contestado nada, nos aseguramos que el puntaje sea 0
-      if (scoreMemorama === 0) {
+      isGameOver = true;
+      clearInterval(timerInterval);
+      
+      // Si se acaba el tiempo y el usuario no ha interactuado, forzamos el puntaje a 0.
+      if (minutes === 0 && seconds === 0 && !hasResponded) {
         scoreMemorama = 0;
       }
+      
+      // Calcula el tiempo final formateado
+      const finalTime = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+      
+      // Guarda datos en localStorage si lo necesitas
       localStorage.setItem("juegoFinalizado", "true");
       localStorage.setItem("puntaje", scoreMemorama);
-      document.getElementById("final-score").textContent = scoreMemorama;
-      feliBingo();
+      
+      // Si se han cometido 5 errores o se terminó el tiempo, muestra el modal de fin de juego (derrota)
+      if (errorCount >= maxErrors || (minutes === 0 && seconds === 0)) {
+        document.getElementById("final-score-fj").textContent = scoreMemorama;
+        document.getElementById("final-time-fj").textContent = finalTime;
+        document.getElementById("fin-juego-modal").style.display = "flex";
+        reproducirSonidoFinJuego();
+      } else {
+        // Modal de felicitación (victoria)
+        document.getElementById("final-score").textContent = scoreMemorama;
+        document.getElementById("final-time").textContent = finalTime;
+        document.getElementById("felicitacion-modal").style.display = "flex";
+        reproducirSonidoTrompetas();
+      }
     }
-    
     function iniciarJuego() {
       const grid = document.getElementById("grid");
       grid.innerHTML = "";
@@ -437,25 +540,20 @@ Pista: Cuando el determinante de una matriz es cero, la matriz pierde la propied
         grid.appendChild(createCard(card, index));
       });
     }
-
-    /* Inicialización al cargar el DOM */
     document.addEventListener("DOMContentLoaded", function() {
-      // Cargar datos de usuario
       const username = localStorage.getItem("username");
       const useremail = localStorage.getItem("useremail");
       if (username) document.getElementById("username").textContent = username;
       if (useremail) document.getElementById("useremail").textContent = useremail;
       
-      // Iniciar temporizador y juego
       startTimer();
       localStorage.setItem("scoreMemorama", 0);
       iniciarJuego();
       
-      // Reiniciar juego desde el modal de felicitación
       document.getElementById("restart-btn").addEventListener("click", () => {
         isGameOver = false;
         seconds = 0;
-        minutes = 3;
+        minutes = 5;
         document.getElementById("timer").innerText = "05:00";
         document.getElementById("felicitacion-modal").style.display = "none";
         location.reload();

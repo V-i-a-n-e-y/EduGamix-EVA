@@ -94,19 +94,17 @@
       z-index: 1000;
     }
     .modal-content {
-     
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  position: relative;
-  width: 80%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      position: relative;
+      width: 80%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
     .modal-content .close {
       position: absolute;
       top: 10px;
@@ -114,7 +112,6 @@
       cursor: pointer;
       font-size: 24px;
     }
-    /* Animación de aparición */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -156,7 +153,6 @@
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">
       <a href="index.html" target="_blank">
@@ -165,9 +161,10 @@
     </div>
     <h1>Nivel 2</h1>
     <div class="user-info">
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
       <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
       <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      
       <div class="user-info">
         <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
         <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
@@ -176,7 +173,7 @@
       <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
     </div>
   </header>
-
+  
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const username = localStorage.getItem("username");
@@ -188,29 +185,61 @@
         document.getElementById("useremail").textContent = useremail;
       }
     });
-
     function logout() {
       localStorage.removeItem("username");
       localStorage.removeItem("useremail");
       window.location.href = "login.html";
     }
   </script>
-
-  <!-- Modal de retroalimentación -->
+  
+  <!-- Modal de retroalimentación (pistas) -->
   <div id="retroalimentacion-modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
       <div class="retroalimentacion">
-        <button class="retroalimentacion-btn" onclick="mostrarRetroalimentacion()">
-          <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" style="cursor: pointer;" title="Da clic para tener una pista">
-        </button>
-        <p><strong>Compatibles determinadas:</strong> Son aquellas ecuaciones que tienen una única solución.</p>
-        <p><strong>Compatibles indeterminadas:</strong> Son ecuaciones con múltiples soluciones. El sistema tiene infinitas soluciones y sus líneas se superponen.</p>
-        <p><strong>Incompatibles:</strong> Son aquellas ecuaciones que no tienen solución. Las rectas son paralelas y nunca se cruzan.</p>
+        <p></p>
       </div>
     </div>
   </div>
-
+  
+  <!-- Botón de retroalimentación (Avatar) -->
+  <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
+  
+  <!-- Modal de felicitación (se muestra al responder todas las preguntas correctamente) -->
+  <div id="felicitacion-modal" class="modal">
+    <div class="felicitacion-modal">
+      <h2>🎉Felicidades🎉</h2>
+      <p>¡Has completado el desafío respondiendo correctamente todas las preguntas!</p>
+      <p>Puntaje final: <span id="final-score"></span></p>
+      <p>Tiempo total: <span id="final-time"></span></p>
+      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
+      <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
+      <button id="modo-btn" onclick="window.location.href='modo juego n2.html';">Regresar</button>
+    </div>
+  </div>
+  
+  <!-- Modal de fin del juego (se muestra al cometer el tercer error) -->
+  <div id="fin-juego-modal" class="modal">
+    <div class="modal-content">
+      <h2>🎮Fin del juego</h2>
+      <p>Puntaje final: <span id="final-score-fj"></span></p>
+      <p>Tiempo total: <span id="final-time-fj"></span></p>
+      <img src="img/radicux.jpg" alt="Avatar" class="avatar-modal">
+      <button onclick="reiniciarJuego()">Reiniciar Juego</button>
+      <button onclick="window.location.href='inicio.html';">Salir</button>
+    </div>
+  </div>
+  
+  <!-- Modal de Error (se muestra al cometer un error, permitiendo 2 errores) -->
+  <div id="error-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarError()">&times;</span>
+      <h2>⚠️ Incorrecto. Intenta de nuevo.</h2>
+      <p>¡Cuidado! Solo se permiten 2 errores. Si cometes un tercer error, el juego terminará.</p>
+      <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
+    </div>
+  </div>
+  
   <!-- Contenido del desafío -->
   <div class="contenido">
     <h2>Desafío: Explorando Soluciones Lineales</h2>
@@ -240,120 +269,212 @@
     <div class="navegacion">
       <button onclick="cambiarTarjeta(-1)">Atrás</button>
       <button onclick="cambiarTarjeta(1)">Siguiente</button>
-      <button onclick="finalizarJuego(); reproducirSonidoBoton();">Fin del Juego</button>
+      <button onclick="mostrarFinJuego(); reproducirSonidoBoton();">Fin del Juego</button>
     </div>
   </div>
-
-  <!-- Modal de felicitación (para finalizar las preguntas) -->
-  <div id="felicitacion-modal" class="modal">
-    <div class="felicitacion-modal">
-      <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-      <h2>🎉 ¡Felicidades! 🎉</h2>
-      <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
-      <p>Puntaje final: <span id="final-score"></span></p>
-      <p>Tiempo total: <span id="final-time"></span></p>
-      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
-      <button onclick="reiniciarJuego()">Reiniciar Juego</button>
-      <button id="modo-btn" onclick="window.location.href='modo juego n2.html';">Regresar</button>
-    </div>
-  </div>
-
- 
-  <div id="fin-juego-modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarFinJuego()">&times;</span>
-      <h2>Fin del juego</h2>
-      <p>Puntaje final: <span id="final-score-fj"></span></p>
-      <p>Tiempo total: <span id="final-time-fj"></span></p>
-      <img src="img/radicux.jpg" alt="Avatar" class="avatar-modal">
-      <button onclick="reiniciarJuego()">Reiniciar Juego</button>
-      <button onclick="window.location.href='inicio.html';">Salir</button>
-    </div>
-  </div>
-
   
   <script>
-    // Variables globales para puntos y registro de respuestas
+    /* VARIABLES GLOBALES */
     let score = 0;
     const tarjetas = document.querySelectorAll(".tarjeta");
+    // Solo se marcará la respuesta si es correcta, para garantizar que se hayan respondido correctamente
     let respuestasUsuario = new Array(tarjetas.length).fill(null);
     let puntuacionPorPregunta = new Array(tarjetas.length).fill(false);
     let tarjetaActual = 0;
   
-    
-    function reproducirSonidoTrompetas() {
-      const audio = new Audio("img/trompetas.mp3");
-      audio.play();
+    // Se permiten 2 errores; al tercer error se termina el juego
+    let errorCount = 0;
+    const maxErrors = 3;
+  
+    // Temporizador: cuenta regresiva desde 180 segundos (3 minutos)
+    let timeRemaining = 180;
+    let timerInterval;
+    let isGameOver = false;
+  
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeRemaining / 60);
+      const seconds = timeRemaining % 60;
+      document.getElementById("timer").innerText =
+        (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }
   
-    function reproducirSonidoBoton() {
-      const audio = new Audio("img/click.mp3");
-      audio.play();
+    function startTimer() {
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        if (!isGameOver) {
+          timeRemaining--;
+          updateTimerDisplay();
+          if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            mostrarFinJuego();
+          }
+        }
+      }, 1000);
     }
-    function reproducirSonidoFinJuego() {
-      const audio = new Audio("img/fin del juego.mp3");
-      audio.play();
+  
+    function stopTimer() {
+      clearInterval(timerInterval);
+      const elapsed = 180 - timeRemaining;
+      const minutes = Math.floor(elapsed / 60);
+      const seconds = elapsed % 60;
+      const finalTime = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+      document.getElementById("final-time").innerText = finalTime;
+      document.getElementById("final-time-fj").innerText = finalTime;
     }
-    function feliBingo() {
-      document.getElementById("final-score").textContent = score;
-      let tiempoTranscurrido = 180 - timeRemaining;
-      let minutesElapsed = Math.floor(tiempoTranscurrido / 60);
-      let secondsElapsed = tiempoTranscurrido % 60;
-      document.getElementById("final-time").textContent =
-        (minutesElapsed < 10 ? "0" + minutesElapsed : minutesElapsed) + ":" +
-        (secondsElapsed < 10 ? "0" + secondsElapsed : secondsElapsed);
-      document.getElementById("felicitacion-modal").style.display = "block";
-      reproducirSonidoTrompetas();
+  
+    /* MODALES Y RETROALIMENTACIÓN */
+    let pistas = [
+    "Compatibles determinadas: Son aquellas ecuaciones que tienen una única solución.",
+      "Compatibles: Son ecuaciones que tienen solución única. Las rectas se cruzan en un punto.",
+      "Compatibles indeterminadas: Son ecuaciones con múltiples soluciones. El sistema tiene infinitas soluciones y sus líneas se superponen.",
+      "Incompatibles: Son ecuaciones que no tienen solución. Las rectas son paralelas y no se cruzan."
+    ];
+    let pistasRandomOrder = [];
+    let pistasRandomOrderIndex = 0;
+  
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+  
+    function initPistasRandomOrder() {
+      pistasRandomOrder = [];
+      for (let i = 0; i < pistas.length; i++) {
+        pistasRandomOrder.push(i);
+      }
+      shuffleArray(pistasRandomOrder);
+      pistasRandomOrderIndex = 0;
+    }
+    initPistasRandomOrder();
+  
+    function cerrarRetroalimentacion() {
+      document.getElementById("retroalimentacion-modal").style.display = "none";
+      window.speechSynthesis.cancel();
+    }
+  
+    function mostrarRetroalimentacion() {
+      const modal = document.getElementById("retroalimentacion-modal");
+      const retroalimentacion = document.querySelector('#retroalimentacion-modal .retroalimentacion p');
+      if (pistasRandomOrderIndex >= pistasRandomOrder.length) {
+        initPistasRandomOrder();
+      }
+      const randomIndex = pistasRandomOrder[pistasRandomOrderIndex];
+      pistasRandomOrderIndex++;
+      retroalimentacion.innerText = pistas[randomIndex];
+      modal.style.display = "flex";
+      narrarTexto(retroalimentacion.innerText);
     }
   
     function cerrarFelicitacion() {
       document.getElementById("felicitacion-modal").style.display = "none";
     }
   
-    function cerrarRetroalimentacion() {
-      document.getElementById("retroalimentacion-modal").style.display = "none";
-      if (speechSynthesis.speaking) {
-        speechSynthesis.cancel();
+    function cerrarError() {
+      document.getElementById("error-modal").style.display = "none";
+    }
+  
+    /* SÍNTESIS DE VOZ */
+    function obtenerVozNatural() {
+      let voices = window.speechSynthesis.getVoices();
+      let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+      if (!voz) {
+        voz = voices.find(voice => voice.lang === 'es-ES');
+      }
+      return voz;
+    }
+  
+    function narrarTexto(texto) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        let mensaje = new SpeechSynthesisUtterance(texto);
+        mensaje.lang = 'es-ES';
+        mensaje.rate = 1.0;
+        mensaje.pitch = 1;
+        let vozNatural = obtenerVozNatural();
+        if (vozNatural) {
+          mensaje.voice = vozNatural;
+        }
+        window.speechSynthesis.speak(mensaje);
+      } else {
+        alert('Tu navegador no soporta la síntesis de voz.');
       }
     }
   
-
-    function seleccionarRespuesta(boton) {
-  respuestasUsuario[tarjetaActual] = boton.textContent;
-  const mensaje = document.getElementById("mensaje");
-  const respuestaCorrecta = tarjetas[tarjetaActual].getAttribute("data-respuesta");
-  const opciones = document.querySelectorAll(".opcion");
-
-  opciones.forEach(opcion => {
-    opcion.classList.remove("correcto", "incorrecto");
-  });
-
-  if (respuestasUsuario[tarjetaActual] === respuestaCorrecta) {
-    if (!puntuacionPorPregunta[tarjetaActual]) {
-      score += 10;  
-      puntuacionPorPregunta[tarjetaActual] = true;
-      document.getElementById("score").textContent = score;
-    }
-    mensaje.innerText = "¡Correcto!";
-    mensaje.style.color = "green";
-    boton.classList.add("correcto");
-  } else {
-    mensaje.innerText = "Incorrecto, intenta de nuevo.";
-    mensaje.style.color = "red";
-    boton.classList.add("incorrecto");
-  }
-  mensaje.classList.add("mostrar");
-  setTimeout(() => mensaje.classList.remove("mostrar"), 2000);
-
+    window.speechSynthesis.onvoiceschanged = function() {
+      obtenerVozNatural();
+    };
   
-  if (respuestasUsuario.every(r => r !== null)) {
-    clearInterval(timerInterval); // 
-    setTimeout(() => {
-      feliBingo();
-    }, 2000);
-  }
-}
-
+    /* SONIDOS */
+    function reproducirSonidoTrompetas() {
+      const audio = new Audio("img/trompetas.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    function reproducirSonidoBoton() {
+      const audio = new Audio("img/click.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    function reproducirSonidoFinJuego() {
+      const audio = new Audio("img/fin del juego.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    function reproducirSonidoErro() {
+      const audio = new Audio("img/error.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    function reproducirSonidoCorrecto() {
+      const audio = new Audio("img/correcto.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+    
+    /* FUNCIONES DEL JUEGO */
+    function seleccionarRespuesta(boton) {
+      const respuestaCorrecta = tarjetas[tarjetaActual].getAttribute("data-respuesta");
+      const mensaje = document.getElementById("mensaje");
+      const opciones = document.querySelectorAll(".opcion");
+      opciones.forEach(opcion => opcion.classList.remove("correcto", "incorrecto"));
+    
+      // Solo se actualiza la respuesta si es correcta
+      if (boton.textContent === respuestaCorrecta) {
+      respuestasUsuario[tarjetaActual] = boton.textContent;
+      if (!puntuacionPorPregunta[tarjetaActual]) {
+        score += 10;  
+        puntuacionPorPregunta[tarjetaActual] = true;
+        document.getElementById("score").textContent = score;
+      }
+      mensaje.innerText = "¡Correcto!";
+      mensaje.style.color = "green";
+      boton.classList.add("correcto");
+      reproducirSonidoCorrecto(); // Reproducir sonido al seleccionar respuesta correcta
+      } else {
+      mensaje.innerText = "Incorrecto, intenta de nuevo.";
+      mensaje.style.color = "red";
+      boton.classList.add("incorrecto");
+      errorCount++;
+      if (errorCount < maxErrors) {
+        document.getElementById("error-modal").style.display = "flex";
+        reproducirSonidoErro();
+        // No se marca la respuesta para permitir reintento
+      } else {
+        // Al tercer error se termina el juego
+        mostrarFinJuego();
+        return;
+      }
+      }
+  
+      mensaje.classList.add("mostrar");
+      setTimeout(() => mensaje.classList.remove("mostrar"), 2000);
+  
+      // Si todas las preguntas han sido respondidas correctamente Y el juego no terminó por errores, se muestra el modal de felicitaciones
+      if (!isGameOver && respuestasUsuario.every(r => r !== null)) {
+        clearInterval(timerInterval);
+        setTimeout(() => {
+          mostrarFelicitacion();
+        }, 2000);
+      }
+    }
   
     function restaurarSeleccion() {
       const opciones = document.querySelectorAll(".opcion");
@@ -375,84 +496,48 @@
       tarjetas[tarjetaActual].classList.add("activa");
       restaurarSeleccion();
     }
-  </script>
   
-  <script>
-    // Temporizador
-    let timeRemaining = 180; // 3 minutos en segundos
-    let timerInterval;
-  
-    function updateTimerDisplay() {
-      let minutes = Math.floor(timeRemaining / 60);
-      let seconds = timeRemaining % 60;
-      document.getElementById("timer").innerText =
-        (minutes < 10 ? "0" + minutes : minutes) + ":" +
-        (seconds < 10 ? "0" + seconds : seconds);
+    function mostrarFinJuego() {
+      isGameOver = true;
+      stopTimer();
+      document.getElementById("final-score-fj").innerText = document.getElementById("score").innerText;
+      document.getElementById("fin-juego-modal").style.display = "flex";
+      reproducirSonidoFinJuego();
     }
   
-    function startTimer() {
-      updateTimerDisplay();
-      timerInterval = setInterval(() => {
-        if (timeRemaining > 0) {
-          timeRemaining--;
-          updateTimerDisplay();
-        } else {
-          clearInterval(timerInterval);
-          finalizarJuegoTiempo();
-        }
-      }, 1000);
+    function mostrarFelicitacion() {
+      isGameOver = true;
+      stopTimer();
+      document.getElementById("final-score").innerText = document.getElementById("score").innerText;
+      document.getElementById("felicitacion-modal").style.display = "flex";
+      reproducirSonidoTrompetas();
     }
   
-    
-  function finalizarJuegoTiempo() {
-    clearInterval(timerInterval);
-    document.getElementById("final-score-fj").textContent = score;
-    let tiempoTranscurrido = 180 - timeRemaining;
-    let minutesElapsed = Math.floor(tiempoTranscurrido / 60);
-    let secondsElapsed = tiempoTranscurrido % 60;
-    document.getElementById("final-time-fj").textContent =
-      (minutesElapsed < 10 ? "0" + minutesElapsed : minutesElapsed) + ":" +
-      (secondsElapsed < 10 ? "0" + secondsElapsed : secondsElapsed);
-    document.getElementById("fin-juego-modal").style.display = "block";
-    
-    // Reproduce el sonido al abrir el modal de fin de juego
-    reproducirSonidoFinJuego();
-  }
-
-
-  
-    document.addEventListener("DOMContentLoaded", startTimer);
-
-
     function reiniciarJuego() {
-  // Restablece el puntaje
-  score = 0;
-  document.getElementById("score").textContent = score;
-
-  // Restablece respuestas
-  respuestasUsuario.fill(null);
-  puntuacionPorPregunta.fill(false);
-
-  // Reinicia el tiempo
-  timeRemaining = 180;
-  updateTimerDisplay();
-  clearInterval(timerInterval);
-  startTimer(); // Reinicia el temporizador
-
-  // Oculta los modales
-  document.getElementById("felicitacion-modal").style.display = "none";
-  document.getElementById("fin-juego-modal").style.display = "none";
-
-  // Reinicia las tarjetas
-  tarjetas.forEach(tarjeta => tarjeta.classList.remove("activa"));
-  tarjetaActual = 0;
-  tarjetas[tarjetaActual].classList.add("activa");
-
-  // Restaurar selección visual
-  restaurarSeleccion();
-}
-
-  </script>
+      // Reinicia variables y estado del juego
+      score = 0;
+      document.getElementById("score").textContent = score;
+      respuestasUsuario.fill(null);
+      puntuacionPorPregunta.fill(false);
+      timeRemaining = 180;
+      updateTimerDisplay();
+      clearInterval(timerInterval);
+      isGameOver = false;
+      errorCount = 0;
+      startTimer();
+      // Oculta los modales
+      document.getElementById("felicitacion-modal").style.display = "none";
+      document.getElementById("fin-juego-modal").style.display = "none";
+      document.getElementById("error-modal").style.display = "none";
+      // Reinicia las tarjetas
+      tarjetas.forEach(tarjeta => tarjeta.classList.remove("activa"));
+      tarjetaActual = 0;
+      tarjetas[tarjetaActual].classList.add("activa");
+      restaurarSeleccion();
+    }
   
+    // Iniciar el temporizador cuando se cargue el DOM
+    document.addEventListener("DOMContentLoaded", startTimer);
+  </script>
 </body>
 </html>

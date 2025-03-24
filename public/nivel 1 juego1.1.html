@@ -17,9 +17,10 @@
         
         <h1> Nivel 1</h1>
         <div class="user-info">
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
             <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+            
             <div class="user-info">
                 <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
                 <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
@@ -49,30 +50,25 @@
     <div class="game-container">
         
             <div class="challenge-header">
-                Desafío 1: Bingo de Ecuaciones Lineales
+                <h2> Bingo de Ecuaciones Lineales</h2>
             </div>
             <div class="challenge-info">
                 <div class="header-info">
                     <div class="user-section"></div>
                 </div>
-                <p>TIEMPO: <span id="timer">00:00</span></p>
+                <p>⏳ Tiempo: <span id="timer">00:00</span></p>
                 <p>Puntos obtenidos: <span id="points">0</span></p>
+                <p>Intentos restantes: <span id="attempts">3</span></p>
+                
+          
+
+                
+               
+
             </div>
        
 
-                <!-- Avatar y diálogo -->
-        <div id="avatar-container" class="avatar-container">
-            <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
-        </div>
-
-        <div id="avatar-dialog" class="avatar-dialog" style="display: none;">
-            <div class="dialog-content">
-                <span class="close" onclick="closeAvatarDialog()">&times;</span>
-                <p id="avatar-text">¡Hola! Soy Xilo, tu asistente de juego. Estoy aquí para ayudarte.</p>
-                <button onclick="narrarContenido()">Hablar</button>
-            </div>
-        </div>
-
+  
         <!-- Contenido del juego -->
         <div class="content">
             <div class="equation-container">
@@ -106,14 +102,7 @@
             <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
         </div>
 
-        <!-- Controles de audio -->
-        <div class="audio-buttons-container">
-            <button class="audio-button" onclick="playAudio()"><i class="fas fa-play"></i></button>
-            <button class="audio-button" onclick="pauseAudio()"><i class="fas fa-pause"></i></button>
-            <button class="audio-button" onclick="toggleMute()"><i class="fas fa-volume-mute"></i></button>
-            <button class="audio-button" onclick="increaseVolume()"><i class="fas fa-volume-up"></i></button>
-            <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
-        </div>
+       
 
 
         <!-- Modal de Felicitación -->
@@ -125,8 +114,6 @@
                 <img src="img/gami.jpg" alt="Gami" class="avatar" />
             </div>
         </div>
-
-
         <!-- Modal de retroalimentación -->
         <div id="feedback-modal" class="modal" style="display: none;">
             <div class="modal-content">
@@ -144,12 +131,78 @@
                 </table>
                 <div class="avatar-feedback">
                     <img src="img/radicux.jpg" alt="Avatar" class="avatar">
-                    <p id="feedback-text">Estas fuerón tus respuestas</p>
+                    <p id="feedback-text">Estas fueron tus respuestas</p>
                     <button onclick="closeFeedback()">Cerrar</button>
                 </div>
             </div>
         </div>
+
+        <!-- Variables globales para las pistas -->
+        <script>
+            let pistas = [
+                "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
+                "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
+                "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
+                "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
+                "Pregunta 5: Una matriz con este determinante no tiene inversa."
+            ];
+            let pistasRandomOrder = [];
+            let pistasRandomOrderIndex = 0;
+
+            // Barajar array con el algoritmo Fisher-Yates
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+                return array;
+            }
+
+            // Inicializa el orden aleatorio de pistas
+            function initPistasRandomOrder() {
+                pistasRandomOrder = [];
+                for (let i = 0; i < pistas.length; i++) {
+                    pistasRandomOrder.push(i);
+                }
+                shuffleArray(pistasRandomOrder);
+                pistasRandomOrderIndex = 0;
+            }
+
+            // Inicializa la secuencia al cargar la página
+            initPistasRandomOrder();
+
+            // Mostrar retroalimentación
+            function mostrarRetroalimentacion() {
+                const modal = document.getElementById('retroalimentacion-modal');
+                const retroalimentacion = document.querySelector('.retroalimentacion p');
+                retroalimentacion.textContent = pistas[pistasRandomOrder[pistasRandomOrderIndex]];
+                pistasRandomOrderIndex = (pistasRandomOrderIndex + 1) % pistas.length;
+                modal.style.display = 'block';
+            }
+
+            // Cerrar retroalimentación
+            function cerrarRetroalimentacion() {
+                const modal = document.getElementById('retroalimentacion-modal');
+                modal.style.display = 'none';
+            }
+        </script>
+
+        <!-- Modal de retroalimentación (pistas) -->
+        <div id="retroalimentacion-modal" class="modal" style="display:none;">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
+                <div class="retroalimentacion">
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de retroalimentación (Avatar) -->
+        <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
+      </div>
     </div>
+  </div>
+  
 
     <!-- Scripts -->
 
