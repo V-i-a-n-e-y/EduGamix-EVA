@@ -66,15 +66,14 @@
                 <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
             </a>
         </div>
-        <h1> Sobre nosotros</h1>
+        
         <div class="user-info">
-            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
-            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-            
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.php';">📢</span>
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.php';">🏠</span>
             <div class="user-info">
                 <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+               <!--<span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>-->
             </div>
             <div class="auth-buttons"> 
                 <button id="authButton" class="auth-btn" onclick="handleAuth()">Iniciar Sesión</button> 
@@ -90,12 +89,10 @@
         <!-- Carrusel con imágenes -->
         <div id="carousel" style="position: relative; width: 100%; overflow: hidden; border-radius: 10px;">
             <!-- Imagen de fondo para el carrusel -->
-            <div class="carousel-item" style="background-image: url('img/videoEduGami.mp4'); background-size: cover; background-position: center; height: 400px; filter: brightness(0.6);"></div>
             <div class="carousel-item" style="background-image: url('img/EduGamix.jpg'); background-size: cover; background-position: center; height: 400px; filter: brightness(0.6);"></div>
             <div class="carousel-item" style="background-image: url('img/hero-background-2.jpg'); background-size: cover; background-position: center; height: 400px; filter: brightness(0.6);"></div>
             <div class="carousel-item" style="background-image: url('img/hero-background-3.jpg'); background-size: cover; background-position: center; height: 400px; filter: brightness(0.6);"></div>
-            
-
+    
             <!-- Controles del carrusel -->
             <button id="prev" onclick="moveSlide(-1)" class="carousel-arrow">❮</button>
             <button id="next" onclick="moveSlide(1)" class="carousel-arrow">❯</button>
