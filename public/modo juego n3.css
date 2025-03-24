@@ -88,12 +88,18 @@ h1 {
 /* Botones generales */
 button {
     padding: 10px 20px;
+    width: 300px; /* Establece un ancho fijo */
+    height: 50px; /* Establece una altura fija */
     background-color: #d76a1c;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 button:hover {
@@ -103,6 +109,7 @@ button:hover {
 button:active {
     transform: scale(0.98);
 }
+
 
 /* Estilo para mostrar el nombre y correo */
 .user-section {

@@ -1,23 +1,75 @@
 <!DOCTYPE html>
 <html lang="es">
-<link rel="icon" href="img/icono.jpg" type="image.jpg">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduGamix</title>
-    <link rel="stylesheet" href="nivel 4.css">
+    <link rel="stylesheet" href="nivel 2.css">
+    <style>
+        .intro {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 11vh; /* Ocupa toda la altura de la ventana */
+        text-align: center; /* Centra el texto dentro del contenedor */
+        }
+
+        .instructions, .rules {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            color: #0a0a0a;
+            text-align: left;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        .rules {
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+        }
+        .instructions h2, .rules h2, .intro p {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+        .instructions ol, .rules ul {
+            list-style-type: decimal;
+            padding-left: 40px;
+            font-size: 18px;
+        }
+        .instructions li, .rules li {
+            margin-bottom: 10px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #45a049;
+            color: rgb(246, 245, 245);
+            transition: background 0.3s;
+        }
+        .buttons button:hover {
+            background-color: #027808;
+        }
+    </style>
 </head>
 <body>
-    <!-- Encabezado -->
     <header>
         <div class="logo">
             <a href="index.html" target="_blank">
                 <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
-                
             </a>
         </div>
-        <h1>Nivel 4</h1>
+        <h1>Nivel 3</h1>
         <div class="user-info">
             <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
             <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
@@ -31,80 +83,95 @@
         </div>
     </header>
 
+    <main>
+        <section class="intro">
+            <p>¡Bienvenid@ al emocionante juego “Métodos en pareja” , en donde emparejaras los métodos de solución.</p>
+        </section>
 
+        <section class="instructions">
+            <h2> Gami será tu guía durante los niveles del juego, el narrará las actividades. Selecciona el modo de juego. ¡Éxito!.</h2>
+            <h2>📜 Instrucciones</h2>
+            <ol>
+               
+                <li>🎯 <b>Selecciona la tarjeta:</b>Perfila la tarjeta a elegir con el puntero da “clic”.</li>
+                <li>🔥 <b>Selecciona la segunda tarjeta:</b>La cual cras que pertenece al método de solución, siendo la pareja correcta.</li>
+                <li>🏆 <b>Oprime “listo”: </b>Para verificar tus puntos obtenidos por cada respuesta correcta</li>
+            </ol>
+        </section>
 
-    </div>
-    <div class="content">
-        <p id="texto1">Bienvenido al emocionante juego de Cuestionando las soluciones, en donde tendrás que enfrentarte al gran villano matemático de EduGamix, ¡Radicux! Quien cuestionara tus conocimientos. Sigue las instrucciones para jugar y divertirte mientras refuerzas tus conocimientos. ¡Éxito!</p> 
-        <p id="texto3">Instrucciones: Gami será tu guía durante los niveles del juego, el narrará las actividades.
-        <p id="texto4">1. Escucha a Radicux, ¡si sorprendente!: El leerá una serie de preguntas en voz alta además de presentarlo visualmente</p>
-        <p id="texto5">2. Selecciona la casilla o casillas: Deberás identificar qué respuesta o respuestas son las correctas.</p>      
-        <p id="texto6">3. Oprime siguiente: Al tener tus respuestas correctas pasa a las siguientes preguntas.</p>         
-        <p id="texto7">Reglas Adicionales:
-        <p id="texto8">Verifica tu Trabajo: Asegúrate de que tus respuestas sean correctas.
-        <p id="texto9">Participa Activamente: No dejes pasar mucho tiempo, por cada error te quitara tiempo Radicux. 
-        <p id="texto10">Pide Ayuda si la Necesitas: No dudes en pedir una pista a “Xilo” si te quedas atascado.</p>
-        <button onclick="window.location.href='modo juego n4.html'; detenerNarracion();">Siguiente</button>
-        <button onclick="window.location.href='inicio.html'">Regresar a Inicio</button>
-    </div>
-   
-    <div class="main-container">
-        <div id="avatar-animation">
-            <img id="gami-avatar" src="img/gami.jpg" alt="Avatar de Gami" style="height: 150px;">
+        <section class="rules">
+            <h2>📌 Reglas Adicionales</h2>
+            <ul>
+                
+                <li>🆘 <b>Pide Ayuda si la Necesitas</b> No dudes en pedir una pista a “Xilo” si te quedas atascado.</li>
+            </ul>
+        </section>
+
+        <div class="main-container">
+            <div id="avatar-animation">
+                <img id="gami-avatar" src="img/gami.jpg" alt="Avatar de Gami" style="height: 150px;">
+            </div>
+
+            <div class="controls">
+                <div class="buttons">
+                    <button onclick="window.location.href='inicio.html'"> ⬅️ Regresar a Inicio</button>
+                    <button onclick="window.location.href='modo juego n4.html'"> ➡️ Siguiente</button>
+                    <button onclick="leerContenido()"> ▶️ Iniciar audio</button>
+                    <button onclick="leerContenido()"> 🔄 Repetir</button>
+                    <button onclick="toggleMute()">🔇 Silenciar</button>
+                </div>
+            </div>
         </div>
-
-        <div class="controls">
-            <button id="repeatButton" onclick="leerContenido()">Repetir</button>
-            <button id="muteButton" onclick="toggleMute()">Silenciar</button>
-        </div>
-    </div>
+    </main>
 
     <script>
         let isMuted = false;
-        let currentSpeech = null;
+        let utteranceText = '';
+        let currentCharIndex = 0;
 
-        // Detener narración
-        function detenerNarracion() {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-            }
-        }
-
-        // Leer contenido con narración
         function leerContenido() {
-            detenerNarracion(); // Asegurar que no haya narración activa
-            const textos = document.querySelectorAll(".content p");
-            textos.forEach((parrafo, index) => {
-                setTimeout(() => {
-                    narrarTexto(parrafo.innerText);
-                }, index * 5000); // Retraso ajustado para cada párrafo
-            });
-        }
-
-        // Narrar texto
-        function narrarTexto(texto) {
             if (isMuted) return;
-            currentSpeech = new SpeechSynthesisUtterance(texto);
-            currentSpeech.lang = "es-ES";
-            currentSpeech.rate = 1;
-            currentSpeech.onend = () => console.log("Narración terminada.");
-            window.speechSynthesis.speak(currentSpeech);
-        }
-
-        // Alternar silencio
-        function toggleMute() {
-            isMuted = !isMuted;
             detenerNarracion();
-            document.getElementById("muteButton").innerText = isMuted ? "Activar Sonido" : "Silenciar";
+            let texto = document.querySelector(".intro p").innerText + " ";
+            texto += document.querySelector(".instructions h2").innerText + " ";
+            document.querySelectorAll(".instructions ol li").forEach(li => texto += li.innerText + " ");
+            texto += document.querySelector(".rules h2").innerText + " ";
+            document.querySelectorAll(".rules ul li").forEach(li => texto += li.innerText + " ");
+
+            // Eliminar íconos/emojis del texto utilizando una expresión regular.
+            texto = texto.replace(/[\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+
+            utteranceText = texto;
+            currentCharIndex = 0; // Reiniciamos el índice para comenzar desde el inicio.
+            narrarTexto(utteranceText);
         }
 
-        // Detener narración al salir de la página
-        window.addEventListener('beforeunload', detenerNarracion);
+        function narrarTexto(texto) {
+            let speech = new SpeechSynthesisUtterance(texto.substring(currentCharIndex));
+            speech.lang = "es-ES";
+            speech.rate = 1;
+            speech.onboundary = function(event) {
+                currentCharIndex += event.charLength;
+            };
+            window.speechSynthesis.speak(speech);
+        }
 
-        // Iniciar lectura al cargar
-        document.addEventListener("DOMContentLoaded", leerContenido);
+        function detenerNarracion() {
+            window.speechSynthesis.cancel();
+        }
+
+        function toggleMute() {
+            if (isMuted) {
+                narrarTexto(utteranceText.substring(currentCharIndex));  // Reanudar desde el último punto.
+                document.querySelector("button[onclick='toggleMute()']").innerText = "🔇 Silenciar";
+            } else {
+                detenerNarracion();  // Pausar la narración.
+                document.querySelector("button[onclick='toggleMute()']").innerText = "🔊 Activar Sonido";
+            }
+            isMuted = !isMuted;
+        }
     </script>
 
-    <script src="nivel 4.js"></script>
+    <script src="nivel 3.js"></script>
 </body>
 </html>

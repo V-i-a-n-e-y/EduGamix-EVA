@@ -32,8 +32,9 @@
 <div class="container">
     <h2>Selecciona un Modo de Juego:</h2>
     <button onclick="startGame('practica')">Práctica (tiempo indefinido)</button>
-    <button onclick="startGame('desafio')">Desafío (5 minutos)</button>
-    <button onclick="startGame('supervivencia')">Supervivencia (3 minutos)</button>
+    <button onclick="startGame('desafio')">Desafío (3 minutos)</button>
+    <button onclick="startGame('supervivencia')">Supervivencia (5 minutos)</button>
+    <button onclick="window.location.href='inicio.html'"> ⬅️ Regresar a Inicio</button>
 </div>
 
 <script>
@@ -52,21 +53,18 @@
     });
 
     function startGame(mode) {
-        let timer;
-        let timerInterval;
-
-        if (mode === 'practica') {
+          if (mode === 'practica') {
             alert('Modo Práctica seleccionado. ¡Buena suerte!');
-            // Aquí puedes redirigir a la página del juego o inicializarlo de otra manera.
-            window.location.href = 'nivel 1 juego1.html';
-        } else if (mode === 'desafio') {
-            timer = 300; // 5 minutos
-            startTimer(timer);
-        } else if (mode === 'supervivencia') {
-            timer = 180; // 3 minutos
-            startTimer(timer);
+            window.location.href = 'nivel 2 juego 1.html';
+          } else if (mode === 'desafio') { 
+            alert('Modo Desafio seleccionado. ¡Buena suerte!'); 
+            window.location.href = 'nivel 2 juego 1.1.html?mode=desafio&time=180';
+          } else if (mode === 'supervivencia') {
+            alert('Modo supervivencia seleccionado. ¡Buena suerte!');
+            window.location.href = 'nivel 2 juego 1.2.html?mode=supervivencia&time=300';
+          }
+          
         }
-    }
 
     function startTimer(duration) {
         let timerDisplay = document.createElement('div');

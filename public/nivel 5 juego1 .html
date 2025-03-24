@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGamix</title>
+  <link rel="stylesheet" href="nivel 1 juego1.css">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      width: 80%;
+      margin: auto;
+      padding: 20px;
+      border: 2px solid #000;
+      border-radius: 10px;
+    }
+    .header {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .timer {
+      font-size: 20px;
+      color: blue;
+    }
+    .resources, .tasks {
+      text-align: left;
+      margin-top: 10px;
+    }
+    .button {
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .avatar {
+      width: 100px;
+    }
+    .feedback {
+      font-style: italic;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html" target="_blank">
+        <img src="img/EduGamix.jpg" alt="EduGamix Logo">
+      </a>
+    </div>
+    <h1>Nivel 5</h1>
+    <div class="user-info">
+      <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+      <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      <div class="user-info">
+        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+        <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+        <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+      </div>
+      <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+    </div>
+  </header>
+  
+  <div class="header">Desafío: Optimización de Recursos</div>
+
+  <div class="container">
+    <div class="timer">Tiempo restante: <span id="time">03:00</span></div>
+    
+    <p>Introducción: Un centro de datos necesita optimizar la asignación de recursos (CPU y memoria) entre diferentes servidores. Ayuda a determinar la mejor asignación para cumplir con los requisitos de las tareas.</p>
+    
+    <div class="resources">
+      <h3>Datos proporcionados:</h3>
+      <ul>
+        <li>Servidor 1: 4 unidades de CPU y 1 unidades de memoria</li>
+        <li>Servidor 2: 2 unidades de CPU y 2 unidades de memoria</li>
+        <li>Servidor 3: 3 unidades de CPU y 3 unidades de memoria</li>
+      </ul>
+    </div>
+    
+    <div class="tasks">
+      <h3>Requerimientos de recursos:</h3>
+      <ul>
+        <li>Tarea A: 10 unidades de CPU</li>
+        <li>Tarea B: 12 unidades de memoria</li>
+        <li>Tarea C: 15 unidades de recursos combinados</li>
+      </ul>
+    </div>
+    
+    <button class="button" onclick="nextChallenge()">Siguiente</button>
+    
+    <div class="feedback">
+      <img src="bee_avatar.png" alt="Avatar" class="avatar">
+      <p>¡Genial! Resuelve el desafío.</p>
+    </div>
+  </div>
+
+  <script>
+    let timeLeft = 180;
+    function startTimer() {
+      const timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert("¡Se acabó el tiempo!");
+        } else {
+          timeLeft--;
+          document.getElementById("time").textContent = new Date(timeLeft * 1000).toISOString().substr(14, 5);
+        }
+      }, 1000);
+    }
+
+    function nextChallenge() {
+      alert("Cargando el siguiente desafío...");
+    }
+
+    startTimer();
+  </script>
+</body>
+</html>

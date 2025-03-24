@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGamix</title>
+  <link rel="stylesheet" href="nivel 1 juego1.css">
+  <style>
+  
+    /* ======================
+       Estilos para las tarjetas y opciones
+       ====================== */
+    .contenido {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .tarjeta {
+      background-color: #6a4c93;
+      color: white;
+      padding: 20px;
+      margin: 20px auto;
+      display: none;
+      font-size: 24px;
+      border-radius: 10px;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .tarjeta.activa {
+      display: block;
+    }
+    .opciones {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .opcion {
+      padding: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+      background-color: #5bc0de;
+      color: white;
+    }
+    .opcion:hover {
+      transform: scale(1.1);
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    .mensaje {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .mensaje.mostrar {
+      opacity: 1;
+    }
+    .correcto {
+      background-color: green !important;
+    }
+    .incorrecto {
+      background-color: red !important;
+    }
+    .navegacion {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    /* ======================
+       Estilos para la retroalimentación (modal)
+       ====================== */
+    .retroalimentacion-btn {
+      position: fixed;
+      bottom: 40px;
+      right: 150px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .retroalimentacion-btn img {
+      width: 180px;
+      cursor: pointer;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+      background-color: white;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+      text-align: left;
+      position: relative;
+    }
+    .modal-content .close {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .retroalimentacion p {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #333;
+    }
+    /* Animación de aparición */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+  </style>
+</head>
+<body>
+  <!-- Encabezado -->
+  <header>
+    <div class="logo">
+      <a href="index.html" target="_blank">
+        <img src="img/EduGamix.jpg" alt="EduGamix Logo">
+      </a>
+    </div>
+    <h1>Nivel 2</h1>
+    <div class="user-info">
+      <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+      <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      <div class="user-info">
+        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+        <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+        <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+      </div>
+      <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+    </div>
+  </header>
+
+  <!-- Cargar nombre de usuario y correo desde localStorage -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const username = localStorage.getItem("username");
+      const useremail = localStorage.getItem("useremail");
+
+      if (username) {
+        document.getElementById("username").textContent = username;
+      }
+      if (useremail) {
+        document.getElementById("useremail").textContent = useremail;
+      }
+    });
+
+    // Función de ejemplo para cerrar sesión (ajusta según tu lógica)
+    function logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("useremail");
+      window.location.href = "login.html";
+    }
+  </script>
+  
+
+  <!-- Modal de retroalimentación -->
+  <div id="retroalimentacion-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
+      <div class="retroalimentacion">
+        <p><strong>Compatibles determinadas:</strong> Son aquellas ecuaciones que tienen una única solución.</p>
+        <p><strong>Compatibles indeterminadas:</strong> Son ecuaciones con múltiples soluciones. El sistema tiene infinitas soluciones y sus líneas se superponen.</p>
+        <p><strong>Incompatibles:</strong> Son aquellas ecuaciones que no tienen solución. Las rectas son paralelas y nunca se cruzan.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botón de retroalimentación -->
+  <button class="retroalimentacion-btn" onclick="mostrarRetroalimentacion()">
+    <img src="img/xilo-avatar.jpg" alt="Ícono de retroalimentació" title="Da clic para tener una pista">
+  </button>
+   
+  <!-- Contenido del desafío -->
+  <div class="contenido">
+    <h2>Desafío: Explorando Soluciones Lineales</h2>
+    <div id="contenedorTarjetas">
+      <div class="tarjeta activa" data-respuesta="Compatibles determinados">
+        2x + y = 2<br>
+        x - 3y = 0
+      </div>
+      <div class="tarjeta" data-respuesta="Compatibles">
+        x + 2y = 5<br>
+        3x - y = 4
+      </div>
+      <div class="tarjeta" data-respuesta="Incompatibles">
+        x - y = 1<br>
+        2x - 2y = 2
+      </div>
+    </div>
+    <div class="opciones" id="opciones">
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Compatibles</button>
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Compatibles determinados</button>
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Compatibles indeterminados</button>
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Incompatibles</button>
+    </div>
+    <div class="mensaje" id="mensaje"></div>
+    <div class="navegacion">
+      <button onclick="cambiarTarjeta(-1)">Atrás</button>
+      <button onclick="cambiarTarjeta(1)">Siguiente</button>
+    </div>
+  </div> 
+     
+  <button onclick="finalizarJuego(); reproducirSonidoBoton();">Fin del Juego</button>
+
+  <div id="felicitacion-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+      <h2>🎉 ¡Felicidades! 🎉</h2>
+      <p>¡Has completado el desafio Explorando Soluciones Lineales!</p>
+      <img src="img/gami.jpg" alt="Gami" class="avatar" />
+    </div>
+  </div>
+  
+ 
+  <script>
+    function reproducirSonidoTrompetas() {
+      const audio = new Audio("img/trompetas.mp3");
+      audio.play();
+    }
+    
+    function reproducirSonidoBoton() {
+      const audio = new Audio("sonidos/click.mp3");
+      audio.play();
+    }
+  
+    function feliBingo() {
+      // Mostrar la ventana de felicitación
+      document.getElementById("felicitacion-modal").style.display = "block";
+      reproducirSonidoTrompetas();
+    }
+  
+    function cerrarFelicitacion() {
+      // Ocultar la ventana de felicitación
+      document.getElementById("felicitacion-modal").style.display = "none";
+      mostrarRetroalimentacionFinal(); // Mostrar retroalimentación después de cerrar la felicitación
+    }
+  
+    function cerrarRetroalimentacion() {
+      // Cerrar la ventana de retroalimentación
+      document.getElementById("retroalimentacion-modal").style.display = "none";
+    }
+  
+    function finalizarJuego() {
+      localStorage.setItem("juegoFinalizado", "true");
+      localStorage.setItem("puntaje", calcularPuntaje());
+      feliBingo(); // Mostrar la felicitación primero
+    }
+  
+    function calcularPuntaje() {
+      return Math.floor(Math.random() * 101); 
+    }
+  
+    function mostrarRetroalimentacionFinal() {
+      let puntaje = localStorage.getItem("puntaje");
+      let mensaje = "Buen trabajo. Intenta mejorar tu puntaje la próxima vez.";
+      if (puntaje >= 80) {
+        mensaje = "¡Excelente desempeño! Sigue así.";
+      } else if (puntaje >= 50) {
+        mensaje = "Vas por buen camino, pero aún puedes mejorar.";
+      }
+      document.getElementById("mensaje-retroalimentacion").innerText = mensaje;
+      document.getElementById("retroalimentacion-modal").style.display = "block";
+    }
+  
+    // Crear objeto para la narración
+    let narrador = new SpeechSynthesisUtterance();
+  
+    // Funciones para el modal de retroalimentación
+    function mostrarRetroalimentacion() {
+      document.getElementById("retroalimentacion-modal").style.display = "block";
+      
+      // Establecer el texto que se va a leer
+      narrador.text = `Compatibles determinadas: Son aquellas ecuaciones que tienen una única solución. El sistema tiene una intersección en un punto.
+                       Compatibles indeterminadas: Son ecuaciones con múltiples soluciones. El sistema tiene infinitas soluciones y sus líneas se superponen.
+                       Incompatibles: Son aquellas ecuaciones que no tienen solución. Las rectas son paralelas y nunca se cruzan.`;
+      // Establecer el idioma (opcional)
+      narrador.lang = 'es-ES';
+  
+      // Reproducir la narración
+      speechSynthesis.speak(narrador);
+    }
+  
+    function cerrarRetroalimentacion() {
+      document.getElementById("retroalimentacion-modal").style.display = "none";
+  
+      // Detener la narración si está en curso
+      if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
+    }
+  
+    // Lógica para cambiar tarjetas y validar respuestas
+    let tarjetaActual = 0;
+    const tarjetas = document.querySelectorAll(".tarjeta");
+    let respuestasUsuario = new Array(tarjetas.length).fill(null);
+  
+    function cambiarTarjeta(direccion) {
+      tarjetas[tarjetaActual].classList.remove("activa");
+      tarjetaActual += direccion;
+      if (tarjetaActual < 0) tarjetaActual = 0;
+      if (tarjetaActual >= tarjetas.length) tarjetaActual = tarjetas.length - 1;
+      tarjetas[tarjetaActual].classList.add("activa");
+      restaurarSeleccion();
+    }
+  
+    function seleccionarRespuesta(boton) {
+      respuestasUsuario[tarjetaActual] = boton.textContent;
+      const mensaje = document.getElementById("mensaje");
+      const respuestaCorrecta = tarjetas[tarjetaActual].getAttribute("data-respuesta");
+  
+      // Eliminar clases anteriores de todas las opciones
+      const opciones = document.querySelectorAll(".opcion");
+      opciones.forEach(opcion => {
+        opcion.classList.remove("correcto", "incorrecto");
+      });
+  
+      if (respuestasUsuario[tarjetaActual] === respuestaCorrecta) {
+        mensaje.innerText = "¡Correcto!";
+        mensaje.style.color = "green";
+        boton.classList.add("correcto");
+      } else {
+        mensaje.innerText = "Incorrecto, intenta de nuevo.";
+        mensaje.style.color = "red";
+        boton.classList.add("incorrecto");
+      }
+      mensaje.classList.add("mostrar");
+      setTimeout(() => mensaje.classList.remove("mostrar"), 2000);
+    }
+  
+    function restaurarSeleccion() {
+      const opciones = document.querySelectorAll(".opcion");
+      opciones.forEach(opcion => opcion.classList.remove("correcto", "incorrecto"));
+      if (respuestasUsuario[tarjetaActual]) {
+        opciones.forEach(opcion => {
+          if (opcion.textContent === respuestasUsuario[tarjetaActual]) {
+            opcion.classList.add("correcto");
+          }
+        });
+      }
+    }
+  </script>
+  
+ 
+  </script>
+</body>
+</html>

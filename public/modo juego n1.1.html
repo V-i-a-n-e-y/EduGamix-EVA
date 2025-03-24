@@ -29,59 +29,44 @@
         </div>
     </header>
 
-<div class="container">
-    <h2>Selecciona un Modo de Juego:</h2>
-    <button onclick="startGame('practica')">Práctica (tiempo indefinido)</button>
-    <button onclick="startGame('desafio')">Desafío (5 minutos)</button>
-    <button onclick="startGame('supervivencia')">Supervivencia (3 minutos)</button>
-    <button onclick="window.location.href='inicio.html'"> ⬅️ Regresar a Inicio</button>
-</div>
-
-<script>
-    // Cargar el nombre de usuario y correo desde localStorage
-    document.addEventListener("DOMContentLoaded", function() {
-        const username = localStorage.getItem("username");
-        const useremail = localStorage.getItem("useremail");
-        
-        if (username) {
+    <div class="container">
+        <h2>Selecciona un Modo de Juego:</h2>
+        <button onclick="startGame('practica')">Práctica (tiempo indefinido)</button>
+        <button onclick="startGame('desafio')">Desafío (5 minutos)</button>
+        <button onclick="startGame('supervivencia')">Supervivencia (3 minutos)</button>
+        <button onclick="window.location.href='inicio.html'"> ⬅️ Regresar a Inicio</button>
+      </div>
+    
+      <script>
+        // Cargar el nombre de usuario y correo desde localStorage
+        document.addEventListener("DOMContentLoaded", function() {
+          const username = localStorage.getItem("username");
+          const useremail = localStorage.getItem("useremail");
+    
+          if (username) {
             document.getElementById("username").textContent = `Usuario: ${username}`;
-        }
-
-        if (useremail) {
+          }
+    
+          if (useremail) {
             document.getElementById("useremail").textContent = `Email: ${useremail}`;
-        }
-    });
-
-    function startGame(mode) {
+          }
+        });
+    
+        function startGame(mode) {
           if (mode === 'practica') {
             alert('Modo Práctica seleccionado. ¡Buena suerte!');
-            window.location.href = 'nivel 5 juego1.html';
+            window.location.href = 'nivel 1 juego1.html';
           } else if (mode === 'desafio') {  
-            window.location.href = 'nivel 5 juego1 copy.html?mode=desafio&time=300';
+            // Redirigimos al juego en modo desafío y pasamos el parámetro 'mode'
+            // (opcionalmente puedes pasar también el tiempo, por ejemplo: &time=300)
+            window.location.href = 'nivel 3 juego 1.1.html?mode=desafio&time=300';
           } else if (mode === 'supervivencia') {
             // Para el modo supervivencia, podrías hacer algo similar:
-            window.location.href = 'nivel 5 juego1 copy 2.html?mode=supervivencia&time=180';
+            window.location.href = 'nivel 3 juego 1.2.html?mode=supervivencia&time=180';
           }
+          
         }
-
-    function startTimer(duration) {
-        let timerDisplay = document.createElement('div');
-        timerDisplay.style.fontSize = '22px';
-        timerDisplay.style.marginTop = '20px';
-        document.body.appendChild(timerDisplay);
-        
-        let minutes, seconds;
-        timerInterval = setInterval(function() {
-            minutes = Math.floor(duration / 60);
-            seconds = duration % 60;
-
-            timerDisplay.innerHTML = `TIEMPO: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-            if (--duration < 0) {
-                clearInterval(timerInterval);
-                alert('¡Tiempo Expirado!'); // Aquí puedes manejar lo que suceda cuando se acabe el tiempo.
-            }
-        }, 1000);
-    }
-</script>
-
+      </script>
+    </body>
+    </html>
+    

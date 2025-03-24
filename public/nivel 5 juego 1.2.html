@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGamix</title>
+  <link rel="stylesheet" href="nivel 1 juego1.css">
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; }
+    .container { width: 80%; margin: auto; padding: 20px; border: 2px solid #000; border-radius: 10px; }
+    .header { font-size: 24px; font-weight: bold; }
+    .dropzone {
+        width: 120px;
+        height: 120px;
+        border: 2px dashed blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: auto;
+        overflow: hidden;
+    }
+    .drag-container { display: flex; justify-content: center; margin-top: 20px; }
+    .option {
+        width: 100px;
+        height: 100px;
+        border: 2px solid blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: grab;
+        margin: 10px;
+        overflow: hidden;
+    }
+    .option img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .button { background-color: green; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content {
+        background-color: white;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        text-align: center;
+    }
+    .close {
+        float: right;
+        font-size: 28px;
+        cursor: pointer;
+    }
+    .avatar {
+  width: 150px;
+  display: block;
+  margin: 10px auto;
+}
+.avatar-error {
+  width: 150px;
+  display: block;
+  margin: 10px auto;
+}
+
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="index.html" target="_blank">
+        <img src="img/EduGamix.jpg" alt="EduGamix Logo">
+      </a>
+    </div>
+    <h1>Nivel 5</h1>
+    <div class="user-info">
+      <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+      <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      <div class="user-info">
+        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+        <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+        <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+      </div>
+      <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+    </div>
+  </header>
+
+  <div class="container">
+    <main>
+      <h2>Desafío: Optimización de Recursos</h2>
+      <p>Arrastra la matriz correcta al recuadro central.</p>
+    </main>
+
+    <div class="dropzone" id="dropzone">Suelta aquí</div>
+
+    <div class="drag-container" id="drag-container">
+      <div class="option" draggable="true" id="option1">
+        <img src="img/matriz1.png" alt="Matriz 1">
+      </div>
+      <div class="option" draggable="true" id="option2">
+        <img src="img/matriz2.png" alt="Matriz 2">
+      </div>
+      <div class="option" draggable="true" id="option3">
+        <img src="img/matriz3.png" alt="Matriz 3">
+      </div>
+      <div class="option" draggable="true" id="option4">
+        <img src="img/matriz4.png" alt="Matriz 4">
+      </div>
+    </div>
+
+    <button class="button" onclick="checkAnswer()">Verificar</button>
+    <p>Puntuación: <span id="score">0</span></p>
+  </div>
+
+  <!-- Modal de Felicitación -->
+  <div id="felicitacion-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+      <h2>🎉 ¡Felicidades! 🎉</h2>
+      <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+      <p id="modalScore">Puntuación final: <span id="finalScoreValue"></span></p>
+      <img src="img/gami.jpg" alt="Gami" class="avatar" />
+      <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
+      <button id="modo-btn" onclick="window.location.href='modo juego n5.html';">Regresar</button>
+    </div>
+  </div>
+
+  <!-- Modal de Error -->
+  <div id="error-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarError()">&times;</span>
+      <h2>⚠️Incorrecto. Intenta de nuevo.⚠️</h2>
+      <p>¡Al fin perderás muahaha!.</p>
+      <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
+      <button id="restart-btn-error" onclick="reiniciarJuego()">Reintentar</button>
+    </div>
+  </div>
+
+  <script>
+    let correctOption = "option1";
+    let selectedOption = null;
+    let score = 0;
+
+    document.querySelectorAll(".option").forEach(option => {
+        option.addEventListener("dragstart", event => {
+            selectedOption = option.id;
+            event.dataTransfer.setData("text", option.id);
+        });
+    });
+
+    document.getElementById("dropzone").addEventListener("dragover", event => {
+        event.preventDefault();
+    });
+
+    document.getElementById("dropzone").addEventListener("drop", event => {
+        event.preventDefault();
+        let droppedId = event.dataTransfer.getData("text");
+        let droppedElement = document.getElementById(droppedId);
+        if (droppedElement) {
+            event.target.innerHTML = "";
+            let clone = droppedElement.cloneNode(true);
+            clone.id = "dropped";
+            event.target.appendChild(clone);
+            selectedOption = droppedId;
+        }
+    });
+
+    function checkAnswer() {
+        if (selectedOption === correctOption) {
+            score += 10;
+            document.getElementById("score").textContent = score;
+            finalizarJuego();
+        } else {
+            mostrarErrorModal();
+        }
+    }
+
+    function mostrarErrorModal() {
+        // Ocultar el modal de felicitación (si está visible)
+        document.getElementById("felicitacion-modal").style.display = "none";
+        // Mostrar el modal de error
+        document.getElementById("error-modal").style.display = "block";
+    }
+
+    function reproducirSonidoTrompetas() {
+        const audio = new Audio("img/trompetas.mp3");
+        audio.play();
+    }
+
+    function reproducirSonidoBoton() {
+        const audio = new Audio("sonidos/click.mp3");
+        audio.play();
+    }
+
+    function feliBingo() {
+        document.getElementById("felicitacion-modal").style.display = "block";
+        reproducirSonidoTrompetas();
+    }
+
+    function finalizarJuego() {
+        document.getElementById("finalScoreValue").textContent = score;
+        feliBingo();
+    }
+
+    function cerrarFelicitacion() {
+        document.getElementById("felicitacion-modal").style.display = "none";
+    }
+
+    function cerrarError() {
+        document.getElementById("error-modal").style.display = "none";
+    }
+
+    function reiniciarJuego() {
+        score = 0;
+        document.getElementById("score").textContent = score;
+        document.getElementById("dropzone").innerHTML = "Suelta aquí";
+        document.querySelectorAll(".drag-container .option").forEach(option => {
+            option.style.pointerEvents = "auto";
+        });
+        selectedOption = null;
+        document.getElementById("felicitacion-modal").style.display = "none";
+        document.getElementById("error-modal").style.display = "none";
+        mezclarTarjetas();
+    }
+
+    function mezclarTarjetas() {
+        const container = document.getElementById("drag-container");
+        const opciones = Array.from(container.children);
+        for (let i = opciones.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            container.appendChild(opciones[j]);
+        }
+    }
+  </script>
+</body>
+</html>

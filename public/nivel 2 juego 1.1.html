@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGamix</title>
+  <link rel="stylesheet" href="nivel 1 juego1.css">
+  <style>
+    .contenido {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .tarjeta {
+      background-color: #6a4c93;
+      color: white;
+      padding: 20px;
+      margin: 20px auto;
+      display: none;
+      font-size: 24px;
+      border-radius: 10px;
+      box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    .tarjeta.activa {
+      display: block;
+    }
+    .opciones {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .opcion {
+      padding: 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+      background-color: #5bc0de;
+      color: white;
+    }
+    .opcion:hover {
+      transform: scale(1.1);
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    .mensaje {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .mensaje.mostrar {
+      opacity: 1;
+    }
+    .correcto {
+      background-color: green !important;
+    }
+    .incorrecto {
+      background-color: red !important;
+    }
+    .navegacion {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .retroalimentacion-btn {
+      position: fixed;
+      bottom: 40px;
+      right: 150px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .retroalimentacion-btn img {
+      width: 180px;
+      cursor: pointer;
+    }
+    /* Estilos para los modales */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal-content {
+     
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  width: 80%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+    .modal-content .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      cursor: pointer;
+      font-size: 24px;
+    }
+    /* Animación de aparición */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .avatar-feedback {
+      position: fixed;
+      bottom: 20px;
+      right: 150px;
+      width: 150px;
+      height: 150px;
+      transition: transform 0.5s ease;
+      z-index: 1000;
+      animation: fadeIn 1s ease forwards;
+    }
+    .avatar-feedback:hover {
+      transform: scale(1.1);
+    }
+    .felicitacion-modal .close {
+      float: right;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .felicitacion-modal {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 30%;
+      margin: 15% auto;
+      text-align: center;
+      position: relative;
+      z-index: 500;
+    }
+    .avatar-modal {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <a href="index.html" target="_blank">
+        <img src="img/EduGamix.jpg" alt="EduGamix Logo">
+      </a>
+    </div>
+    <h1>Nivel 2</h1>
+    <div class="user-info">
+      <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+      <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      <div class="user-info">
+        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+        <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+        <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+      </div>
+      <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+    </div>
+  </header>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const username = localStorage.getItem("username");
+      const useremail = localStorage.getItem("useremail");
+      if (username) {
+        document.getElementById("username").textContent = username;
+      }
+      if (useremail) {
+        document.getElementById("useremail").textContent = useremail;
+      }
+    });
+
+    function logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("useremail");
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <!-- Modal de retroalimentación -->
+  <div id="retroalimentacion-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
+      <div class="retroalimentacion">
+        <button class="retroalimentacion-btn" onclick="mostrarRetroalimentacion()">
+          <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" style="cursor: pointer;" title="Da clic para tener una pista">
+        </button>
+        <p><strong>Compatibles determinadas:</strong> Son aquellas ecuaciones que tienen una única solución.</p>
+        <p><strong>Compatibles indeterminadas:</strong> Son ecuaciones con múltiples soluciones. El sistema tiene infinitas soluciones y sus líneas se superponen.</p>
+        <p><strong>Incompatibles:</strong> Son aquellas ecuaciones que no tienen solución. Las rectas son paralelas y nunca se cruzan.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido del desafío -->
+  <div class="contenido">
+    <h2>Desafío: Explorando Soluciones Lineales</h2>
+    <p>TIEMPO: <span id="timer">03:00</span></p>
+    <p>Puntaje: <span id="score">0</span></p>
+    <div id="contenedorTarjetas">
+      <div class="tarjeta activa" data-respuesta="Compatibles determinados">
+        2x + y = 2<br>
+        x - 3y = 0
+      </div>
+      <div class="tarjeta" data-respuesta="Compatibles">
+        x + 2y = 5<br>
+        3x - y = 4
+      </div>
+      <div class="tarjeta" data-respuesta="Incompatibles">
+        x - y = 1<br>
+        2x - 2y = 2
+      </div>
+    </div>
+    <div class="opciones" id="opciones">
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Compatibles</button>
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Compatibles determinados</button>
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Compatibles indeterminados</button>
+      <button class="opcion" onclick="seleccionarRespuesta(this)">Incompatibles</button>
+    </div>
+    <div class="mensaje" id="mensaje"></div>
+    <div class="navegacion">
+      <button onclick="cambiarTarjeta(-1)">Atrás</button>
+      <button onclick="cambiarTarjeta(1)">Siguiente</button>
+      <button onclick="finalizarJuego(); reproducirSonidoBoton();">Fin del Juego</button>
+    </div>
+  </div>
+
+  <!-- Modal de felicitación (para finalizar las preguntas) -->
+  <div id="felicitacion-modal" class="modal">
+    <div class="felicitacion-modal">
+      <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+      <h2>🎉 ¡Felicidades! 🎉</h2>
+      <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+      <p>Puntaje final: <span id="final-score"></span></p>
+      <p>Tiempo total: <span id="final-time"></span></p>
+      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
+      <button onclick="reiniciarJuego()">Reiniciar Juego</button>
+      <button id="modo-btn" onclick="window.location.href='modo juego n2.html';">Regresar</button>
+    </div>
+  </div>
+
+ 
+  <div id="fin-juego-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarFinJuego()">&times;</span>
+      <h2>Fin del juego</h2>
+      <p>Puntaje final: <span id="final-score-fj"></span></p>
+      <p>Tiempo total: <span id="final-time-fj"></span></p>
+      <img src="img/radicux.jpg" alt="Avatar" class="avatar-modal">
+      <button onclick="reiniciarJuego()">Reiniciar Juego</button>
+      <button onclick="window.location.href='inicio.html';">Salir</button>
+    </div>
+  </div>
+
+  
+  <script>
+    // Variables globales para puntos y registro de respuestas
+    let score = 0;
+    const tarjetas = document.querySelectorAll(".tarjeta");
+    let respuestasUsuario = new Array(tarjetas.length).fill(null);
+    let puntuacionPorPregunta = new Array(tarjetas.length).fill(false);
+    let tarjetaActual = 0;
+  
+    
+    function reproducirSonidoTrompetas() {
+      const audio = new Audio("img/trompetas.mp3");
+      audio.play();
+    }
+  
+    function reproducirSonidoBoton() {
+      const audio = new Audio("img/click.mp3");
+      audio.play();
+    }
+    function reproducirSonidoFinJuego() {
+      const audio = new Audio("img/fin del juego.mp3");
+      audio.play();
+    }
+    function feliBingo() {
+      document.getElementById("final-score").textContent = score;
+      let tiempoTranscurrido = 180 - timeRemaining;
+      let minutesElapsed = Math.floor(tiempoTranscurrido / 60);
+      let secondsElapsed = tiempoTranscurrido % 60;
+      document.getElementById("final-time").textContent =
+        (minutesElapsed < 10 ? "0" + minutesElapsed : minutesElapsed) + ":" +
+        (secondsElapsed < 10 ? "0" + secondsElapsed : secondsElapsed);
+      document.getElementById("felicitacion-modal").style.display = "block";
+      reproducirSonidoTrompetas();
+    }
+  
+    function cerrarFelicitacion() {
+      document.getElementById("felicitacion-modal").style.display = "none";
+    }
+  
+    function cerrarRetroalimentacion() {
+      document.getElementById("retroalimentacion-modal").style.display = "none";
+      if (speechSynthesis.speaking) {
+        speechSynthesis.cancel();
+      }
+    }
+  
+
+    function seleccionarRespuesta(boton) {
+  respuestasUsuario[tarjetaActual] = boton.textContent;
+  const mensaje = document.getElementById("mensaje");
+  const respuestaCorrecta = tarjetas[tarjetaActual].getAttribute("data-respuesta");
+  const opciones = document.querySelectorAll(".opcion");
+
+  opciones.forEach(opcion => {
+    opcion.classList.remove("correcto", "incorrecto");
+  });
+
+  if (respuestasUsuario[tarjetaActual] === respuestaCorrecta) {
+    if (!puntuacionPorPregunta[tarjetaActual]) {
+      score += 10;  
+      puntuacionPorPregunta[tarjetaActual] = true;
+      document.getElementById("score").textContent = score;
+    }
+    mensaje.innerText = "¡Correcto!";
+    mensaje.style.color = "green";
+    boton.classList.add("correcto");
+  } else {
+    mensaje.innerText = "Incorrecto, intenta de nuevo.";
+    mensaje.style.color = "red";
+    boton.classList.add("incorrecto");
+  }
+  mensaje.classList.add("mostrar");
+  setTimeout(() => mensaje.classList.remove("mostrar"), 2000);
+
+  
+  if (respuestasUsuario.every(r => r !== null)) {
+    clearInterval(timerInterval); // 
+    setTimeout(() => {
+      feliBingo();
+    }, 2000);
+  }
+}
+
+  
+    function restaurarSeleccion() {
+      const opciones = document.querySelectorAll(".opcion");
+      opciones.forEach(opcion => opcion.classList.remove("correcto", "incorrecto"));
+      if (respuestasUsuario[tarjetaActual]) {
+        opciones.forEach(opcion => {
+          if (opcion.textContent === respuestasUsuario[tarjetaActual]) {
+            opcion.classList.add("correcto");
+          }
+        });
+      }
+    }
+  
+    function cambiarTarjeta(direccion) {
+      tarjetas[tarjetaActual].classList.remove("activa");
+      tarjetaActual += direccion;
+      if (tarjetaActual < 0) tarjetaActual = 0;
+      if (tarjetaActual >= tarjetas.length) tarjetaActual = tarjetas.length - 1;
+      tarjetas[tarjetaActual].classList.add("activa");
+      restaurarSeleccion();
+    }
+  </script>
+  
+  <script>
+    // Temporizador
+    let timeRemaining = 180; // 3 minutos en segundos
+    let timerInterval;
+  
+    function updateTimerDisplay() {
+      let minutes = Math.floor(timeRemaining / 60);
+      let seconds = timeRemaining % 60;
+      document.getElementById("timer").innerText =
+        (minutes < 10 ? "0" + minutes : minutes) + ":" +
+        (seconds < 10 ? "0" + seconds : seconds);
+    }
+  
+    function startTimer() {
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        if (timeRemaining > 0) {
+          timeRemaining--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(timerInterval);
+          finalizarJuegoTiempo();
+        }
+      }, 1000);
+    }
+  
+    
+  function finalizarJuegoTiempo() {
+    clearInterval(timerInterval);
+    document.getElementById("final-score-fj").textContent = score;
+    let tiempoTranscurrido = 180 - timeRemaining;
+    let minutesElapsed = Math.floor(tiempoTranscurrido / 60);
+    let secondsElapsed = tiempoTranscurrido % 60;
+    document.getElementById("final-time-fj").textContent =
+      (minutesElapsed < 10 ? "0" + minutesElapsed : minutesElapsed) + ":" +
+      (secondsElapsed < 10 ? "0" + secondsElapsed : secondsElapsed);
+    document.getElementById("fin-juego-modal").style.display = "block";
+    
+    // Reproduce el sonido al abrir el modal de fin de juego
+    reproducirSonidoFinJuego();
+  }
+
+
+  
+    document.addEventListener("DOMContentLoaded", startTimer);
+
+
+    function reiniciarJuego() {
+  // Restablece el puntaje
+  score = 0;
+  document.getElementById("score").textContent = score;
+
+  // Restablece respuestas
+  respuestasUsuario.fill(null);
+  puntuacionPorPregunta.fill(false);
+
+  // Reinicia el tiempo
+  timeRemaining = 180;
+  updateTimerDisplay();
+  clearInterval(timerInterval);
+  startTimer(); // Reinicia el temporizador
+
+  // Oculta los modales
+  document.getElementById("felicitacion-modal").style.display = "none";
+  document.getElementById("fin-juego-modal").style.display = "none";
+
+  // Reinicia las tarjetas
+  tarjetas.forEach(tarjeta => tarjeta.classList.remove("activa"));
+  tarjetaActual = 0;
+  tarjetas[tarjetaActual].classList.add("activa");
+
+  // Restaurar selección visual
+  restaurarSeleccion();
+}
+
+  </script>
+  
+</body>
+</html>

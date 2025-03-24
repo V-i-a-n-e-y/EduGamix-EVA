@@ -58,7 +58,6 @@ h1 {
     text-decoration: underline;
 }
 
-
 /* Contenedor principal */
 .main-container {
     display: flex;
@@ -76,24 +75,24 @@ h1 {
 
 /* Estilo del contenido */
 .content {
-  
-
     display: flex;
     justify-content: center; /* Centrado horizontal */
     align-items: center; /* Centrado vertical */
     height: 70vh; /* Aumentamos el espacio para elevar los puntos */
 }
 
-
 /* Botones generales */
 button {
-    padding: 10px 20px;
+    padding: 15px 30px; /* Aseguramos que todos los botones tengan un tamaño consistente */
+    width: 200px; /* Establecemos un ancho fijo para todos los botones */
     background-color: #d76a1c;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-size: 16px; /* Aseguramos que el texto del botón tenga un tamaño legible */
+    margin: 10px 0; /* Espaciado entre los botones */
 }
 
 button:hover {
@@ -159,29 +158,32 @@ h1 {
     text-decoration: underline;
 }
 
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f9f0e9;
 }
+
 header {
     background-color: #fefefe;
     color: #040404;
     padding: 10px 20px;
     text-align: center;
 }
+
 .user-section {
     margin-top: 10px;
     font-size: 16px;
 }
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 50px;
 }
+
 button {
     padding: 15px 30px;
     margin: 10px;
@@ -192,31 +194,32 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    width: 200px; /* Aseguramos que todos los botones tengan el mismo tamaño */
 }
+
 button:hover {
     background-color: #d76a1c;
 }
 
-
-    @keyframes gradientBackground {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
+/* Animación para el fondo */
+@keyframes gradientBackground {
+    0% {
+        background-position: 0% 50%;
     }
-
-    header {
-        background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
-        color: white;
-        padding: 10px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    50% {
+        background-position: 100% 50%;
     }
+    100% {
+        background-position: 0% 50%;
+    }
+}
 
+header {
+    background-color: rgba(0, 0, 0, 0.9); /* Fondo translúcido */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+}
