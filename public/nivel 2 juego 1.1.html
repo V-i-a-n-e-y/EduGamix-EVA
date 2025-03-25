@@ -129,6 +129,13 @@
     .avatar-feedback:hover {
       transform: scale(1.1);
     }
+   
+    .avatar-modal {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
           /* Estilo de los títulos en todos los modales */
 .modal-content h2 {
     font-family: 'Trebuchet MS', sans-serif;
@@ -218,7 +225,6 @@
     0% { transform: scale(0.8); }
     100% { transform: scale(1); }
 }
-  
   </style>
 </head>
 <body>
@@ -290,7 +296,7 @@
   <!-- Modal de fin del juego (se muestra al cometer el tercer error) -->
   <div id="fin-juego-modal" class="modal">
     <div class="modal-content">
-      <h2>🎮Fin del juego</h2>
+      <h2>🎮 Fin del juego</h2>
       <p>Puntaje final: <span id="final-score-fj"></span></p>
       <p>Tiempo total: <span id="final-time-fj"></span></p>
       <img src="img/radicux.jpg" alt="Avatar" class="avatar-modal">
@@ -312,7 +318,7 @@
   <!-- Contenido del desafío -->
   <div class="contenido">
     <h2>Desafío: Explorando Soluciones Lineales</h2>
-    <p>TIEMPO: <span id="timer">03:00</span></p>
+    <p>TIEMPO: <span id="timer">00:00</span></p>
     <p>Puntaje: <span id="score">0</span></p>
     <div id="contenedorTarjetas">
       <div class="tarjeta activa" data-respuesta="Compatibles determinados">
@@ -355,7 +361,7 @@
     let errorCount = 0;
     const maxErrors = 3;
   
-    // Temporizador: cuenta regresiva desde 180 segundos (3 minutos)
+    // Temporizador: cuenta regresiva desde 300 segundos (5 minutos)
     let timeRemaining = 180;
     let timerInterval;
     let isGameOver = false;
@@ -383,7 +389,7 @@
   
     function stopTimer() {
       clearInterval(timerInterval);
-      const elapsed = 180 - timeRemaining;
+      const elapsed = 300 - timeRemaining;
       const minutes = Math.floor(elapsed / 60);
       const seconds = elapsed % 60;
       const finalTime = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
@@ -588,7 +594,7 @@
       document.getElementById("score").textContent = score;
       respuestasUsuario.fill(null);
       puntuacionPorPregunta.fill(false);
-      timeRemaining = 180;
+      timeRemaining = 300;
       updateTimerDisplay();
       clearInterval(timerInterval);
       isGameOver = false;

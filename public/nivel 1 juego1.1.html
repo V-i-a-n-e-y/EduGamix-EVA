@@ -39,22 +39,39 @@
             if (username) {
                 document.getElementById("username").textContent = username;
             }
+    
             if (useremail) {
                 document.getElementById("useremail").textContent = useremail;
             }
         });
     </script>
 
-    <!-- Contenido Principal -->
+        <!-- Contenido Principal -->
     <div class="game-container">
         
-        <div class="challenge-header">
-            <h2> Bingo de Ecuaciones Lineales</h2>
+            <div class="challenge-header">
+                Desafío 1: Bingo de Ecuaciones Lineales
+            </div>
+            <div class="challenge-info">
+                <div class="header-info">
+                    <div class="user-section"></div>
+                </div>
+                <p>TIEMPO: <span id="timer">00:00</span></p>
+                <p>Puntos obtenidos: <span id="points">0</span></p>
+            </div>
+       
+
+                <!-- Avatar y diálogo -->
+        <div id="avatar-container" class="avatar-container">
+            <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
         </div>
-        <div class="challenge-info">
-            <p>⏳ Tiempo: <span id="timer">00:00</span></p>
-            <p>Puntos obtenidos: <span id="points">0</span></p>
-            <p>Intentos restantes: <span id="attempts">3</span></p>
+
+        <div id="avatar-dialog" class="avatar-dialog" style="display: none;">
+            <div class="dialog-content">
+                <span class="close" onclick="closeAvatarDialog()">&times;</span>
+                <p id="avatar-text">¡Hola! Soy Xilo, tu asistente de juego. Estoy aquí para ayudarte.</p>
+                <button onclick="narrarContenido()">Hablar</button>
+            </div>
         </div>
 
         <!-- Contenido del juego -->
@@ -79,23 +96,141 @@
         <div class="attempts-info">
             <span id="attempts">Intentos restantes: 3</span>
             <button onclick="feliBingo(); reproducirSonidoTrompetas()">¡Bingo!</button>
+
             <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
         </div>
+
+
+        <!-- Botones adicionales -->
+        <div class="buttons-container">
+            <button class="icon-button" onclick="restartGame()">Comenzar</button>
+            <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
+        </div>
+
+        <!-- Controles de audio -->
+        <div class="audio-buttons-container">
+            <button class="audio-button" onclick="playAudio()"><i class="fas fa-play"></i></button>
+            <button class="audio-button" onclick="pauseAudio()"><i class="fas fa-pause"></i></button>
+            <button class="audio-button" onclick="toggleMute()"><i class="fas fa-volume-mute"></i></button>
+            <button class="audio-button" onclick="increaseVolume()"><i class="fas fa-volume-up"></i></button>
+            <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
+        </div>
+
+
+  <!-- Variables globales y funciones generales -->
+  <script>
+    // Variables para las pistas y errores
+    let pistas = [
+      "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
+      "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
+      "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
+      "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
+      "Pregunta 5: Una matriz con este determinante no tiene inversa."
+    ];
+    let pistasRandomOrder = [];
+    let pistasRandomOrderIndex = 0;
+    let errorCount = 0;
+    let maxErrors = 3;
+
+    // Función para barajar un array (Fisher-Yates)
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Inicializa o reinicializa el array de índices barajados
+    function initPistasRandomOrder() {
+      pistasRandomOrder = [];
+      for (let i = 0; i < pistas.length; i++) {
+        pistasRandomOrder.push(i);
+      }
+      shuffleArray(pistasRandomOrder);
+      pistasRandomOrderIndex = 0;
+    }
+    initPistasRandomOrder();
+
+    // Cierra el modal de retroalimentación y detiene la narración
+    function cerrarRetroalimentacion() {
+      document.getElementById("retroalimentacion-modal").style.display = "none";
+      window.speechSynthesis.cancel();
+    }
+
+    // Muestra el modal de retroalimentación y narra una pista sin repeticiones
+    function mostrarRetroalimentacion() {
+      const modal = document.getElementById("retroalimentacion-modal");
+      const retroalimentacion = document.querySelector('#retroalimentacion-modal .retroalimentacion p');
+
+      if (pistasRandomOrderIndex >= pistasRandomOrder.length) {
+        initPistasRandomOrder();
+      }
+      const randomIndex = pistasRandomOrder[pistasRandomOrderIndex];
+      pistasRandomOrderIndex++;
+
+      retroalimentacion.innerText = pistas[randomIndex];
+      modal.style.display = "flex";
+      narrarTexto(retroalimentacion.innerText);
+    }
+
+    function cerrarFelicitacion() {
+      document.getElementById("felicitacion-modal").style.display = "none";
+    }
+
+    function cerrarFinJuego() {
+      document.getElementById("fin-juego-modal").style.display = "none";
+    }
+
+    // Función para obtener y seleccionar una voz natural en español
+  function obtenerVozNatural() {
+    let voices = window.speechSynthesis.getVoices();
+    // Intenta seleccionar una voz que contenga "Google" en su nombre, si no, la primera que sea en español.
+    let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+    if (!voz) {
+      voz = voices.find(voice => voice.lang === 'es-ES');
+    }
+    return voz;
+  }
+
+  // Función para narrar texto usando la API SpeechSynthesis
+  function narrarTexto(texto) {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      let mensaje = new SpeechSynthesisUtterance(texto);
+      mensaje.lang = 'es-ES';
+      mensaje.rate = 1.0; // Ajusta la velocidad para mayor naturalidad
+      mensaje.pitch = 1;  // Puedes ajustar este valor si es necesario
+
+      // Esperar a que se carguen las voces
+      let vozNatural = obtenerVozNatural();
+      if (vozNatural) {
+        mensaje.voice = vozNatural;
+      }
+      window.speechSynthesis.speak(mensaje);
+    } else {
+      alert('Tu navegador no soporta la síntesis de voz.');
+    }
+  }
+
+  // Asegurarse de que las voces se carguen (especialmente en Chrome)
+  window.speechSynthesis.onvoiceschanged = function() {
+    obtenerVozNatural();
+  };
+  </script>
 
         <!-- Modal de Felicitación -->
         <div id="felicitacion-modal" class="modal" style="display: none;">
             <div class="modal-content">
-                <h2>🎉 Felicidades 🎉</h2>
-                <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
-                <p>Puntaje final: <span id="final-score"></span></p>
-                <p>Tiempo total: <span id="final-time"></span></p>
-                <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
-                <button id="restart-btn">Reiniciar Juego</button>
-                <button id="modo-btn" onclick="window.location.href='modo juego n1.html';">Regresar</button>
+                <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+                <h2>🎉 ¡Felicidades! 🎉</h2>
+                <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
+                <img src="img/gami.jpg" alt="Gami" class="avatar" />
             </div>
         </div>
 
-        <!-- Modal de Retroalimentación -->
+
+        <!-- Modal de retroalimentación -->
         <div id="feedback-modal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close" onclick="closeFeedback()">&times;</span>
@@ -110,15 +245,17 @@
                     </thead>
                     <tbody id="feedback-table-body"></tbody>
                 </table>
+                <div class="avatar-feedback">
+                    <img src="img/radicux.jpg" alt="Avatar" class="avatar">
+                    <p id="feedback-text">Estas fuerón tus respuestas</p>
+                    <button onclick="closeFeedback()">Cerrar</button>
+                </div>
             </div>
         </div>
-
-        <!-- Botón para abrir retroalimentación manualmente -->
-        <button onclick="showFeedbackModal()">Ver Retroalimentación</button>
-
     </div>
 
     <!-- Scripts -->
+
     <script src="nivel 1 juego1.js"></script>
     <script>
         let ecuaciones = [
@@ -126,43 +263,61 @@
             { ecuacion: '2x + 4y = 0  x + 2y = 4', solucion: 'x = 2 y = -1', respuestaUsuario: '' },
             { ecuacion: '3x + 2y = 11  4x + 5y = 7', solucion: 'x = 3 y = 1', respuestaUsuario: '' },
             { ecuacion: '2x + 3y = -1  3x + 4y = 0', solucion: 'x = 4 y = -3', respuestaUsuario: '' },
-            { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' }
+            { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' },
+
         ];
 
-        let currentEquationIndex = 0;
-
-        // Función para mostrar la siguiente ecuación
-        function nextEquation() {
-            if (currentEquationIndex < ecuaciones.length - 1) {
-                currentEquationIndex++;
-                document.getElementById('equation').textContent = ecuaciones[currentEquationIndex].ecuacion;
-            }
+        // Función para verificar el bingo y mostrar la retroalimentación
+        function verificarYMostrar() {
+            checkBingo();
+            showFeedbackModal();
         }
 
-        // Función para mostrar la ecuación anterior
-        function prevEquation() {
-            if (currentEquationIndex > 0) {
-                currentEquationIndex--;
-                document.getElementById('equation').textContent = ecuaciones[currentEquationIndex].ecuacion;
-            }
-        }
+        function checkBingo() {
+    console.log("Verificando bingo...");
 
-        // Función para iniciar el juego de nuevo
-        function restartGame() {
-            puntos = 0;
-            intentos = 3;
-            currentEquationIndex = 0;
-            document.getElementById('points').textContent = puntos;
-            document.getElementById('attempts').textContent = intentos;
-            document.getElementById('felicitacion-modal').style.display = 'none';
-            document.getElementById('equation').textContent = ecuaciones[currentEquationIndex].ecuacion;
+   const solution = equationsHistory[currentEquationIndex].solucion; // Solución correcta de la ecuación actual
+    const userAnswer = selectedAnswers.join(", "); // Respuesta del usuario combinando casillas seleccionadas
+
+    // Guardar la respuesta del usuario en el historial de ecuaciones
+    equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
+
+    if (userAnswer === solution) {
+        // Incrementar puntos si la respuesta es correcta
+        totalPoints += pointsPerCorrectAnswer;
+        document.getElementById("points").textContent = totalPoints; // Actualizar los puntos en la pantalla
+        alert("¡Bingo! Has encontrado la solución correcta.");
+    } else {
+        // Reducir el número de intentos restantes
+        attempts--;
+        document.getElementById("attempts").textContent = `Intentos restantes: ${attempts}`;
+
+        if (attempts > 0) {
+            alert("Respuesta incorrecta. Sigue intentando.");
+        } else {
+            // Si no quedan intentos, bloquear el juego y mostrar retroalimentación
+            lockGame();
+            setTimeout(showFeedback, 1000); // Mostrar retroalimentación después de 1 segundo
+        }
+    }
+
+    // Limpiar respuestas seleccionadas
+    selectedAnswers = [];
+    const cells = document.querySelectorAll(".cell.selected");
+    cells.forEach(cell => cell.classList.remove("selected"));
+}
+
+
+        // Función para registrar la respuesta del usuario
+        function registrarRespuesta(ecuacionIndex, respuesta) {
+            ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
         }
 
         // Función para mostrar el modal de retroalimentación
         function showFeedbackModal() {
             const modal = document.getElementById('feedback-modal');
             const feedbackTableBody = document.getElementById('feedback-table-body');
-            feedbackTableBody.innerHTML = ""; // Limpiar la tabla antes de agregar las nuevas filas
+            feedbackTableBody.innerHTML = "";  // Limpiar la tabla antes de agregar las nuevas filas
 
             // Iterar sobre las ecuaciones y mostrar la retroalimentación
             ecuaciones.forEach((item, index) => {
@@ -185,13 +340,84 @@
             });
 
             modal.style.display = 'block';
+            narrarFeedback();
         }
 
-        // Función para cerrar el modal de retroalimentación
+        // Narrar retroalimentación
+        function narrarFeedback() {
+            const voces = window.speechSynthesis.getVoices();
+            const texto = document.getElementById('feedback-text').textContent;
+            const speech = new SpeechSynthesisUtterance(texto);
+            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
+            speech.lang = 'es-ES';
+            speech.pitch = 1;
+            speech.rate = 1;
+            speech.volume = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        // Cerrar el modal de retroalimentación
         function closeFeedback() {
             const modal = document.getElementById('feedback-modal');
             modal.style.display = 'none';
         }
+
+        // Dialogo del avatar
+        function openAvatarDialog() {
+            var dialog = document.getElementById('avatar-dialog');
+            dialog.style.display = 'block';
+        }
+
+        function closeAvatarDialog() {
+            var dialog = document.getElementById('avatar-dialog');
+            dialog.style.display = 'none';
+        }
+
+        function narrarContenido() {
+            const voces = window.speechSynthesis.getVoices();
+            const texto = document.getElementById('avatar-text').textContent;
+            const speech = new SpeechSynthesisUtterance(texto);
+            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
+            speech.lang = 'es-ES';
+            speech.pitch = 2;
+            speech.rate = 1;
+            speech.volume = 1;
+
+            const avatar = document.querySelector('.avatar');
+            avatar.style.transform = 'scale(1.1)';
+            avatar.style.transition = 'transform 0.2s ease-in-out';
+
+            speech.onend = () => {
+                avatar.style.transform = 'scale(1)';
+            };
+
+            window.speechSynthesis.speak(speech);
+        }
+    
+         function reproducirSonidoTrompetas() {
+      const audio = new Audio("img/trompetas.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+
+    function reproducirSonidoBoton() {
+      const audio = new Audio("img/click.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+
+    function reproducirSonidoFinjuego() {
+      const audio = new Audio("img/fin del juego.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+
+    function reproducirSonidoErro() {
+      const audio = new Audio("img/error.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
+
+    function reiniciarJuego() {
+      location.reload();
+    }
     </script>
+    
 </body>
 </html>
