@@ -160,6 +160,131 @@
     .botones-container button:hover {
       opacity: 0.8;
     }
+    .felicitacion-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  margin: 15% auto;
+  text-align: center;
+  position: relative;
+  z-index: 500;
+ 
+  display: flex !important; /* Hace que el modal aparezca correctamente */
+  justify-content: center;
+  align-items: center;
+}
+
+
+.felicitacion-modal .close {
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.felicitacion-modal:focus {
+  color: #ffddc1;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Posiciona el avatar en el centro del modal */
+.avatar-modal {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+  /* Estilo de los títulos en todos los modales */
+  .modal-content h2 {
+    font-family: 'Trebuchet MS', sans-serif;
+    text-shadow: 1px 1px 2px #000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos específicos para el modal de error */
+#error-modal .modal-content {
+    background-color: #ffdddd;
+    border: 3px solid #d9534f;
+    box-shadow: 0 0 15px #d9534f;
+    animation: shake 0.3s ease-in-out 2;
+}
+
+#error-modal h2 {
+    color: #d9534f;
+}
+
+#error-modal p {
+    color: #d9534f;
+    font-size: 1.2em;
+}
+
+#error-modal .avatar-error {
+    width: 130px;
+    filter: contrast(1.2);
+}
+
+/* Animación de vibración */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+}
+
+/* Estilos específicos para el modal de fin del juego */
+#fin-juego-modal .modal-content {
+    background-color: #222;
+    color: white;
+    border: 3px solid #ffcc00;
+    box-shadow: 0 0 20px #ffcc00;
+}
+
+#fin-juego-modal h2 {
+    color: #ffcc00;
+}
+
+#fin-juego-modal p {
+    font-size: 1.3em;
+    font-style: italic;
+}
+
+#fin-juego-modal .avatar-modal {
+    width: 140px;
+    filter: drop-shadow(0 0 10px #ffcc00);
+}
+
+/* Estilos específicos para el modal de felicitación */
+#felicitacion-modal .modal-content {
+    background-color: #fff;
+    border: 3px solid #4CAF50;
+    box-shadow: 0 0 15px #4CAF50;
+    animation: scale-up 0.5s ease-in-out;
+}
+
+#felicitacion-modal h2 {
+    color: #4CAF50;
+}
+
+#felicitacion-modal p {
+    color: #000800;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#felicitacion-modal .avatar-gami {
+    width: 100px;
+    filter: drop-shadow(0 0 10px #4CAF50);
+}
+
+/* Animación de escala */
+@keyframes scale-up {
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+}
+
   </style>
 </head>
 <body>
@@ -220,7 +345,7 @@
     // Inicializa la secuencia al cargar la página
     initPistasRandomOrder();
   </script>
-  
+
  <!-- Modal de retroalimentación (pistas) -->
  <div id="retroalimentacion-modal" class="modal" style="display:none;">
   <div class="modal-content">
@@ -234,20 +359,27 @@
 <!-- Botón de retroalimentación (Avatar) -->
 <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
 
+  <!-- Botón de retroalimentación -->
+  <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" 
+       onclick="mostrarRetroalimentacion()" 
+       style="cursor: pointer;" 
+       title="Da clic para tener una pista" />
 
+   
   <!-- Modal de Felicitación -->
   <div id="felicitacion-modal" class="modal">
-    <div class="felicitacion-modal">
+    <div class="modal-content">
       <h2>🎉 Felicidades 🎉</h2>
       <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
-      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
+      <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <button id="restart-btn">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
     </div>
   </div>
   
+
   <!-- Modal de Fin del Juego (alternativo) -->
   <div id="fin-juego-modal" class="modal">
     <div class="modal-content">
@@ -264,7 +396,7 @@
   <div id="error-modal" class="modal">
     <div class="modal-content">
       <span class="close" onclick="cerrarError()">&times;</span>
-      <h2>⚠️ Incorrecto. intenta de nuevo.</h2>
+      <h2>⚠️ Incorrecto. Intenta de nuevo.</h2>
       <p>Llevas <span id="error-count">0</span> error.</p>
       <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
     </div>
@@ -298,7 +430,56 @@
     function cerrarError() {
       document.getElementById("error-modal").style.display = "none";
     }
+  
+   </script>
 
+   <script>
+    function mostrarFelicitacion() {
+  isGameOver = true;
+  stopTimer();
+  document.getElementById("final-score").textContent = scoreMemorama;
+  document.getElementById("felicitacion-modal").style.display = "flex";
+  reproducirSonidoTrompetas();
+}
+function cerrarFelicitacion() {
+  document.getElementById("felicitacion-modal").style.display = "none";
+}
+  
+document.addEventListener("DOMContentLoaded", function() {
+  document.getElementById("restart-btn").addEventListener("click", () => {
+    isGameOver = false;
+    seconds = 0;
+    minutes = 5;
+    document.getElementById("timer").innerText = "05:00";
+    document.getElementById("felicitacion-modal").style.display = "none";
+    location.reload();
+  });
+});
+function reproducirSonidoTrompetas() {
+  const audio = new Audio("img/trompetas.mp3");
+  audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+}
+function finalizarJuego() {
+  isGameOver = true;
+  clearInterval(timerInterval);
+
+  // Si se han cometido 5 errores o se terminó el tiempo, muestra el modal de fin de juego (derrota)
+  if (errorCount >= maxErrors || (minutes === 0 && seconds === 0)) {
+    document.getElementById("final-score-fj").textContent = scoreMemorama;
+    document.getElementById("final-time-fj").textContent = finalTime;
+    document.getElementById("fin-juego-modal").style.display = "flex";
+    reproducirSonidoFinJuego();
+  } else {
+    // Modal de felicitación (victoria)
+    document.getElementById("final-score").textContent = scoreMemorama;
+    document.getElementById("final-time").textContent = finalTime;
+    document.getElementById("felicitacion-modal").style.display = "flex";
+    reproducirSonidoTrompetas();
+  }
+}
+</script>
+
+<script>
     // Funciones de síntesis de voz
     function narrarTexto(texto) {
       if ('speechSynthesis' in window) {
@@ -347,13 +528,13 @@
       const audio = new Audio("img/click.mp3");
       audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
     }
+    function reiniciarJuego() {
+      location.reload();
+    }
     // NUEVA: Función para reproducir sonido de respuesta correcta
     function reproducirSonidoCorrecto() {
     const audio = new Audio("img/correcto.mp3");
     audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-    }
-    function reiniciarJuego() {
-      location.reload();
     }
   </script>
 
@@ -501,7 +682,8 @@
       }
       }
     }
-    
+
+
     // Función de finalización de juego modificada:
     function finalizarJuego() {
       isGameOver = true;

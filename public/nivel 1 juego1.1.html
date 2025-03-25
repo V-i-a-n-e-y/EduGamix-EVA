@@ -39,36 +39,24 @@
             if (username) {
                 document.getElementById("username").textContent = username;
             }
-    
             if (useremail) {
                 document.getElementById("useremail").textContent = useremail;
             }
         });
     </script>
 
-        <!-- Contenido Principal -->
+    <!-- Contenido Principal -->
     <div class="game-container">
         
-            <div class="challenge-header">
-                <h2> Bingo de Ecuaciones Lineales</h2>
-            </div>
-            <div class="challenge-info">
-                <div class="header-info">
-                    <div class="user-section"></div>
-                </div>
-                <p>⏳ Tiempo: <span id="timer">00:00</span></p>
-                <p>Puntos obtenidos: <span id="points">0</span></p>
-                <p>Intentos restantes: <span id="attempts">3</span></p>
-                
-          
+        <div class="challenge-header">
+            <h2> Bingo de Ecuaciones Lineales</h2>
+        </div>
+        <div class="challenge-info">
+            <p>⏳ Tiempo: <span id="timer">00:00</span></p>
+            <p>Puntos obtenidos: <span id="points">0</span></p>
+            <p>Intentos restantes: <span id="attempts">3</span></p>
+        </div>
 
-                
-               
-
-            </div>
-       
-
-  
         <!-- Contenido del juego -->
         <div class="content">
             <div class="equation-container">
@@ -91,30 +79,23 @@
         <div class="attempts-info">
             <span id="attempts">Intentos restantes: 3</span>
             <button onclick="feliBingo(); reproducirSonidoTrompetas()">¡Bingo!</button>
-
             <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
         </div>
-
-
-        <!-- Botones adicionales -->
-        <div class="buttons-container">
-            <button class="icon-button" onclick="restartGame()">Comenzar</button>
-            <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
-        </div>
-
-       
-
 
         <!-- Modal de Felicitación -->
         <div id="felicitacion-modal" class="modal" style="display: none;">
             <div class="modal-content">
-                <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-                <h2>🎉 ¡Felicidades! 🎉</h2>
-                <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
-                <img src="img/gami.jpg" alt="Gami" class="avatar" />
+                <h2>🎉 Felicidades 🎉</h2>
+                <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+                <p>Puntaje final: <span id="final-score"></span></p>
+                <p>Tiempo total: <span id="final-time"></span></p>
+                <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
+                <button id="restart-btn">Reiniciar Juego</button>
+                <button id="modo-btn" onclick="window.location.href='modo juego n1.html';">Regresar</button>
             </div>
         </div>
-        <!-- Modal de retroalimentación -->
+
+        <!-- Modal de Retroalimentación -->
         <div id="feedback-modal" class="modal" style="display: none;">
             <div class="modal-content">
                 <span class="close" onclick="closeFeedback()">&times;</span>
@@ -129,83 +110,15 @@
                     </thead>
                     <tbody id="feedback-table-body"></tbody>
                 </table>
-                <div class="avatar-feedback">
-                    <img src="img/radicux.jpg" alt="Avatar" class="avatar">
-                    <p id="feedback-text">Estas fueron tus respuestas</p>
-                    <button onclick="closeFeedback()">Cerrar</button>
-                </div>
             </div>
         </div>
 
-        <!-- Variables globales para las pistas -->
-        <script>
-            let pistas = [
-                "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
-                "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
-                "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
-                "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
-                "Pregunta 5: Una matriz con este determinante no tiene inversa."
-            ];
-            let pistasRandomOrder = [];
-            let pistasRandomOrderIndex = 0;
+        <!-- Botón para abrir retroalimentación manualmente -->
+        <button onclick="showFeedbackModal()">Ver Retroalimentación</button>
 
-            // Barajar array con el algoritmo Fisher-Yates
-            function shuffleArray(array) {
-                for (let i = array.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [array[i], array[j]] = [array[j], array[i]];
-                }
-                return array;
-            }
-
-            // Inicializa el orden aleatorio de pistas
-            function initPistasRandomOrder() {
-                pistasRandomOrder = [];
-                for (let i = 0; i < pistas.length; i++) {
-                    pistasRandomOrder.push(i);
-                }
-                shuffleArray(pistasRandomOrder);
-                pistasRandomOrderIndex = 0;
-            }
-
-            // Inicializa la secuencia al cargar la página
-            initPistasRandomOrder();
-
-            // Mostrar retroalimentación
-            function mostrarRetroalimentacion() {
-                const modal = document.getElementById('retroalimentacion-modal');
-                const retroalimentacion = document.querySelector('.retroalimentacion p');
-                retroalimentacion.textContent = pistas[pistasRandomOrder[pistasRandomOrderIndex]];
-                pistasRandomOrderIndex = (pistasRandomOrderIndex + 1) % pistas.length;
-                modal.style.display = 'block';
-            }
-
-            // Cerrar retroalimentación
-            function cerrarRetroalimentacion() {
-                const modal = document.getElementById('retroalimentacion-modal');
-                modal.style.display = 'none';
-            }
-        </script>
-
-        <!-- Modal de retroalimentación (pistas) -->
-        <div id="retroalimentacion-modal" class="modal" style="display:none;">
-            <div class="modal-content">
-                <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
-                <div class="retroalimentacion">
-                    <p></p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Botón de retroalimentación (Avatar) -->
-        <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
-      </div>
     </div>
-  </div>
-  
 
     <!-- Scripts -->
-
     <script src="nivel 1 juego1.js"></script>
     <script>
         let ecuaciones = [
@@ -213,61 +126,43 @@
             { ecuacion: '2x + 4y = 0  x + 2y = 4', solucion: 'x = 2 y = -1', respuestaUsuario: '' },
             { ecuacion: '3x + 2y = 11  4x + 5y = 7', solucion: 'x = 3 y = 1', respuestaUsuario: '' },
             { ecuacion: '2x + 3y = -1  3x + 4y = 0', solucion: 'x = 4 y = -3', respuestaUsuario: '' },
-            { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' },
-
+            { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' }
         ];
 
-        // Función para verificar el bingo y mostrar la retroalimentación
-        function verificarYMostrar() {
-            checkBingo();
-            showFeedbackModal();
+        let currentEquationIndex = 0;
+
+        // Función para mostrar la siguiente ecuación
+        function nextEquation() {
+            if (currentEquationIndex < ecuaciones.length - 1) {
+                currentEquationIndex++;
+                document.getElementById('equation').textContent = ecuaciones[currentEquationIndex].ecuacion;
+            }
         }
 
-        function checkBingo() {
-    console.log("Verificando bingo...");
-
-   const solution = equationsHistory[currentEquationIndex].solucion; // Solución correcta de la ecuación actual
-    const userAnswer = selectedAnswers.join(", "); // Respuesta del usuario combinando casillas seleccionadas
-
-    // Guardar la respuesta del usuario en el historial de ecuaciones
-    equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
-
-    if (userAnswer === solution) {
-        // Incrementar puntos si la respuesta es correcta
-        totalPoints += pointsPerCorrectAnswer;
-        document.getElementById("points").textContent = totalPoints; // Actualizar los puntos en la pantalla
-        alert("¡Bingo! Has encontrado la solución correcta.");
-    } else {
-        // Reducir el número de intentos restantes
-        attempts--;
-        document.getElementById("attempts").textContent = `Intentos restantes: ${attempts}`;
-
-        if (attempts > 0) {
-            alert("Respuesta incorrecta. Sigue intentando.");
-        } else {
-            // Si no quedan intentos, bloquear el juego y mostrar retroalimentación
-            lockGame();
-            setTimeout(showFeedback, 1000); // Mostrar retroalimentación después de 1 segundo
+        // Función para mostrar la ecuación anterior
+        function prevEquation() {
+            if (currentEquationIndex > 0) {
+                currentEquationIndex--;
+                document.getElementById('equation').textContent = ecuaciones[currentEquationIndex].ecuacion;
+            }
         }
-    }
 
-    // Limpiar respuestas seleccionadas
-    selectedAnswers = [];
-    const cells = document.querySelectorAll(".cell.selected");
-    cells.forEach(cell => cell.classList.remove("selected"));
-}
-
-
-        // Función para registrar la respuesta del usuario
-        function registrarRespuesta(ecuacionIndex, respuesta) {
-            ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
+        // Función para iniciar el juego de nuevo
+        function restartGame() {
+            puntos = 0;
+            intentos = 3;
+            currentEquationIndex = 0;
+            document.getElementById('points').textContent = puntos;
+            document.getElementById('attempts').textContent = intentos;
+            document.getElementById('felicitacion-modal').style.display = 'none';
+            document.getElementById('equation').textContent = ecuaciones[currentEquationIndex].ecuacion;
         }
 
         // Función para mostrar el modal de retroalimentación
         function showFeedbackModal() {
             const modal = document.getElementById('feedback-modal');
             const feedbackTableBody = document.getElementById('feedback-table-body');
-            feedbackTableBody.innerHTML = "";  // Limpiar la tabla antes de agregar las nuevas filas
+            feedbackTableBody.innerHTML = ""; // Limpiar la tabla antes de agregar las nuevas filas
 
             // Iterar sobre las ecuaciones y mostrar la retroalimentación
             ecuaciones.forEach((item, index) => {
@@ -290,61 +185,13 @@
             });
 
             modal.style.display = 'block';
-            narrarFeedback();
         }
 
-        // Narrar retroalimentación
-        function narrarFeedback() {
-            const voces = window.speechSynthesis.getVoices();
-            const texto = document.getElementById('feedback-text').textContent;
-            const speech = new SpeechSynthesisUtterance(texto);
-            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
-            speech.lang = 'es-ES';
-            speech.pitch = 1;
-            speech.rate = 1;
-            speech.volume = 1;
-            window.speechSynthesis.speak(speech);
-        }
-
-        // Cerrar el modal de retroalimentación
+        // Función para cerrar el modal de retroalimentación
         function closeFeedback() {
             const modal = document.getElementById('feedback-modal');
             modal.style.display = 'none';
         }
-
-        // Dialogo del avatar
-        function openAvatarDialog() {
-            var dialog = document.getElementById('avatar-dialog');
-            dialog.style.display = 'block';
-        }
-
-        function closeAvatarDialog() {
-            var dialog = document.getElementById('avatar-dialog');
-            dialog.style.display = 'none';
-        }
-
-        function narrarContenido() {
-            const voces = window.speechSynthesis.getVoices();
-            const texto = document.getElementById('avatar-text').textContent;
-            const speech = new SpeechSynthesisUtterance(texto);
-            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
-            speech.lang = 'es-ES';
-            speech.pitch = 2;
-            speech.rate = 1;
-            speech.volume = 1;
-
-            const avatar = document.querySelector('.avatar');
-            avatar.style.transform = 'scale(1.1)';
-            avatar.style.transition = 'transform 0.2s ease-in-out';
-
-            speech.onend = () => {
-                avatar.style.transform = 'scale(1)';
-            };
-
-            window.speechSynthesis.speak(speech);
-        }
-    
     </script>
-    
 </body>
 </html>

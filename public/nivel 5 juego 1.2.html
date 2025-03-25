@@ -70,7 +70,7 @@
       .modal {
         display: none;
         position: fixed;
-        z-index: 9999; /* Asegura que el modal esté por encima de otros elementos */
+        z-index: 9999;
         left: 0;
         top: 0;
         width: 100%;
@@ -86,18 +86,18 @@
         text-align: center;
         position: relative;
       }
-      .close {
-        position: absolute;
-        right: 10px;
-        top: 5px;
-        font-size: 28px;
-        cursor: pointer;
-      }
+      
       /* Avatares */
       .avatar,
       .avatar-error,
       .avatar-modal {
         width: 150px;
+        display: block;
+        margin: 10px auto;
+      }
+      /* Nueva clase para agrandar la imagen de Gami */
+      .avatar-gami {
+        width: 170px;
         display: block;
         margin: 10px auto;
       }
@@ -117,19 +117,176 @@
         margin-bottom: 20px;
       }
       .avatar-feedback {
-      position: fixed;
-      bottom: 20px;
-      right: 180px;
-      width: 150px;
-      height: 150px;
-      transition: transform 0.5s ease;
-      z-index: 1000;
-      animation: fadeIn 1s ease forwards;
-    }
-    .avatar-feedback:hover {
-      transform: scale(1.1);
-    }
-    
+        position: fixed;
+        bottom: 50px;
+        right: 180px;
+        width: 150px;
+        height: auto;
+        transition: transform 0.5s ease;
+        z-index: 1000;
+        animation: fadeIn 1s ease forwards;
+      }
+      .avatar-feedback:hover {
+        transform: scale(1.1);
+      }
+       /* Estilos globales para los modales */
+       .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Contenido del modal unificado */
+        .modal-content-uniforme {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: center;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        /* Botón de cerrar */
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* Títulos y textos unificados */
+        .modal-content-uniforme h2 {
+          font-family: 'Trebuchet MS', sans-serif;
+        color: #4CAF50;
+        text-shadow: 1px 1px 2px #000;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content-uniforme p {
+            font-family: 'Arial', sans-serif;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        /* Avatares dentro de los modales */
+        .modal-content-uniforme img {
+            width: 150px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        /* Botones dentro del modal */
+        .modal-content-uniforme button {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+  /* Estilo de los títulos en todos los modales */
+.modal-content h2 {
+    font-family: 'Trebuchet MS', sans-serif;
+    text-shadow: 1px 1px 2px #000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos específicos para el modal de error */
+#error-modal .modal-content {
+    background-color: #ffdddd;
+    border: 3px solid #d9534f;
+    box-shadow: 0 0 15px #d9534f;
+    animation: shake 0.3s ease-in-out 2;
+}
+
+#error-modal h2 {
+    color: #d9534f;
+}
+
+#error-modal p {
+    color: #d9534f;
+    font-size: 1.2em;
+}
+
+#error-modal .avatar-error {
+    width: 130px;
+    filter: contrast(1.2);
+}
+
+/* Animación de vibración */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+}
+
+/* Estilos específicos para el modal de fin del juego */
+#fin-juego-modal .modal-content {
+    background-color: #222;
+    color: white;
+    border: 3px solid #ffcc00;
+    box-shadow: 0 0 20px #ffcc00;
+}
+
+#fin-juego-modal h2 {
+    color: #ffcc00;
+}
+
+#fin-juego-modal p {
+    font-size: 1.3em;
+    font-style: italic;
+}
+
+#fin-juego-modal .avatar-modal {
+    width: 140px;
+    filter: drop-shadow(0 0 10px #ffcc00);
+}
+
+/* Estilos específicos para el modal de felicitación */
+#felicitacion-modal .modal-content {
+    background-color: #fff;
+    border: 3px solid #4CAF50;
+    box-shadow: 0 0 15px #4CAF50;
+    animation: scale-up 0.5s ease-in-out;
+}
+
+#felicitacion-modal h2 {
+    color: #4CAF50;
+}
+
+#felicitacion-modal p {
+    color: #000800;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#felicitacion-modal .avatar-felicitacion {
+    width: 140px;
+    filter: drop-shadow(0 0 10px #4CAF50);
+}
+
+/* Animación de escala */
+@keyframes scale-up {
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+}
+
     </style>
   </head>
   <body>
@@ -145,7 +302,6 @@
         <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
         <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
         <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-       
         <div class="user-info">
           <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
           <span id="username">Nombre de Usuario</span> | 
@@ -181,7 +337,6 @@
           <li>Tarea C: 15 unidades de recursos combinados</li>
         </ul>
       </div>
-      <div class="resources"></div>
       <h4>Arrastra la matriz correcta al recuadro central.</h4>
       <div class="dropzone" id="dropzone">Suelta aquí</div>
       <div class="drag-container" id="drag-container">
@@ -203,96 +358,34 @@
       <div class="feedback"></div>
     </div>
 
-     <!-- Variables globales para las pistas -->
-  <script>
-    let pistas = [
-      "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
-      "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
-      "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
-      "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
-      "Pregunta 5: Una matriz con este determinante no tiene inversa."
-    ];
-    let pistasRandomOrder = [];
-    let pistasRandomOrderIndex = 0;
-
-    // Barajar array con el algoritmo Fisher-Yates
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    // Inicializa el orden aleatorio de pistas
-    function initPistasRandomOrder() {
-      pistasRandomOrder = [];
-      for (let i = 0; i < pistas.length; i++) {
-        pistasRandomOrder.push(i);
-      }
-      shuffleArray(pistasRandomOrder);
-      pistasRandomOrderIndex = 0;
-    }
-
-    // Inicializa la secuencia al cargar la página
-    initPistasRandomOrder();
-  </script>
-
-<div id="retroalimentacion-modal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
-    <div class="retroalimentacion">
-      <p></p>
+    <!-- Modal de Retroalimentación -->
+    <div id="retroalimentacion-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
+        <div class="retroalimentacion">
+          <p></p>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" 
-     onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista"
-     style="position: fixed; bottom: 10px; left: 10px; width: 80px; z-index: 1000;">
-     <script>
-     // Funciones de síntesis de voz
-     function narrarTexto(texto) {
-       if ('speechSynthesis' in window) {
-         window.speechSynthesis.cancel();
-         let mensaje = new SpeechSynthesisUtterance(texto);
-         mensaje.lang = 'es-ES';
-         mensaje.rate = 1.0;
-         mensaje.pitch = 1;
-         let vozNatural = obtenerVozNatural();
-         if (vozNatural) {
-           mensaje.voice = vozNatural;
-         }
-         window.speechSynthesis.speak(mensaje);
-       } else {
-         alert('Tu navegador no soporta la síntesis de voz.');
-       }
-     }
-     function obtenerVozNatural() {
-       let voices = window.speechSynthesis.getVoices();
-       let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
-       if (!voz) {
-         voz = voices.find(voice => voice.lang === 'es-ES');
-       }
-       return voz;
-     }
-     window.speechSynthesis.onvoiceschanged = function() {
-       obtenerVozNatural();
-     };
- 
-    </script>
+    <!-- Avatar de Xilo -->
+    <img src="img/xilo-avatar.jpg" alt="Xilo Avatar" class="avatar-feedback"
+         onclick="mostrarRetroalimentacion()"
+         title="Da clic para obtener una pista">
 
-    
-    <!-- Modal de Felicitación -->
+    <!-- Modal de Felicitación (opción de cerrar deshabilitada) -->
     <div id="felicitacion-modal" class="modal">
       <div class="modal-content">
-        <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-        <h2>🎉Felicidades🎉</h2>
+        <h2>🎉 Felicidades 🎉</h2>
         <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
         <p id="modalScore">
           Puntuación final: <span id="finalScoreValue"></span>
         </p>
-        <img src="img/gami.jpg" alt="Gami" class="avatar" />
+        <!-- Se muestra el texto para la insignia -->
+        <p id="insignia">Insignia por obtener: <span id="badge"></span></p>
+        <p id="mensajeInsignia"></p>
+        <!-- Se aplica la clase avatar-gami para agrandar la imagen -->
+        <img src="img/gami.gif" alt="Gami" class="avatar-gami" />
         <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
         <button id="modo-btn" onclick="window.location.href='modo juego n5.html';">
           Regresar
@@ -300,19 +393,18 @@
       </div>
     </div>
     
-    <!-- Modal de Error (para el primer intento fallido) -->
+    <!-- Modal de Error -->
     <div id="error-modal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="cerrarError()">&times;</span>
         <h2>⚠️ Incorrecto. Intenta de nuevo. </h2>
         <p>¡Al fin perderás muahaha!</p>
         <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
-        <!-- Aquí se usa la función reintentar() para mantener el orden de las fichas -->
         <button id="restart-btn-error" onclick="reintentar()">Reintentar</button>
       </div>
     </div>
     
-    <!-- Modal de Fin del Juego (después de dos intentos fallidos) -->
+    <!-- Modal de Fin del Juego -->
     <div id="fin-juego-modal" class="modal">
       <div class="modal-content">
         <h2>Fin del juego</h2>
@@ -324,7 +416,76 @@
       </div>
     </div>
     
+    <!-- Scripts principales -->
     <script>
+      let pistas = [
+        "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
+        "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
+        "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
+        "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
+        "Pregunta 5: Una matriz con este determinante no tiene inversa."
+      ];
+      let pistasRandomOrder = [];
+      let pistasRandomOrderIndex = 0;
+      
+      // Función para barajar el array (Fisher-Yates)
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+      
+      // Inicializa el orden aleatorio de las pistas
+      function initPistasRandomOrder() {
+        pistasRandomOrder = [];
+        for (let i = 0; i < pistas.length; i++) {
+          pistasRandomOrder.push(i);
+        }
+        shuffleArray(pistasRandomOrder);
+        pistasRandomOrderIndex = 0;
+      }
+      
+      // Inicializa la secuencia de pistas al cargar la página
+      initPistasRandomOrder();
+
+      // Función de síntesis de voz
+      function narrarTexto(texto) {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel(); // Cancela cualquier narración previa
+          let mensaje = new SpeechSynthesisUtterance(texto);
+          mensaje.lang = 'es-ES';
+          mensaje.rate = 1.0;
+          mensaje.pitch = 1;
+          
+          // Intenta obtener una voz en español
+          let vozNatural = obtenerVozNatural();
+          if (vozNatural) {
+            mensaje.voice = vozNatural;
+          }
+          window.speechSynthesis.speak(mensaje);
+        } else {
+          alert('Tu navegador no soporta la síntesis de voz.');
+        }
+      }
+      
+      // Función para obtener una voz en español
+      function obtenerVozNatural() {
+        let voices = window.speechSynthesis.getVoices();
+        let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+        if (!voz) {
+          voz = voices.find(voice => voice.lang === 'es-ES');
+        }
+        return voz;
+      }
+      
+      // Esperar a que se carguen las voces disponibles
+      window.speechSynthesis.onvoiceschanged = function() {
+        obtenerVozNatural();
+      };
+
+      // Variables para el juego
       let correctOption = "option1";
       let selectedOption = null;
       let score = 0;
@@ -345,7 +506,7 @@
       
       document.addEventListener("DOMContentLoaded", startTimer);
       
-      // Configuración del evento drag and drop para cada opción
+      // Configuración del drag and drop
       document.querySelectorAll(".option").forEach(option => {
         option.addEventListener("dragstart", event => {
           selectedOption = option.id;
@@ -377,45 +538,40 @@
           finalizarJuegoFelicitacion();
         } else {
           errorCount++;
-          console.log("Errores:", errorCount);
           reproducirSonidoError();
-          
-          // Reiniciar el dropzone y la selección para permitir otro intento
           document.getElementById("dropzone").innerHTML = "Suelta aquí";
           selectedOption = null;
-          
-          // Si es el primer intento fallido, se muestra el modal de error (sin reordenar las fichas)
           if (errorCount === 1) {
             mostrarErrorModal();
-          }
-          // Si es el segundo intento fallido, se muestra el modal de fin del juego
-          else if (errorCount === 2) {
+          } else if (errorCount === 2) {
             finalizarJuegoFin();
           }
         }
       }
-
-        function mostrarRetroalimentacion() {
-        // Muestra el modal
-        document.getElementById("retroalimentacion-modal").style.display = "block";
-        // Actualiza el contenido con una pista (ejemplo: la pista correspondiente al índice actual)
+      
+      // Función para mostrar el modal de retroalimentación, actualizar la pista y reproducir la voz
+      function mostrarRetroalimentacion() {
         const pistaActual = pistas[pistasRandomOrder[pistasRandomOrderIndex]];
         document.querySelector("#retroalimentacion-modal .retroalimentacion p").textContent = pistaActual;
-        // Opcional: avanzar al siguiente índice para la próxima vez
+        // Avanza al siguiente índice
         pistasRandomOrderIndex = (pistasRandomOrderIndex + 1) % pistas.length;
-        }
-        function cerrarRetroalimentacion() {
+        // Muestra el modal
+        document.getElementById("retroalimentacion-modal").style.display = "block";
+        // Reproduce la narración de la pista
+        narrarTexto(pistaActual);
+      }
+      
+      // Al cerrar el modal se detiene la narración
+      function cerrarRetroalimentacion() {
         document.getElementById("retroalimentacion-modal").style.display = "none";
-        }
-
+        window.speechSynthesis.cancel();
+      }
       
       function mostrarErrorModal() {
-        // Aseguramos que no se muestren otros modales
         document.getElementById("felicitacion-modal").style.display = "none";
         document.getElementById("error-modal").style.display = "block";
       }
       
-      // Función de reintento que NO mezcla las fichas
       function reintentar() {
         document.getElementById("dropzone").innerHTML = "Suelta aquí";
         selectedOption = null;
@@ -440,32 +596,38 @@
       function finalizarJuegoFelicitacion() {
         clearInterval(timerInterval);
         document.getElementById("finalScoreValue").textContent = score;
+        // Se muestra la insignia solo si se obtuvo la puntuación máxima y no hubo errores
+        if (score === 10 && errorCount === 0) {
+          document.getElementById("badge").textContent = "🧠 Genio del Juego";
+          document.getElementById("mensajeInsignia").textContent = "";
+        } else {
+          document.getElementById("badge").textContent = "";
+          document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener la insignia";
+        }
         document.getElementById("felicitacion-modal").style.display = "block";
         reproducirSonidoTrompetas();
       }
       
       function finalizarJuegoFin() {
         clearInterval(timerInterval);
-        const finalTime =
-          (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        const finalTime = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
         document.getElementById("final-score-fj").textContent = score;
         document.getElementById("final-time-fj").textContent = finalTime;
-        // Se ocultan los demás modales antes de mostrar el modal de fin del juego
         document.getElementById("felicitacion-modal").style.display = "none";
         document.getElementById("error-modal").style.display = "none";
         document.getElementById("fin-juego-modal").style.display = "block";
         reproducirSonidoFinJuego();
       }
       
-      function cerrarFelicitacion() {
-        document.getElementById("felicitacion-modal").style.display = "none";
-      }
+      // Se eliminó la función cerrarFelicitacion para evitar cerrar el modal de felicitación manualmente
+      // function cerrarFelicitacion() {
+      //   document.getElementById("felicitacion-modal").style.display = "none";
+      // }
       
       function cerrarError() {
         document.getElementById("error-modal").style.display = "none";
       }
       
-      // Al reiniciar el juego se reinician todos los valores y se mezclan las fichas (orden aleatorio)
       function reiniciarJuego() {
         score = 0;
         errorCount = 0;
@@ -485,7 +647,6 @@
       function mezclarTarjetas() {
         const container = document.getElementById("drag-container");
         const opciones = Array.from(container.children);
-        // Se realiza la mezcla de las fichas
         for (let i = opciones.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           container.appendChild(opciones[j]);
@@ -493,27 +654,8 @@
       }
       
       function logout() {
-        // Lógica para cerrar sesión
         alert("Cerrando sesión...");
       }
     </script>
-    <script>
-      // Función para mostrar el modal de retroalimentación y actualizar la pista
-      function mostrarRetroalimentacion() {
-        // Mostrar el modal
-        document.getElementById("retroalimentacion-modal").style.display = "block";
-        // Seleccionar la pista usando el array ya barajado
-        const pistaActual = pistas[pistasRandomOrder[pistasRandomOrderIndex]];
-        document.querySelector("#retroalimentacion-modal .retroalimentacion p").textContent = pistaActual;
-        // Avanzar al siguiente índice para la próxima vez
-        pistasRandomOrderIndex = (pistasRandomOrderIndex + 1) % pistas.length;
-      }
-    
-      // Función para cerrar el modal de retroalimentación
-      function cerrarRetroalimentacion() {
-        document.getElementById("retroalimentacion-modal").style.display = "none";
-      }
-    </script>
-    
   </body>
 </html>

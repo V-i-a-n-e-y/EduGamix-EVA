@@ -1,154 +1,184 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EduGamix - Nivel 1</title>
-  <link rel="stylesheet" href="nivel1-juego1.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix - Bingo de Ecuaciones</title>
+    <link rel="stylesheet" href="nivel1-juego1.css">
 </head>
 <body>
+    <!-- Encabezado -->
+    <header>
+        <div class="logo">
+            <a href="index.html" target="_blank">
+                <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+            </a>
+        </div>
+        <h1>Nivel 1 - Bingo de Ecuaciones Lineales</h1>
+        <div class="user-info">
+            <span id="username">Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+            <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+        </div>
+    </header>
 
-  <!-- 🔹 Encabezado -->
-  <header>
-    <div class="logo">
-      <a href="index.html">
-        <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
-      </a>
-    </div>
-    <h1>Nivel 1</h1>
-    <div class="user-info">
-      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
-      <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
-      <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-      <div class="user-info">
-        <i class="fas fa-user-circle"></i>
-        <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-        <a class="logout-link" onclick="logout()">Cerrar sesión</a>
-      </div>
-      <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
-    </div>
-  </header>
+    <!-- Contenedor principal -->
+    <div class="game-container">
+        <div class="challenge-info">
+            <p>⏳ Tiempo: <span id="timer">00:00</span></p>
+            <p>Puntos obtenidos: <span id="points">0</span></p>
+            <p>Intentos restantes: <span id="attempts">3</span></p>
+        </div>
 
-  <!-- 🔹 Script para cargar nombre y correo desde localStorage -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const username = localStorage.getItem("username");
-      const useremail = localStorage.getItem("useremail");
-      
-      if (username) document.getElementById("username").textContent = username;
-      if (useremail) document.getElementById("useremail").textContent = useremail;
-    });
-  </script>
+        <!-- Ecuaciones -->
+        <div class="equation-container">
+            <h2>El sistema de ecuaciones es:</h2>
+            <p id="equation">x + y = 5, 2x - y = 1</p>
+            <button onclick="prevEquation()">⬅ Regresar</button>
+            <button onclick="nextEquation()">Siguiente ➡</button>
+        </div>
 
-  <!-- 🔹 Contenedor del Juego -->
-  <div class="game-container">
-    <div class="challenge-header">Desafío 1: Bingo de Ecuaciones Lineales</div>
-    
-    <div class="challenge-info">
-      <p>⏳ TIEMPO: <span id="timer">00:00</span></p>
-      <p>⭐ Puntos obtenidos: <span id="points">0</span></p>
+        <!-- Bingo -->
+        <div class="bingo-container">
+            <h2>Bingo</h2>
+            <input type="text" id="answer" placeholder="Escribe tu respuesta">
+            <button onclick="verificarYMostrar()">Verificar</button>
+            <button onclick="feliBingo()">¡Bingo!</button>
+            <button onclick="restartGame()">Reiniciar Juego</button>
+        </div>
     </div>
 
-    <!-- 🔹 Modals (Ventanas Emergentes) -->
-    
-    <!-- 🟢 Modal de Pistas -->
-    <div id="retroalimentacion-modal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModal('retroalimentacion-modal')">&times;</span>
-        <p>Pista: Analiza las ecuaciones detenidamente.</p>
-      </div>
-    </div>
-
-    <!-- 🎉 Modal de Felicitaciones -->
+    <!-- Modal de Felicitación -->
     <div id="felicitacion-modal" class="modal">
-      <div class="modal-content">
-        <h2>🎉 ¡Felicidades! 🎉</h2>
-        <p>¡Has completado el desafío!</p>
-        <p>Puntaje final: <span id="final-score"></span></p>
-        <p>Tiempo total: <span id="final-time"></span></p>
-        <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
-        <button onclick="reiniciarJuego()">Reiniciar Juego</button>
-        <button onclick="window.location.href='modo-juego-n2.html';">Regresar</button>
-      </div>
+        <div class="modal-content">
+            <h2>🎉 Felicidades 🎉</h2>
+            <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+            <p>Puntaje final: <span id="final-score"></span></p>
+            <img src="img/gami.jpg" alt="Gami" class="avatar-modal">
+            <button id="restart-btn">Reiniciar Juego</button>
+            <button onclick="window.location.href='modo-juego-n1.html';">Regresar</button>
+        </div>
     </div>
 
-    <!-- 🚫 Modal de Fin del Juego -->
-    <div id="fin-juego-modal" class="modal">
-      <div class="modal-content">
-        <h2>🎮 Fin del juego</h2>
-        <p>Puntaje final: <span id="final-score-fj"></span></p>
-        <p>Tiempo total: <span id="final-time-fj"></span></p>
-        <img src="img/radicux.jpg" alt="Avatar">
-        <button onclick="reiniciarJuego()">Reiniciar Juego</button>
-        <button onclick="window.location.href='inicio.html';">Salir</button>
-      </div>
+    <!-- Modal de Retroalimentación -->
+    <div id="feedback-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeFeedback()">&times;</span>
+            <h2>Retroalimentación</h2>
+            <table id="feedback-table">
+                <thead>
+                    <tr>
+                        <th>Ecuación</th>
+                        <th>Solución</th>
+                        <th>Tu respuesta</th>
+                    </tr>
+                </thead>
+                <tbody id="feedback-table-body"></tbody>
+            </table>
+        </div>
     </div>
 
-    <!-- ❌ Modal de Error -->
-    <div id="error-modal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="cerrarModal('error-modal')">&times;</span>
-        <h2>⚠️ Incorrecto. Intenta de nuevo.</h2>
-        <p>¡Cuidado! Solo se permiten 2 errores.</p>
-        <img src="img/radicux.jpg" alt="Avatar de Error" class="avatar-error" />
-      </div>
-    </div>
+    <!-- Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // ✅ Cargar datos del usuario
+            const username = localStorage.getItem("username") || "Invitado";
+            const useremail = localStorage.getItem("useremail") || "correo@ejemplo.com";
+            document.getElementById("username").textContent = username;
+            document.getElementById("useremail").textContent = useremail;
 
-    <!-- 🔹 Contenido del Juego -->
-    <div class="content">
-      <h2>El sistema de ecuaciones es:</h2>
-      <div id="equation">x + y = 5, 2x - y = 1</div>
-      <button onclick="prevEquation()">Regresar</button>
-      <button onclick="nextEquation()">Siguiente</button>
-    </div>
+            // ✅ Variables del juego
+            let currentEquationIndex = 0;
+            let puntos = 0;
+            let intentos = 3;
+            let ecuaciones = [
+                { ecuacion: "x + y = 2, 2x + y = 5", solucion: "x = 3, y = -1", respuestaUsuario: "" },
+                { ecuacion: "2x + 4y = 0, x + 2y = 4", solucion: "x = 2, y = -1", respuestaUsuario: "" },
+                { ecuacion: "3x + 2y = 11, 4x + 5y = 7", solucion: "x = 3, y = 1", respuestaUsuario: "" },
+                { ecuacion: "2x + 3y = -1, 3x + 4y = 0", solucion: "x = 4, y = -3", respuestaUsuario: "" },
+                { ecuacion: "x + 2y = 5, 3x - 2y = 19", solucion: "x = 7, y = 1", respuestaUsuario: "" }
+            ];
 
-    <!-- 📝 Botón de Pistas -->
-    <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="abrirModal('retroalimentacion-modal')" title="Haz clic para obtener una pista">
-  </div>
+            // ✅ Mostrar ecuaciones
+            function mostrarEcuacion() {
+                document.getElementById("equation").textContent = ecuaciones[currentEquationIndex].ecuacion;
+            }
 
-  <!-- 🔹 Scripts -->
-  <script src="nivel1-juego1.js"></script>
-  <script>
-    /**
-     * Abre un modal específico
-     * @param {string} id - ID del modal a abrir
-     */
-    function abrirModal(id) {
-      document.getElementById(id).style.display = "flex";
-    }
+            function prevEquation() {
+                if (currentEquationIndex > 0) {
+                    currentEquationIndex--;
+                    mostrarEcuacion();
+                }
+            }
 
-    /**
-     * Cierra un modal específico
-     * @param {string} id - ID del modal a cerrar
-     */
-    function cerrarModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
+            function nextEquation() {
+                if (currentEquationIndex < ecuaciones.length - 1) {
+                    currentEquationIndex++;
+                    mostrarEcuacion();
+                }
+            }
 
-    /**
-     * Reinicia el juego recargando la página
-     */
-    function reiniciarJuego() {
-      location.reload();
-    }
+            // ✅ Verificar respuesta
+            function verificarYMostrar() {
+                const respuestaUsuario = document.getElementById("answer").value.trim();
+                ecuaciones[currentEquationIndex].respuestaUsuario = respuestaUsuario;
 
-    /**
-     * Cierra la sesión del usuario y redirige al login
-     */
-    function logout() {
-      localStorage.removeItem("username");
-      localStorage.removeItem("useremail");
-      window.location.href = "login.html";
-    }
+                if (respuestaUsuario === ecuaciones[currentEquationIndex].solucion) {
+                    puntos += 10;
+                    document.getElementById("points").textContent = puntos;
+                    alert("¡Correcto!");
+                } else {
+                    intentos--;
+                    document.getElementById("attempts").textContent = intentos;
+                    alert(intentos > 0 ? "Incorrecto. Intenta de nuevo." : "Juego terminado. Se acabaron los intentos.");
+                }
 
-    /**
-     * Muestra el modal de error por unos segundos
-     */
-    function mostrarError() {
-      abrirModal("error-modal");
-      setTimeout(() => cerrarModal("error-modal"), 3000);
-    }
-  </script>
+                showFeedbackModal();
+            }
 
+            // ✅ Mostrar retroalimentación
+            function showFeedbackModal() {
+                const modal = document.getElementById("feedback-modal");
+                const feedbackTableBody = document.getElementById("feedback-table-body");
+                feedbackTableBody.innerHTML = "";
+
+                ecuaciones.forEach((item) => {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `<td>${item.ecuacion}</td><td>${item.solucion}</td><td>${item.respuestaUsuario || "No respondida"}</td>`;
+                    feedbackTableBody.appendChild(row);
+                });
+
+                modal.style.display = "block";
+            }
+
+            function closeFeedback() {
+                document.getElementById("feedback-modal").style.display = "none";
+            }
+
+            // ✅ Reiniciar juego
+            function restartGame() {
+                puntos = 0;
+                intentos = 3;
+                currentEquationIndex = 0;
+                document.getElementById("points").textContent = puntos;
+                document.getElementById("attempts").textContent = intentos;
+                mostrarEcuacion();
+            }
+
+            // ✅ Mostrar modal de felicitación
+            function feliBingo() {
+                document.getElementById("final-score").textContent = puntos;
+                document.getElementById("felicitacion-modal").style.display = "flex";
+            }
+
+            // ✅ Evento para reiniciar desde el modal
+            document.getElementById("restart-btn").addEventListener("click", function () {
+                restartGame();
+                document.getElementById("felicitacion-modal").style.display = "none";
+            });
+
+            // ✅ Mostrar la primera ecuación al iniciar
+            mostrarEcuacion();
+        });
+    </script>
 </body>
 </html>
