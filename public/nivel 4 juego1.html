@@ -105,26 +105,7 @@
     }
     .avatar-feedback:hover {
       transform: scale(1.1);
-    }
-    .felicitacion-modal .close {
-      float: right;
-      font-size: 28px;
-      cursor: pointer;
-    }
-    .felicitacion-modal:focus {
-      color: #ffddc1;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    .felicitacion-modal {
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 30%;
-      margin: 15% auto;
-      text-align: center;
-      position: relative;
-      z-index: 500;
+  
     }
     /* Posiciona el avatar en el centro del modal */
     .avatar-modal {
@@ -160,6 +141,96 @@
     .botones-container button:hover {
       opacity: 0.8;
     }
+      /* Estilo de los títulos en todos los modales */
+.modal-content h2 {
+    font-family: 'Trebuchet MS', sans-serif;
+    text-shadow: 1px 1px 2px #000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilos específicos para el modal de error */
+#error-modal .modal-content {
+    background-color: #ffdddd;
+    border: 3px solid #d9534f;
+    box-shadow: 0 0 15px #d9534f;
+    animation: shake 0.3s ease-in-out 2;
+}
+
+#error-modal h2 {
+    color: #d9534f;
+}
+
+#error-modal p {
+    color: #d9534f;
+    font-size: 1.2em;
+}
+
+#error-modal .avatar-error {
+    width: 130px;
+    filter: contrast(1.2);
+}
+
+/* Animación de vibración */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+}
+
+/* Estilos específicos para el modal de fin del juego */
+#fin-juego-modal .modal-content {
+    background-color: #222;
+    color: white;
+    border: 3px solid #ffcc00;
+    box-shadow: 0 0 20px #ffcc00;
+}
+
+#fin-juego-modal h2 {
+    color: #ffcc00;
+}
+
+#fin-juego-modal p {
+    font-size: 1.3em;
+    font-style: italic;
+}
+
+#fin-juego-modal .avatar-modal {
+    width: 140px;
+    filter: drop-shadow(0 0 10px #ffcc00);
+}
+
+/* Estilos específicos para el modal de felicitación */
+#felicitacion-modal .modal-content {
+    background-color: #fff;
+    border: 3px solid #4CAF50;
+    box-shadow: 0 0 15px #4CAF50;
+    animation: scale-up 0.5s ease-in-out;
+}
+
+#felicitacion-modal h2 {
+    color: #4CAF50;
+}
+
+#felicitacion-modal p {
+    color: #000800;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#felicitacion-modal .avatar-gami {
+    width: 140px;
+    filter: drop-shadow(0 0 10px #4CAF50);
+}
+
+/* Animación de escala */
+@keyframes scale-up {
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+}
+
   </style>
 </head>
 <body>
@@ -231,27 +302,18 @@
     </div>
   </div>
 
-  <!-- Modal de retroalimentación (pistas) -->
-<div id="retroalimentacion-modal" class="modal" style="display:none;">
-  <div class="modal-content">
-    <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
-    <div class="retroalimentacion">
-      <p></p>
-    </div>
-  </div>
-</div>
 
 <!-- Botón de retroalimentación (Avatar) -->
 <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
 
   <!-- Modal de Felicitación -->
   <div id="felicitacion-modal" class="modal">
-    <div class="felicitacion-modal">
+    <div class="modal-content">
       <h2>🎉 Felicidades 🎉</h2>
       <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
-      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
+      <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <button id="restart-btn">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
     </div>

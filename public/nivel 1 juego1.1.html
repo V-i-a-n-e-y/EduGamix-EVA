@@ -39,7 +39,6 @@
             if (username) {
                 document.getElementById("username").textContent = username;
             }
-    
             if (useremail) {
                 document.getElementById("useremail").textContent = useremail;
             }
@@ -59,10 +58,6 @@
                 <p>⏳ Tiempo: <span id="timer">00:00</span></p>
                 <p>Puntos obtenidos: <span id="points">0</span></p>
                 <p>Intentos restantes: <span id="attempts">3</span></p>
-                
-          
-
-                
                
 
             </div>
@@ -96,46 +91,47 @@
         </div>
 
 
-        <!-- Botones adicionales -->
-        <div class="buttons-container">
-            <button class="icon-button" onclick="restartGame()">Comenzar</button>
-            <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
-        </div>
+          <!-- Modal de Felicitación -->
+  <div id="felicitacion-modal" class="modal">
+    <div class="modal-content">
+      <h2>🎉 Felicidades 🎉</h2>
+      <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+      <p>Puntaje final: <span id="final-score"></span></p>
+      <p>Tiempo total: <span id="final-time"></span></p>
+      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
+      <button id="restart-btn">Reiniciar Juego</button>
+      <button id="modo-btn" onclick="window.location.href='modo juego n1.html';">Regresar</button>
+    </div>
+  </div>
 
        
+            
 
-
-        <!-- Modal de Felicitación -->
-        <div id="felicitacion-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-                <h2>🎉 ¡Felicidades! 🎉</h2>
-                <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
-                <img src="img/gami.jpg" alt="Gami" class="avatar" />
+              <!-- 🔹 Modal de Retroalimentación -->
+    <div id="feedback-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeFeedback()">&times;</span>
+            <h2>Retroalimentación</h2>
+            <table id="feedback" class="feedback-table">
+                <thead>
+                    <tr>
+                        <th>Ecuación</th>
+                        <th>Solución</th>
+                        <th>Tu respuesta</th>
+                    </tr>
+                </thead>
+                <tbody id="feedback-table-body"></tbody>
+            </table>
+            <div class="avatar-feedback">
+                <img src="img/radicux.jpg" alt="Avatar" class="avatar">
+                <p id="feedback-text">Estas fueron tus respuestas</p>
+               
             </div>
         </div>
-        <!-- Modal de retroalimentación -->
-        <div id="feedback-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" onclick="closeFeedback()">&times;</span>
-                <h2>Retroalimentación</h2>
-                <table id="feedback" class="feedback-table">
-                    <thead>
-                        <tr>
-                            <th>Ecuación</th>
-                            <th>Solución</th>
-                            <th>Tu respuesta</th>
-                        </tr>
-                    </thead>
-                    <tbody id="feedback-table-body"></tbody>
-                </table>
-                <div class="avatar-feedback">
-                    <img src="img/radicux.jpg" alt="Avatar" class="avatar">
-                    <p id="feedback-text">Estas fueron tus respuestas</p>
-                    <button onclick="closeFeedback()">Cerrar</button>
-                </div>
-            </div>
-        </div>
+    </div>
+    
+      <!-- 🔹 Botón para abrir retroalimentación manualmente -->
+      <button onclick="showFeedbackModal()">Ver Retroalimentación</button>
 
         <!-- Variables globales para las pistas -->
         <script>
@@ -171,34 +167,34 @@
             // Inicializa la secuencia al cargar la página
             initPistasRandomOrder();
 
-            // Mostrar retroalimentación
-            function mostrarRetroalimentacion() {
-                const modal = document.getElementById('retroalimentacion-modal');
-                const retroalimentacion = document.querySelector('.retroalimentacion p');
+            // Mostrar Pistas
+            function mostrarPistas() {
+                const modal = document.getElementById('pistas-modal');
+                const retroalimentacion = document.querySelector('.pistas p');
                 retroalimentacion.textContent = pistas[pistasRandomOrder[pistasRandomOrderIndex]];
                 pistasRandomOrderIndex = (pistasRandomOrderIndex + 1) % pistas.length;
                 modal.style.display = 'block';
             }
 
-            // Cerrar retroalimentación
-            function cerrarRetroalimentacion() {
-                const modal = document.getElementById('retroalimentacion-modal');
+            // Cerrar Pistas
+            function cerrarPistas() {
+                const modal = document.getElementById('pistas-modal');
                 modal.style.display = 'none';
             }
         </script>
 
-        <!-- Modal de retroalimentación (pistas) -->
-        <div id="retroalimentacion-modal" class="modal" style="display:none;">
+        <!-- Modal de pistas -->
+        <div id="pistas-modal" class="modal" style="display:none;">
             <div class="modal-content">
-                <span class="close" onclick="cerrarRetroalimentacion()">&times;</span>
-                <div class="retroalimentacion">
+                <span class="close" onclick="cerrarPistas()">&times;</span>
+                <div class="pistas">
                     <p></p>
                 </div>
             </div>
         </div>
 
-        <!-- Botón de retroalimentación (Avatar) -->
-        <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
+        <!-- Botón de pistas (Avatar) -->
+        <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarPistas()" title="Da clic para tener una pista">
       </div>
     </div>
   </div>
@@ -217,17 +213,65 @@
 
         ];
 
-        // Función para verificar el bingo y mostrar la retroalimentación
-        function verificarYMostrar() {
-            checkBingo();
+              // 📌 Función para verificar la respuesta y mostrar retroalimentación
+              function verificarYMostrar() {
+            const respuestaUsuario = document.getElementById("answer").value.trim();
+            ecuaciones[currentEquationIndex].respuestaUsuario = respuestaUsuario;
+
+            if (respuestaUsuario === ecuaciones[currentEquationIndex].solucion) {
+                puntos += 10;
+                document.getElementById("points").textContent = puntos;
+                alert("¡Correcto!");
+            } else {
+                intentos--;
+                document.getElementById("attempts").textContent = intentos;
+                if (intentos <= 0) {
+                    alert("Juego terminado. Se acabaron los intentos.");
+                } else {
+                    alert("Incorrecto. Intenta de nuevo.");
+                }
+            }
+
             showFeedbackModal();
         }
+           // 📌 Función para mostrar el modal de retroalimentación
+           function showFeedbackModal() {
+            const modal = document.getElementById("feedback-modal");
+            const feedbackTableBody = document.getElementById("feedback-table-body");
+            feedbackTableBody.innerHTML = "";
 
-        function checkBingo() {
-    console.log("Verificando bingo...");
+            // Crear tabla de respuestas
+            ecuaciones.forEach((item, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.ecuacion}</td>
+                    <td>${item.solucion}</td>
+                    <td>${item.respuestaUsuario || "No respondida"}</td>
+                `;
+                feedbackTableBody.appendChild(row);
+            });
 
-   const solution = equationsHistory[currentEquationIndex].solucion; // Solución correcta de la ecuación actual
-    const userAnswer = selectedAnswers.join(", "); // Respuesta del usuario combinando casillas seleccionadas
+            modal.style.display = "block";
+            narrarFeedback();
+        }
+
+        // 📌 Función para narrar la retroalimentación con voz
+        function narrarFeedback() {
+            const texto = document.getElementById("feedback-text").textContent;
+            const speech = new SpeechSynthesisUtterance(texto);
+            const voces = window.speechSynthesis.getVoices();
+            speech.voice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[0];
+            speech.lang = "es-ES";
+            speech.pitch = 1;
+            speech.rate = 1;
+            speech.volume = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        // 📌 Función para cerrar el modal de retroalimentación
+        function closeFeedback() {
+            document.getElementById("feedback-modal").style.display = "none";
+        }
 
     // Guardar la respuesta del usuario en el historial de ecuaciones
     equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
@@ -255,7 +299,7 @@
     selectedAnswers = [];
     const cells = document.querySelectorAll(".cell.selected");
     cells.forEach(cell => cell.classList.remove("selected"));
-}
+
 
 
         // Función para registrar la respuesta del usuario
@@ -322,7 +366,14 @@
             var dialog = document.getElementById('avatar-dialog');
             dialog.style.display = 'none';
         }
-
+        function cerrarFelicitacion() {
+      document.getElementById("felicitacion-modal").style.display = "none";
+         }
+        // Función para reproducir el sonido de trompetas (modal de felicitaciones)
+    function reproducirSonidoTrompetas() {
+      const audio = new Audio("img/trompetas.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
         function narrarContenido() {
             const voces = window.speechSynthesis.getVoices();
             const texto = document.getElementById('avatar-text').textContent;
