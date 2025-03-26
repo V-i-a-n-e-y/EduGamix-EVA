@@ -1,8 +1,10 @@
 <?php 
 /* Datos de la base de datos*/ 
 $servername = "localhost"; 
-$username = "u779086120_Bvianeyhm"; 
-$password = "W+>dWT1&1l"; 
+//$username = "u779086120_Bvianeyhm"; 
+$username = "root"; 
+//$password = "W+>dWT1&1l"; 
+$password = ""; 
 $dbname = "u779086120_edugamix"; 
 // Crear conexión 
 $conn = new mysqli($servername, $username, $password, $dbname); 
