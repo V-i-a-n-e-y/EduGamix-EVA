@@ -306,19 +306,14 @@
 <!-- Botón de retroalimentación (Avatar) -->
 <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar-feedback" onclick="mostrarRetroalimentacion()" title="Da clic para tener una pista">
 
-<!-- Modal de Felicitación modificado (se agregan elementos para la insignia) -->
-<div id="felicitacion-modal" class="modal" style="display: none;">
-  <div class="modal-content">
+  <!-- Modal de Felicitación -->
+  <div id="felicitacion-modal" class="modal">
+    <div class="felicitacion-modal">
       <h2>🎉 Felicidades 🎉</h2>
       <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
-      
-     
-      <p id="badge"></p>
-      <p id="mensajeInsignia"></p>
-      
-      <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
+      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
       <button id="restart-btn">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
   </div>

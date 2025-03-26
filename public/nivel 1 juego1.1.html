@@ -47,7 +47,6 @@
             if (username) {
                 document.getElementById("username").textContent = username;
             }
-    
             if (useremail) {
                 document.getElementById("useremail").textContent = useremail;
             }
@@ -109,11 +108,18 @@
         </div>
 
 
-        <!-- Botones adicionales -->
-        <div class="buttons-container">
-            <button class="icon-button" onclick="restartGame()">Comenzar</button>
-            <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
-        </div>
+          <!-- Modal de Felicitación -->
+  <div id="felicitacion-modal" class="modal">
+    <div class="modal-content">
+      <h2>🎉 Felicidades 🎉</h2>
+      <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
+      <p>Puntaje final: <span id="final-score"></span></p>
+      <p>Tiempo total: <span id="final-time"></span></p>
+      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
+      <button id="restart-btn">Reiniciar Juego</button>
+      <button id="modo-btn" onclick="window.location.href='modo juego n1.html';">Regresar</button>
+    </div>
+  </div>
 
 
   <!-- Variables globales y funciones generales -->
@@ -293,12 +299,44 @@ document.addEventListener("DOMContentLoaded", startTimer);
             checkBingo();
             showFeedbackModal();
         }
+           // 📌 Función para mostrar el modal de retroalimentación
+           function showFeedbackModal() {
+            const modal = document.getElementById("feedback-modal");
+            const feedbackTableBody = document.getElementById("feedback-table-body");
+            feedbackTableBody.innerHTML = "";
 
-        function checkBingo() {
-    console.log("Verificando bingo...");
+            // Crear tabla de respuestas
+            ecuaciones.forEach((item, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.ecuacion}</td>
+                    <td>${item.solucion}</td>
+                    <td>${item.respuestaUsuario || "No respondida"}</td>
+                `;
+                feedbackTableBody.appendChild(row);
+            });
 
-   const solution = equationsHistory[currentEquationIndex].solucion; // Solución correcta de la ecuación actual
-    const userAnswer = selectedAnswers.join(", "); // Respuesta del usuario combinando casillas seleccionadas
+            modal.style.display = "block";
+            narrarFeedback();
+        }
+
+        // 📌 Función para narrar la retroalimentación con voz
+        function narrarFeedback() {
+            const texto = document.getElementById("feedback-text").textContent;
+            const speech = new SpeechSynthesisUtterance(texto);
+            const voces = window.speechSynthesis.getVoices();
+            speech.voice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[0];
+            speech.lang = "es-ES";
+            speech.pitch = 1;
+            speech.rate = 1;
+            speech.volume = 1;
+            window.speechSynthesis.speak(speech);
+        }
+
+        // 📌 Función para cerrar el modal de retroalimentación
+        function closeFeedback() {
+            document.getElementById("feedback-modal").style.display = "none";
+        }
 
     // Guardar la respuesta del usuario en el historial de ecuaciones
     equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
@@ -326,7 +364,7 @@ document.addEventListener("DOMContentLoaded", startTimer);
     selectedAnswers = [];
     const cells = document.querySelectorAll(".cell.selected");
     cells.forEach(cell => cell.classList.remove("selected"));
-}
+
 // Función para registrar la respuesta del usuario
 function registrarRespuesta(ecuacionIndex, respuesta) {
     ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
@@ -364,7 +402,7 @@ function showFeedbackModal() {
         // Función para registrar la respuesta del usuario
         function registrarRespuesta(ecuacionIndex, respuesta) {
             ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
-        
+        }
 
         // Función para mostrar el modal de retroalimentación
         function showFeedbackModal() {
@@ -425,7 +463,15 @@ function showFeedbackModal() {
             var dialog = document.getElementById('avatar-dialog');
             dialog.style.display = 'none';
         }
+    function cerrarFelicitacion() {
+        document.getElementById("felicitacion-modal").style.display = "none";
+    }
 
+    // Función para reproducir el sonido de trompetas (modal de felicitaciones)
+    function reproducirSonidoTrompetas() {
+      const audio = new Audio("img/trompetas.mp3");
+      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+    }
         function narrarContenido() {
             const voces = window.speechSynthesis.getVoices();
             const texto = document.getElementById('avatar-text').textContent;

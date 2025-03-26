@@ -369,11 +369,15 @@ button:hover {
 }
 .avatar-feedback {
     width: 150px; /* Tamaño aumentado */
+    width: 150px; /* Tamaño aumentado */
     height: auto;
     cursor: pointer;
     display: block;
     margin: 20px auto;
+    display: block;
+    margin: 20px auto;
 }
+
 
 
 /* Contenedor de los botones de reinicio y otras acciones */
