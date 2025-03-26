@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduGamix</title>
     <link rel="stylesheet" href="nivel 1 juego1.css">
+    <style>
+      .avatar-gami {
+          max-width: 250px; /* Tamaño máximo para el ancho */
+          max-height: 250px; /* Tamaño máximo para la altura */
+          width: auto;
+          height: auto;
+      }
+  </style>
 </head>
 <body>
     <!-- Encabezado -->
@@ -105,15 +113,6 @@
         <div class="buttons-container">
             <button class="icon-button" onclick="restartGame()">Comenzar</button>
             <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
-        </div>
-
-        <!-- Controles de audio -->
-        <div class="audio-buttons-container">
-            <button class="audio-button" onclick="playAudio()"><i class="fas fa-play"></i></button>
-            <button class="audio-button" onclick="pauseAudio()"><i class="fas fa-pause"></i></button>
-            <button class="audio-button" onclick="toggleMute()"><i class="fas fa-volume-mute"></i></button>
-            <button class="audio-button" onclick="increaseVolume()"><i class="fas fa-volume-up"></i></button>
-            <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
         </div>
 
 
@@ -219,15 +218,18 @@
   };
   </script>
 
-        <!-- Modal de Felicitación -->
-        <div id="felicitacion-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-                <h2>🎉 ¡Felicidades! 🎉</h2>
-                <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
-                <img src="img/gami.jpg" alt="Gami" class="avatar" />
-            </div>
-        </div>
+<!-- Modal de Felicitación -->
+<div id="felicitacion-modal" class="modal" style="display: none;">
+  <div class="modal-content">
+      <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+      <h2>🎉 ¡Felicidades! 🎉</h2>
+      <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
+      <p>Puntaje obtenido: <span id="final-score">0</span></p>
+      <p>Tiempo total: <span id="final-time">00:00</span></p>
+      <img src="img/gami.gif" alt="Gami" class="avatar-gami" />
+  </div>
+</div>
+
 
 
         <!-- Modal de retroalimentación -->
@@ -266,6 +268,25 @@
             { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' },
 
         ];
+
+        let seconds = 0, minutes = 0, timerInterval;
+
+function startTimer() {
+    clearInterval(timerInterval); // Evita múltiples temporizadores
+    timerInterval = setInterval(() => {
+        seconds++;
+        if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+        }
+        document.getElementById("timer").innerText = 
+            (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+    }, 1000);
+}
+
+// Iniciar el temporizador cuando se cargue la página
+document.addEventListener("DOMContentLoaded", startTimer);
+
 
         // Función para verificar el bingo y mostrar la retroalimentación
         function verificarYMostrar() {
@@ -306,12 +327,44 @@
     const cells = document.querySelectorAll(".cell.selected");
     cells.forEach(cell => cell.classList.remove("selected"));
 }
+// Función para registrar la respuesta del usuario
+function registrarRespuesta(ecuacionIndex, respuesta) {
+    ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
+}
 
+// Función para mostrar el modal de retroalimentación
+function showFeedbackModal() {
+            const modal = document.getElementById('feedback-modal');
+            const feedbackTableBody = document.getElementById('feedback-table-body');
+            feedbackTableBody.innerHTML = "";  // Limpiar la tabla antes de agregar las nuevas filas
 
+            // Iterar sobre las ecuaciones y mostrar la retroalimentación
+            ecuaciones.forEach((item, index) => {
+                const row = document.createElement("tr");
+
+                // Mostrar ecuación enumerada
+                const ecuacionCell = document.createElement("td");
+                ecuacionCell.textContent = `Ecuación ${index + 1}: ${item.ecuacion}`;
+                row.appendChild(ecuacionCell);
+
+                const solucionCell = document.createElement("td");
+                solucionCell.textContent = item.solucion;
+                row.appendChild(solucionCell);
+
+                const respuestaCell = document.createElement("td");
+                respuestaCell.textContent = item.respuestaUsuario ? item.respuestaUsuario : "No respondida";
+                row.appendChild(respuestaCell);
+
+                feedbackTableBody.appendChild(row);
+            });
+
+            modal.style.display = 'block';
+            narrarFeedback();
+        }
         // Función para registrar la respuesta del usuario
         function registrarRespuesta(ecuacionIndex, respuesta) {
             ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
-        }
+        
 
         // Función para mostrar el modal de retroalimentación
         function showFeedbackModal() {
@@ -342,7 +395,7 @@
             modal.style.display = 'block';
             narrarFeedback();
         }
-
+        
         // Narrar retroalimentación
         function narrarFeedback() {
             const voces = window.speechSynthesis.getVoices();
@@ -418,6 +471,6 @@
       location.reload();
     }
     </script>
-    
+  
 </body>
 </html>

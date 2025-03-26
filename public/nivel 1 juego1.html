@@ -1,423 +1,470 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGamix</title>
-    <link rel="stylesheet" href="nivel 1 juego1.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGamix</title>
+  <link rel="stylesheet" href="nivel 1 juego1.css">
+  <style>
+    .avatar-gami {
+      max-width: 250px; /* Tamaño máximo para el ancho */
+      max-height: 250px; /* Tamaño máximo para la altura */
+      width: auto;
+      height: auto;
+    }
+    /* Estilos para el modal de felicitación y las insignias */
+    #felicitacion-modal .modal-content {
+      background-color: #fff;
+      border: 3px solid #4CAF50;
+      box-shadow: 0 0 15px #4CAF50;
+      animation: scale-up 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    #felicitacion-modal h2 {
+      color: #4CAF50;
+    }
+    #felicitacion-modal p {
+      color: #000800;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    /* Elementos para mostrar las insignias */
+    #badge1, #badge2, #badge3 {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+    #mensajeInsignia {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    @keyframes scale-up {
+      0% { transform: scale(0.8); }
+      100% { transform: scale(1); }
+    }
+  </style>
 </head>
 <body>
-    <!-- Encabezado -->
-    <header>
-        <div class="logo">
-            <a href="index.html" target="_blank">
-                <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
-            </a>
-        </div>
-        
-        <h1> Nivel 1</h1>
-        <div class="user-info">
-            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
-            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
-            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
-            
-            <div class="user-info">
-                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
-                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
-                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
-            </div>
-            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
-        </div>
-    </header>
-    <script>
-
-        // Cargar el nombre de usuario y correo desde localStorage
-        document.addEventListener("DOMContentLoaded", function() {
-            const username = localStorage.getItem("username");
-            const useremail = localStorage.getItem("useremail");
-            
-            if (username) {
-                document.getElementById("username").textContent = username;
-            }
-    
-            if (useremail) {
-                document.getElementById("useremail").textContent = useremail;
-            }
-        });
-    </script>
-
-        <!-- Contenido Principal -->
-    <div class="game-container">
-        
-            <div class="challenge-header">
-                Desafío 1: Bingo de Ecuaciones Lineales
-            </div>
-            <div class="challenge-info">
-                <div class="header-info">
-                    <div class="user-section"></div>
-                </div>
-                <p>TIEMPO: <span id="timer">00:00</span></p>
-                <p>Puntos obtenidos: <span id="points">0</span></p>
-            </div>
-       
-
-                <!-- Avatar y diálogo -->
-        <div id="avatar-container" class="avatar-container">
-            <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
-        </div>
-
-        <div id="avatar-dialog" class="avatar-dialog" style="display: none;">
-            <div class="dialog-content">
-                <span class="close" onclick="closeAvatarDialog()">&times;</span>
-                <p id="avatar-text">¡Hola! Soy Xilo, tu asistente de juego. Estoy aquí para ayudarte.</p>
-                <button onclick="narrarContenido()">Hablar</button>
-            </div>
-        </div>
-
-        <!-- Contenido del juego -->
-        <div class="content">
-            <div class="equation-container">
-                <div id="equation-container">
-                    <h2>El sistema de ecuaciones es:</h2>
-                    <ul id="equation-list"></ul>
-                </div>
-                <div id="equation" class="equation">x + y = 5, 2x - y = 1</div>
-                <button id="prev-btn" onclick="prevEquation()">Regresar</button>
-                <button id="next-btn" onclick="nextEquation()">Siguiente</button>
-            </div>
-
-            <div class="bingo-container">
-                <h2>Bingo</h2>
-                <div id="bingo-board" class="bingo-board"></div>
-            </div>
-        </div>
-
-        <!-- Intentos y botones -->
-        <div class="attempts-info">
-            <span id="attempts">Intentos restantes: 3</span>
-            <button onclick="feliBingo(); reproducirSonidoTrompetas()">¡Bingo!</button>
-
-            <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
-        </div>
-
-
-        <!-- Botones adicionales -->
-        <div class="buttons-container">
-            <button class="icon-button" onclick="restartGame()">Comenzar</button>
-            <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
-        </div>
-
-        <!-- Controles de audio -->
-        <div class="audio-buttons-container">
-            <button class="audio-button" onclick="playAudio()"><i class="fas fa-play"></i></button>
-            <button class="audio-button" onclick="pauseAudio()"><i class="fas fa-pause"></i></button>
-            <button class="audio-button" onclick="toggleMute()"><i class="fas fa-volume-mute"></i></button>
-            <button class="audio-button" onclick="increaseVolume()"><i class="fas fa-volume-up"></i></button>
-            <button class="audio-button" onclick="decreaseVolume()"><i class="fas fa-volume-down"></i></button>
-        </div>
-
-
-  <!-- Variables globales y funciones generales -->
-  <script>
-    // Variables para las pistas y errores
-    let pistas = [
-      "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
-      "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
-      "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
-      "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
-      "Pregunta 5: Una matriz con este determinante no tiene inversa."
-    ];
-    let pistasRandomOrder = [];
-    let pistasRandomOrderIndex = 0;
-    let errorCount = 0;
-    let maxErrors = 3;
-
-    // Función para barajar un array (Fisher-Yates)
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-      }
-      return array;
-    }
-
-    // Inicializa o reinicializa el array de índices barajados
-    function initPistasRandomOrder() {
-      pistasRandomOrder = [];
-      for (let i = 0; i < pistas.length; i++) {
-        pistasRandomOrder.push(i);
-      }
-      shuffleArray(pistasRandomOrder);
-      pistasRandomOrderIndex = 0;
-    }
-    initPistasRandomOrder();
-
-    // Cierra el modal de retroalimentación y detiene la narración
-    function cerrarRetroalimentacion() {
-      document.getElementById("retroalimentacion-modal").style.display = "none";
-      window.speechSynthesis.cancel();
-    }
-
-    // Muestra el modal de retroalimentación y narra una pista sin repeticiones
-    function mostrarRetroalimentacion() {
-      const modal = document.getElementById("retroalimentacion-modal");
-      const retroalimentacion = document.querySelector('#retroalimentacion-modal .retroalimentacion p');
-
-      if (pistasRandomOrderIndex >= pistasRandomOrder.length) {
-        initPistasRandomOrder();
-      }
-      const randomIndex = pistasRandomOrder[pistasRandomOrderIndex];
-      pistasRandomOrderIndex++;
-
-      retroalimentacion.innerText = pistas[randomIndex];
-      modal.style.display = "flex";
-      narrarTexto(retroalimentacion.innerText);
-    }
-
-    function cerrarFelicitacion() {
-      document.getElementById("felicitacion-modal").style.display = "none";
-    }
-
-    function cerrarFinJuego() {
-      document.getElementById("fin-juego-modal").style.display = "none";
-    }
-
-    // Función para obtener y seleccionar una voz natural en español
-  function obtenerVozNatural() {
-    let voices = window.speechSynthesis.getVoices();
-    // Intenta seleccionar una voz que contenga "Google" en su nombre, si no, la primera que sea en español.
-    let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
-    if (!voz) {
-      voz = voices.find(voice => voice.lang === 'es-ES');
-    }
-    return voz;
-  }
-
-  // Función para narrar texto usando la API SpeechSynthesis
-  function narrarTexto(texto) {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      let mensaje = new SpeechSynthesisUtterance(texto);
-      mensaje.lang = 'es-ES';
-      mensaje.rate = 1.0; // Ajusta la velocidad para mayor naturalidad
-      mensaje.pitch = 1;  // Puedes ajustar este valor si es necesario
-
-      // Esperar a que se carguen las voces
-      let vozNatural = obtenerVozNatural();
-      if (vozNatural) {
-        mensaje.voice = vozNatural;
-      }
-      window.speechSynthesis.speak(mensaje);
-    } else {
-      alert('Tu navegador no soporta la síntesis de voz.');
-    }
-  }
-
-  // Asegurarse de que las voces se carguen (especialmente en Chrome)
-  window.speechSynthesis.onvoiceschanged = function() {
-    obtenerVozNatural();
-  };
-  </script>
-
-        <!-- Modal de Felicitación -->
-        <div id="felicitacion-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" onclick="cerrarFelicitacion()">&times;</span>
-                <h2>🎉 ¡Felicidades! 🎉</h2>
-                <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
-                <img src="img/gami.jpg" alt="Gami" class="avatar" />
-            </div>
-        </div>
-
-
-        <!-- Modal de retroalimentación -->
-        <div id="feedback-modal" class="modal" style="display: none;">
-            <div class="modal-content">
-                <span class="close" onclick="closeFeedback()">&times;</span>
-                <h2>Retroalimentación</h2>
-                <table id="feedback" class="feedback-table">
-                    <thead>
-                        <tr>
-                            <th>Ecuación</th>
-                            <th>Solución</th>
-                            <th>Tu respuesta</th>
-                        </tr>
-                    </thead>
-                    <tbody id="feedback-table-body"></tbody>
-                </table>
-                <div class="avatar-feedback">
-                    <img src="img/radicux.jpg" alt="Avatar" class="avatar">
-                    <p id="feedback-text">Estas fuerón tus respuestas</p>
-                    <button onclick="closeFeedback()">Cerrar</button>
-                </div>
-            </div>
-        </div>
+  <!-- Encabezado -->
+  <header>
+    <div class="logo">
+      <a href="index.html" target="_blank">
+        <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+      </a>
     </div>
-
-    <!-- Scripts -->
-
+    
+    <h1> Nivel 1</h1>
+    <div class="user-info">
+      <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+      <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+      <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+      
+      <div class="user-info">
+        <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+        <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+        <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+      </div>
+      <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+    </div>
+  </header>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const username = localStorage.getItem("username");
+      const useremail = localStorage.getItem("useremail");
+      if (username) {
+        document.getElementById("username").textContent = username;
+      }
+      if (useremail) {
+        document.getElementById("useremail").textContent = useremail;
+      }
+    });
+    function logout() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("useremail");
+      window.location.href = "login.html";
+    }
+  </script>
+  
+  <!-- Contenido Principal -->
+  <div class="game-container">
+    <div class="challenge-header">
+      Desafío 1: Bingo de Ecuaciones Lineales
+    </div>
+    <div class="challenge-info">
+      <div class="header-info">
+        <div class="user-section"></div>
+      </div>
+      <p>TIEMPO: <span id="timer">00:00</span></p>
+      <p>Puntos obtenidos: <span id="points">0</span></p>
+    </div>
+  
+    <!-- Avatar y diálogo -->
+    <div id="avatar-container" class="avatar-container">
+      <img src="img/xilo-avatar.jpg" alt="Avatar" class="avatar" onclick="openAvatarDialog()">
+    </div>
+  
+    <div id="avatar-dialog" class="avatar-dialog" style="display: none;">
+      <div class="dialog-content">
+        <span class="close" onclick="closeAvatarDialog()">&times;</span>
+        <p id="avatar-text">¡Hola! Soy Xilo, tu asistente de juego. Estoy aquí para ayudarte.</p>
+        <button onclick="narrarContenido()">Hablar</button>
+      </div>
+    </div>
+  
+    <!-- Contenido del juego -->
+    <div class="content">
+      <div class="equation-container">
+        <div id="equation-container">
+          <h2>El sistema de ecuaciones es:</h2>
+          <ul id="equation-list"></ul>
+        </div>
+        <div id="equation" class="equation">x + y = 5, 2x - y = 1</div>
+        <button id="prev-btn" onclick="prevEquation()">Regresar</button>
+        <button id="next-btn" onclick="nextEquation()">Siguiente</button>
+      </div>
+  
+      <div class="bingo-container">
+        <h2>Bingo</h2>
+        <div id="bingo-board" class="bingo-board"></div>
+      </div>
+    </div>
+  
+    <!-- Intentos y botones -->
+    <div class="attempts-info">
+      <span id="attempts">Intentos restantes: 3</span>
+      <button onclick="feliBingo(); reproducirSonidoTrompetas()">¡Bingo!</button>
+  
+      <button onclick="restartGame()">Iniciar - Volver a Empezar</button>
+    </div>
+  
+    <!-- Botones adicionales -->
+    <div class="buttons-container">
+      <button class="icon-button" onclick="restartGame()">Comenzar</button>
+      <button class="icon-button" onclick="verificarYMostrar()">Retroalimentación</button>
+    </div>
+  
+    <!-- Variables globales y funciones generales -->
+    <script>
+      // Variables para las pistas y errores
+      let pistas = [
+        "Pregunta 1: Este método recibe el nombre de un matemático famoso y utiliza determinantes para hallar cada incógnita, siempre que el determinante del sistema sea distinto de cero.",
+        "Pregunta 2: Este conjunto incluye todas las combinaciones lineales posibles de un conjunto de vectores.",
+        "Pregunta 3: Esta operación implica hacer ceros debajo del pivote en una matriz aumentada.",
+        "Pregunta 4: Este número representa la cantidad de vectores en una base para el espacio vectorial.",
+        "Pregunta 5: Una matriz con este determinante no tiene inversa."
+      ];
+      let pistasRandomOrder = [];
+      let pistasRandomOrderIndex = 0;
+      let errorCount = 0;
+      let maxErrors = 3;
+  
+      // Función para barajar un array (Fisher-Yates)
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+      }
+  
+      // Inicializa o reinicializa el array de índices barajados
+      function initPistasRandomOrder() {
+        pistasRandomOrder = [];
+        for (let i = 0; i < pistas.length; i++) {
+          pistasRandomOrder.push(i);
+        }
+        shuffleArray(pistasRandomOrder);
+        pistasRandomOrderIndex = 0;
+      }
+      initPistasRandomOrder();
+  
+      // Cierra el modal de retroalimentación y detiene la narración
+      function cerrarRetroalimentacion() {
+        document.getElementById("retroalimentacion-modal").style.display = "none";
+        window.speechSynthesis.cancel();
+      }
+  
+      // Muestra el modal de retroalimentación y narra una pista sin repeticiones
+      function mostrarRetroalimentacion() {
+        const modal = document.getElementById("retroalimentacion-modal");
+        const retroalimentacion = document.querySelector('#retroalimentacion-modal .retroalimentacion p');
+  
+        if (pistasRandomOrderIndex >= pistasRandomOrder.length) {
+          initPistasRandomOrder();
+        }
+        const randomIndex = pistasRandomOrder[pistasRandomOrderIndex];
+        pistasRandomOrderIndex++;
+  
+        retroalimentacion.innerText = pistas[randomIndex];
+        modal.style.display = "flex";
+        narrarTexto(retroalimentacion.innerText);
+      }
+  
+      function cerrarFelicitacion() {
+        document.getElementById("felicitacion-modal").style.display = "none";
+      }
+  
+      function cerrarFinJuego() {
+        document.getElementById("fin-juego-modal").style.display = "none";
+      }
+  
+      // Función para obtener y seleccionar una voz natural en español
+      function obtenerVozNatural() {
+        let voices = window.speechSynthesis.getVoices();
+        let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+        if (!voz) {
+          voz = voices.find(voice => voice.lang === 'es-ES');
+        }
+        return voz;
+      }
+  
+      // Función para narrar texto usando la API SpeechSynthesis
+      function narrarTexto(texto) {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          let mensaje = new SpeechSynthesisUtterance(texto);
+          mensaje.lang = 'es-ES';
+          mensaje.rate = 1.0;
+          mensaje.pitch = 1;
+          let vozNatural = obtenerVozNatural();
+          if (vozNatural) {
+            mensaje.voice = vozNatural;
+          }
+          window.speechSynthesis.speak(mensaje);
+        } else {
+          alert('Tu navegador no soporta la síntesis de voz.');
+        }
+      }
+  
+      window.speechSynthesis.onvoiceschanged = function() {
+        obtenerVozNatural();
+      };
+    </script>
+  
+    <!-- Modal de Felicitación -->
+    <div id="felicitacion-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarFelicitacion()">&times;</span>
+        <h2>🎉 ¡Felicidades! 🎉</h2>
+        <p>¡Has completado el Bingo de Ecuaciones Lineales!</p>
+        <p>Puntaje obtenido: <span id="final-score">0</span></p>
+        <p>Tiempo total: <span id="final-time">00:00</span></p>
+        <!-- Elementos para las insignias -->
+        <p id="badge3"></p>
+        <p id="mensajeInsignia"></p>
+        <img src="img/gami.gif" alt="Gami" class="avatar-gami" />
+        <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
+        <button id="modo-btn" onclick="window.location.href='modo juego n2.html';">Regresar</button>
+      </div>
+    </div>
+  
+    <!-- Modal de retroalimentación -->
+    <div id="feedback-modal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeFeedback()">&times;</span>
+        <h2>Retroalimentación</h2>
+        <table id="feedback" class="feedback-table">
+          <thead>
+            <tr>
+              <th>Ecuación</th>
+              <th>Solución</th>
+              <th>Tu respuesta</th>
+            </tr>
+          </thead>
+          <tbody id="feedback-table-body"></tbody>
+        </table>
+        <div class="avatar-feedback">
+          <img src="img/radicux.jpg" alt="Avatar" class="avatar">
+          <p id="feedback-text">Estas fueron tus respuestas</p>
+          <button onclick="closeFeedback()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Scripts adicionales y lógica del juego -->
     <script src="nivel 1 juego1.js"></script>
     <script>
-        let ecuaciones = [
-            { ecuacion: 'x + y = 2  2x + y = 5', solucion: 'x = 3 y = -1', respuestaUsuario: '' },
-            { ecuacion: '2x + 4y = 0  x + 2y = 4', solucion: 'x = 2 y = -1', respuestaUsuario: '' },
-            { ecuacion: '3x + 2y = 11  4x + 5y = 7', solucion: 'x = 3 y = 1', respuestaUsuario: '' },
-            { ecuacion: '2x + 3y = -1  3x + 4y = 0', solucion: 'x = 4 y = -3', respuestaUsuario: '' },
-            { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' },
-
-        ];
-
-        // Función para verificar el bingo y mostrar la retroalimentación
-        function verificarYMostrar() {
-            checkBingo();
-            showFeedbackModal();
-        }
-
-        function checkBingo() {
-    console.log("Verificando bingo...");
-
-   const solution = equationsHistory[currentEquationIndex].solucion; // Solución correcta de la ecuación actual
-    const userAnswer = selectedAnswers.join(", "); // Respuesta del usuario combinando casillas seleccionadas
-
-    // Guardar la respuesta del usuario en el historial de ecuaciones
-    equationsHistory[currentEquationIndex].respuestaUsuario = userAnswer;
-
-    if (userAnswer === solution) {
-        // Incrementar puntos si la respuesta es correcta
-        totalPoints += pointsPerCorrectAnswer;
-        document.getElementById("points").textContent = totalPoints; // Actualizar los puntos en la pantalla
-        alert("¡Bingo! Has encontrado la solución correcta.");
-    } else {
-        // Reducir el número de intentos restantes
-        attempts--;
-        document.getElementById("attempts").textContent = `Intentos restantes: ${attempts}`;
-
-        if (attempts > 0) {
-            alert("Respuesta incorrecta. Sigue intentando.");
+      let ecuaciones = [
+        { ecuacion: 'x + y = 2  2x + y = 5', solucion: 'x = 3 y = -1', respuestaUsuario: '' },
+        { ecuacion: '2x + 4y = 0  x + 2y = 4', solucion: 'x = 2 y = -1', respuestaUsuario: '' },
+        { ecuacion: '3x + 2y = 11  4x + 5y = 7', solucion: 'x = 3 y = 1', respuestaUsuario: '' },
+        { ecuacion: '2x + 3y = -1  3x + 4y = 0', solucion: 'x = 4 y = -3', respuestaUsuario: '' },
+        { ecuacion: 'x + 2y = 5  3x - 2y = 19', solucion: 'x = 7 y = 1', respuestaUsuario: '' }
+      ];
+  
+      let seconds = 0, minutes = 0, timerInterval;
+      // Variables para la lógica del juego (asegúrate de definir estas variables o incluir su implementación en nivel 1 juego1.js)
+      let currentEquationIndex = 0;
+      let selectedAnswers = [];
+      let attempts = 3;
+      let totalPoints = 0;
+      let pointsPerCorrectAnswer = 10;
+      let isGameOver = false;
+      function startTimer() {
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+          seconds++;
+          if (seconds === 60) {
+            seconds = 0;
+            minutes++;
+          }
+          document.getElementById("timer").innerText = 
+            (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        }, 1000);
+      }
+      document.addEventListener("DOMContentLoaded", startTimer);
+  
+      // Función para verificar el bingo y mostrar la retroalimentación
+      function verificarYMostrar() {
+        checkBingo();
+        showFeedbackModal();
+      }
+  
+      function checkBingo() {
+        console.log("Verificando bingo...");
+  
+        const solution = ecuaciones[currentEquationIndex].solucion;
+        const userAnswer = selectedAnswers.join(", ");
+  
+        ecuaciones[currentEquationIndex].respuestaUsuario = userAnswer;
+  
+        if (userAnswer === solution) {
+          totalPoints += pointsPerCorrectAnswer;
+          document.getElementById("points").textContent = totalPoints;
+          alert("¡Bingo! Has encontrado la solución correcta.");
         } else {
-            // Si no quedan intentos, bloquear el juego y mostrar retroalimentación
+          attempts--;
+          document.getElementById("attempts").textContent = `Intentos restantes: ${attempts}`;
+  
+          if (attempts > 0) {
+            alert("Respuesta incorrecta. Sigue intentando.");
+          } else {
             lockGame();
-            setTimeout(showFeedback, 1000); // Mostrar retroalimentación después de 1 segundo
+            setTimeout(showFeedback, 1000);
+          }
         }
-    }
-
-    // Limpiar respuestas seleccionadas
-    selectedAnswers = [];
-    const cells = document.querySelectorAll(".cell.selected");
-    cells.forEach(cell => cell.classList.remove("selected"));
-}
-
-
-        // Función para registrar la respuesta del usuario
-        function registrarRespuesta(ecuacionIndex, respuesta) {
-            ecuaciones[ecuacionIndex].respuestaUsuario = respuesta;
+  
+        selectedAnswers = [];
+        const cells = document.querySelectorAll(".cell.selected");
+        cells.forEach(cell => cell.classList.remove("selected"));
+      }
+  
+      function mostrarFelicitacion() {
+        isGameOver = true;
+        stopTimer();
+        document.getElementById("final-score").innerText = document.getElementById("points").textContent;
+        if (errorCount <= 1) {
+          document.getElementById("badge3").textContent = "🌟 Explorador del Conocimiento";
+          document.getElementById("mensajeInsignia").textContent = "¡Excelente desempeño!";
+        } else {
+          document.getElementById("badge1").textContent = "";
+          document.getElementById("badge2").textContent = "";
+          document.getElementById("badge3").textContent = "";
+          document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener las insignias";
         }
-
-        // Función para mostrar el modal de retroalimentación
-        function showFeedbackModal() {
-            const modal = document.getElementById('feedback-modal');
-            const feedbackTableBody = document.getElementById('feedback-table-body');
-            feedbackTableBody.innerHTML = "";  // Limpiar la tabla antes de agregar las nuevas filas
-
-            // Iterar sobre las ecuaciones y mostrar la retroalimentación
-            ecuaciones.forEach((item, index) => {
-                const row = document.createElement("tr");
-
-                // Mostrar ecuación enumerada
-                const ecuacionCell = document.createElement("td");
-                ecuacionCell.textContent = `Ecuación ${index + 1}: ${item.ecuacion}`;
-                row.appendChild(ecuacionCell);
-
-                const solucionCell = document.createElement("td");
-                solucionCell.textContent = item.solucion;
-                row.appendChild(solucionCell);
-
-                const respuestaCell = document.createElement("td");
-                respuestaCell.textContent = item.respuestaUsuario ? item.respuestaUsuario : "No respondida";
-                row.appendChild(respuestaCell);
-
-                feedbackTableBody.appendChild(row);
-            });
-
-            modal.style.display = 'block';
-            narrarFeedback();
-        }
-
-        // Narrar retroalimentación
-        function narrarFeedback() {
-            const voces = window.speechSynthesis.getVoices();
-            const texto = document.getElementById('feedback-text').textContent;
-            const speech = new SpeechSynthesisUtterance(texto);
-            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
-            speech.lang = 'es-ES';
-            speech.pitch = 1;
-            speech.rate = 1;
-            speech.volume = 1;
-            window.speechSynthesis.speak(speech);
-        }
-
-        // Cerrar el modal de retroalimentación
-        function closeFeedback() {
-            const modal = document.getElementById('feedback-modal');
-            modal.style.display = 'none';
-        }
-
-        // Dialogo del avatar
-        function openAvatarDialog() {
-            var dialog = document.getElementById('avatar-dialog');
-            dialog.style.display = 'block';
-        }
-
-        function closeAvatarDialog() {
-            var dialog = document.getElementById('avatar-dialog');
-            dialog.style.display = 'none';
-        }
-
-        function narrarContenido() {
-            const voces = window.speechSynthesis.getVoices();
-            const texto = document.getElementById('avatar-text').textContent;
-            const speech = new SpeechSynthesisUtterance(texto);
-            xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
-            speech.lang = 'es-ES';
-            speech.pitch = 2;
-            speech.rate = 1;
-            speech.volume = 1;
-
-            const avatar = document.querySelector('.avatar');
-            avatar.style.transform = 'scale(1.1)';
-            avatar.style.transition = 'transform 0.2s ease-in-out';
-
-            speech.onend = () => {
-                avatar.style.transform = 'scale(1)';
-            };
-
-            window.speechSynthesis.speak(speech);
-        }
-    
-         function reproducirSonidoTrompetas() {
-      const audio = new Audio("img/trompetas.mp3");
-      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-    }
-
-    function reproducirSonidoBoton() {
-      const audio = new Audio("img/click.mp3");
-      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-    }
-
-    function reproducirSonidoFinjuego() {
-      const audio = new Audio("img/fin del juego.mp3");
-      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-    }
-
-    function reproducirSonidoErro() {
-      const audio = new Audio("img/error.mp3");
-      audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-    }
-
-    function reiniciarJuego() {
-      location.reload();
-    }
+        document.getElementById("felicitacion-modal").style.display = "block";
+        reproducirSonidoTrompetas();
+      }
+  
+      // Función para mostrar el modal de retroalimentación
+      function showFeedbackModal() {
+        const modal = document.getElementById('feedback-modal');
+        const feedbackTableBody = document.getElementById('feedback-table-body');
+        feedbackTableBody.innerHTML = "";
+  
+        ecuaciones.forEach((item, index) => {
+          const row = document.createElement("tr");
+          const ecuacionCell = document.createElement("td");
+          ecuacionCell.textContent = `Ecuación ${index + 1}: ${item.ecuacion}`;
+          row.appendChild(ecuacionCell);
+  
+          const solucionCell = document.createElement("td");
+          solucionCell.textContent = item.solucion;
+          row.appendChild(solucionCell);
+  
+          const respuestaCell = document.createElement("td");
+          respuestaCell.textContent = item.respuestaUsuario ? item.respuestaUsuario : "No respondida";
+          row.appendChild(respuestaCell);
+  
+          feedbackTableBody.appendChild(row);
+        });
+  
+        modal.style.display = 'block';
+        narrarFeedback();
+      }
+  
+      function narrarFeedback() {
+        const voces = window.speechSynthesis.getVoices();
+        const texto = document.getElementById('feedback-text').textContent;
+        const speech = new SpeechSynthesisUtterance(texto);
+        let xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
+        speech.lang = 'es-ES';
+        speech.pitch = 1;
+        speech.rate = 1;
+        speech.volume = 1;
+        window.speechSynthesis.speak(speech);
+      }
+  
+      function closeFeedback() {
+        document.getElementById('feedback-modal').style.display = 'none';
+      }
+  
+      function openAvatarDialog() {
+        document.getElementById('avatar-dialog').style.display = 'block';
+      }
+  
+      function closeAvatarDialog() {
+        document.getElementById('avatar-dialog').style.display = 'none';
+      }
+  
+      function narrarContenido() {
+        const voces = window.speechSynthesis.getVoices();
+        const texto = document.getElementById('avatar-text').textContent;
+        const speech = new SpeechSynthesisUtterance(texto);
+        let xiloVoice = voces.find(v => v.name.includes("Microsoft Raul Online")) || voces[2];
+        speech.lang = 'es-ES';
+        speech.pitch = 2;
+        speech.rate = 1;
+        speech.volume = 1;
+  
+        const avatar = document.querySelector('.avatar');
+        avatar.style.transform = 'scale(1.1)';
+        avatar.style.transition = 'transform 0.2s ease-in-out';
+  
+        speech.onend = () => {
+          avatar.style.transform = 'scale(1)';
+        };
+  
+        window.speechSynthesis.speak(speech);
+      }
+  
+      function reproducirSonidoTrompetas() {
+        const audio = new Audio("img/trompetas.mp3");
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
+  
+      function reproducirSonidoBoton() {
+        const audio = new Audio("img/click.mp3");
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
+  
+      function reproducirSonidoFinjuego() {
+        const audio = new Audio("img/fin del juego.mp3");
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
+  
+      function reproducirSonidoErro() {
+        const audio = new Audio("img/error.mp3");
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
+  
+      function reiniciarJuego() {
+        location.reload();
+      }
     </script>
-    
+  
 </body>
 </html>

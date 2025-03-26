@@ -118,95 +118,105 @@
       display: block;
       margin: 0 auto;
     }
-          /* Estilo de los títulos en todos los modales */
-.modal-content h2 {
-    font-family: 'Trebuchet MS', sans-serif;
-    text-shadow: 1px 1px 2px #000;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Estilos específicos para el modal de error */
-#error-modal .modal-content {
-    background-color: #ffdddd;
-    border: 3px solid #d9534f;
-    box-shadow: 0 0 15px #d9534f;
-    animation: shake 0.3s ease-in-out 2;
-}
-
-#error-modal h2 {
-    color: #d9534f;
-}
-
-#error-modal p {
-    color: #d9534f;
-    font-size: 1.2em;
-}
-
-#error-modal .avatar-error {
-    width: 130px;
-    filter: contrast(1.2);
-}
-
-/* Animación de vibración */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-5px); }
-    40% { transform: translateX(5px); }
-    60% { transform: translateX(-5px); }
-    80% { transform: translateX(5px); }
-}
-
-/* Estilos específicos para el modal de fin del juego */
-#fin-juego-modal .modal-content {
-    background-color: #222;
-    color: white;
-    border: 3px solid #ffcc00;
-    box-shadow: 0 0 20px #ffcc00;
-}
-
-#fin-juego-modal h2 {
-    color: #ffcc00;
-}
-
-#fin-juego-modal p {
-    font-size: 1.3em;
-    font-style: italic;
-}
-
-#fin-juego-modal .avatar-modal {
-    width: 140px;
-    filter: drop-shadow(0 0 10px #ffcc00);
-}
-
-/* Estilos específicos para el modal de felicitación */
-#felicitacion-modal .modal-content {
-    background-color: #fff;
-    border: 3px solid #4CAF50;
-    box-shadow: 0 0 15px #4CAF50;
-    animation: scale-up 0.5s ease-in-out;
-}
-
-#felicitacion-modal h2 {
-    color: #4CAF50;
-}
-
-#felicitacion-modal p {
-    color: #000800;
-    font-size: 1.3em;
-    font-weight: bold;
-}
-
-#felicitacion-modal .avatar-felicitacion {
-    width: 140px;
-    filter: drop-shadow(0 0 10px #4CAF50);
-}
-
-/* Animación de escala */
-@keyframes scale-up {
-    0% { transform: scale(0.8); }
-    100% { transform: scale(1); }
-}
+    /* Estilo de los títulos en todos los modales */
+    .modal-content h2 {
+      font-family: 'Trebuchet MS', sans-serif;
+      text-shadow: 1px 1px 2px #000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    /* Estilos específicos para el modal de error */
+    #error-modal .modal-content {
+      background-color: #ffdddd;
+      border: 3px solid #d9534f;
+      box-shadow: 0 0 15px #d9534f;
+      animation: shake 0.3s ease-in-out 2;
+    }
+    
+    #error-modal h2 {
+      color: #d9534f;
+    }
+    
+    #error-modal p {
+      color: #d9534f;
+      font-size: 1.2em;
+    }
+    
+    #error-modal .avatar-error {
+      width: 130px;
+      filter: contrast(1.2);
+    }
+    
+    /* Animación de vibración */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+    
+    /* Estilos específicos para el modal de fin del juego */
+    #fin-juego-modal .modal-content {
+      background-color: #222;
+      color: white;
+      border: 3px solid #ffcc00;
+      box-shadow: 0 0 20px #ffcc00;
+    }
+    
+    #fin-juego-modal h2 {
+      color: #ffcc00;
+    }
+    
+    #fin-juego-modal p {
+      font-size: 1.3em;
+      font-style: italic;
+    }
+    
+    #fin-juego-modal .avatar-modal {
+      width: 140px;
+      filter: drop-shadow(0 0 10px #ffcc00);
+    }
+    
+    /* Estilos específicos para el modal de felicitación */
+    #felicitacion-modal .modal-content {
+      background-color: #fff;
+      border: 3px solid #4CAF50;
+      box-shadow: 0 0 15px #4CAF50;
+      animation: scale-up 0.5s ease-in-out;
+    }
+    
+    #felicitacion-modal h2 {
+      color: #4CAF50;
+    }
+    
+    #felicitacion-modal p {
+      color: #000800;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    
+    /* Elementos para la insignia */
+    #felicitacion-modal #badge {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+    #felicitacion-modal #mensajeInsignia {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    
+    #felicitacion-modal .avatar-felicitacion {
+      width: 140px;
+      filter: drop-shadow(0 0 10px #4CAF50);
+    }
+    
+    /* Animación de escala */
+    @keyframes scale-up {
+      0% { transform: scale(0.8); }
+      100% { transform: scale(1); }
+    }
   </style>
 </head>
 <body>
@@ -317,40 +327,40 @@
     }
 
     // Función para obtener y seleccionar una voz natural en español
-  function obtenerVozNatural() {
-    let voices = window.speechSynthesis.getVoices();
-    // Intenta seleccionar una voz que contenga "Google" en su nombre, si no, la primera que sea en español.
-    let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
-    if (!voz) {
-      voz = voices.find(voice => voice.lang === 'es-ES');
-    }
-    return voz;
-  }
-
-  // Función para narrar texto usando la API SpeechSynthesis
-  function narrarTexto(texto) {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      let mensaje = new SpeechSynthesisUtterance(texto);
-      mensaje.lang = 'es-ES';
-      mensaje.rate = 1.0; // Ajusta la velocidad para mayor naturalidad
-      mensaje.pitch = 1;  // Puedes ajustar este valor si es necesario
-
-      // Esperar a que se carguen las voces
-      let vozNatural = obtenerVozNatural();
-      if (vozNatural) {
-        mensaje.voice = vozNatural;
+    function obtenerVozNatural() {
+      let voices = window.speechSynthesis.getVoices();
+      // Intenta seleccionar una voz que contenga "Google" en su nombre, si no, la primera que sea en español.
+      let voz = voices.find(voice => voice.lang === 'es-ES' && voice.name.toLowerCase().includes('google'));
+      if (!voz) {
+        voz = voices.find(voice => voice.lang === 'es-ES');
       }
-      window.speechSynthesis.speak(mensaje);
-    } else {
-      alert('Tu navegador no soporta la síntesis de voz.');
+      return voz;
     }
-  }
 
-  // Asegurarse de que las voces se carguen (especialmente en Chrome)
-  window.speechSynthesis.onvoiceschanged = function() {
-    obtenerVozNatural();
-  };
+    // Función para narrar texto usando la API SpeechSynthesis
+    function narrarTexto(texto) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        let mensaje = new SpeechSynthesisUtterance(texto);
+        mensaje.lang = 'es-ES';
+        mensaje.rate = 1.0; // Ajusta la velocidad para mayor naturalidad
+        mensaje.pitch = 1;  // Puedes ajustar este valor si es necesario
+
+        // Esperar a que se carguen las voces
+        let vozNatural = obtenerVozNatural();
+        if (vozNatural) {
+          mensaje.voice = vozNatural;
+        }
+        window.speechSynthesis.speak(mensaje);
+      } else {
+        alert('Tu navegador no soporta la síntesis de voz.');
+      }
+    }
+
+    // Asegurarse de que las voces se carguen (especialmente en Chrome)
+    window.speechSynthesis.onvoiceschanged = function() {
+      obtenerVozNatural();
+    };
   </script>
 
   <!-- Modal de retroalimentación (pistas) -->
@@ -385,6 +395,9 @@
       <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
+      <!-- Elementos para la insignia -->
+      <p id="badge"></p>
+      <p id="mensajeInsignia"></p>
       <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <button id="restart-btn">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
@@ -457,7 +470,6 @@
       document.getElementById("final-time-fj").innerText = finalTime;
     }
 
-
     function disableGame() {
       document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
       document.getElementById("retry-btn").disabled = true;
@@ -472,10 +484,21 @@
       reproducirSonidoFinjuego();
     }
 
+    // Función que muestra la felicitación y asigna la insignia si corresponde
     function mostrarFelicitacion() {
       isGameOver = true;
       stopTimer();
       document.getElementById("final-score").innerText = document.getElementById("score").innerText;
+      
+      // Asignar la insignia si se cometieron 1 error o menos
+      if (errorCount <= 1) {
+        document.getElementById("badge").textContent = "🛡️ Guardián del Conocimiento";
+        document.getElementById("mensajeInsignia").textContent = "¡Excelente desempeño!";
+      } else {
+        document.getElementById("badge").textContent = "";
+        document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener la insignia";
+      }
+      
       document.getElementById("felicitacion-modal").style.display = "flex";
       reproducirSonidoTrompetas();
     }
@@ -551,53 +574,30 @@
         const feedbackElement = document.getElementById("feedback");
         const scoreElement = document.getElementById("score");
         const nextButton = document.getElementById("next-btn");
-        if (!questionElement || !optionsContainer || !nextButton) return;
 
-questionElement.innerText = `Pregunta ${currentQuestion + 1} de ${questions.length}: ${q.question}`;
-optionsContainer.innerHTML = "";
+        if (isCorrect) {
+          button.classList.add("correct");
+          feedbackElement.innerText = "¡Correcto!";
+          score += 20;
+          scoreElement.innerText = score;
+          nextButton.style.display = "block";
+          reproducirSonidoCorrecto();
+        } else {
+          button.classList.add("incorrect");
+          feedbackElement.innerText = "Incorrecto, intenta de nuevo.";
+          errorCount++;
+          if (errorCount >= maxErrors) {
+            mostrarFinJuego();
+          } else {
+            mostrarError();
+          }
+        }
+      }
 
-q.options.forEach((option, index) => {
-  const button = document.createElement("button");
-  button.classList.add("option");
-  button.innerText = option;
-  button.onclick = () => checkAnswer(button, index === q.correct);
-  optionsContainer.appendChild(button);
-});
-
-resetGame();
-}
-
-function checkAnswer(button, isCorrect) {
-document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
-const feedbackElement = document.getElementById("feedback");
-const scoreElement = document.getElementById("score");
-const nextButton = document.getElementById("next-btn");
-
-if (!feedbackElement || !scoreElement || !nextButton) return;
-
-if (isCorrect) {
-  button.classList.add("correct");
-  feedbackElement.innerText = "¡Correcto!";
-  score += 20;
-  scoreElement.innerText = score;
-  nextButton.style.display = "block";
-  reproducirSonidoCorrecto();
-} else {
-  button.classList.add("incorrect");
-  feedbackElement.innerText = "Incorrecto, intenta de nuevo.";
-  errorCount++;
-  if (errorCount >= maxErrors) {
-mostrarFinJuego();
-  } else {
-mostrarError();
-  }
-}
-}
-
-function reproducirSonidoCorrecto() {
-const audio = new Audio("img/correcto.mp3");
-audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-}
+      function reproducirSonidoCorrecto() {
+        const audio = new Audio("img/correcto.mp3");
+        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+      }
 
       function resetGame() {
         document.querySelectorAll(".option").forEach(btn => {
@@ -648,6 +648,7 @@ audio.play().catch(error => console.error("Error al reproducir el sonido:", erro
       audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
     }
 
+    // Función para reiniciar el juego (se utiliza location.reload() en este ejemplo)
     function reiniciarJuego() {
       location.reload();
     }
