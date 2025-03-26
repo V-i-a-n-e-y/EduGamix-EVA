@@ -31,8 +31,8 @@ function login() {
 
 function logout() {
     // Simulación de cierre de sesión
-    sessionStorage.removeItem("authenticated");
-    updateAuthButton();
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
     console.log("Cierre de sesión exitoso");
     window.location.href = "index.html";
 }
