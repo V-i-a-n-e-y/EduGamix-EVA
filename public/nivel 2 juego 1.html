@@ -282,10 +282,16 @@
   <!-- Modal de felicitación (se muestra al responder todas las preguntas correctamente) -->
   <div id="felicitacion-modal" class="modal">
     <div class="modal-content">
+    <div class="modal-content">
       <h2>🎉Felicidades🎉</h2>
       <p>¡Has completado el desafío respondiendo correctamente todas las preguntas!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
+      <!-- Elementos para las insignias -->
+      
+      <p id="badge2"></p>
+      <p id="mensajeInsignia"></p>
+      <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n2.html';">Regresar</button>
@@ -317,6 +323,7 @@
   <!-- Contenido del desafío -->
   <div class="contenido">
     <h2>Desafío: Explorando Soluciones Lineales</h2>
+    <div></div>
     <!-- El temporizador ahora es ilimitado: se muestra el tiempo transcurrido -->
     <p>TIEMPO: <span id="timer">00:00</span></p>
     <p>Puntaje: <span id="score">0</span></p>
@@ -344,7 +351,6 @@
     <div class="navegacion">
       <button onclick="cambiarTarjeta(-1)">Atrás</button>
       <button onclick="cambiarTarjeta(1)">Siguiente</button>
-      <button onclick="mostrarFinJuego(); reproducirSonidoBoton();">Fin del Juego</button>
     </div>
   </div>
   
@@ -398,9 +404,8 @@
       "Compatibles: Son ecuaciones que tienen solución única. Las rectas se cruzan en un punto.",
       "Compatibles indeterminadas: Son ecuaciones con múltiples soluciones. El sistema tiene infinitas soluciones y sus líneas se superponen.",
       "Incompatibles: Son ecuaciones que no tienen solución. Las rectas son paralelas y no se cruzan."
-             
     ];
-
+  
     let pistasRandomOrder = [];
     let pistasRandomOrderIndex = 0;
   
@@ -510,30 +515,29 @@
     
       // Solo se actualiza la respuesta si es correcta
       if (boton.textContent === respuestaCorrecta) {
-      respuestasUsuario[tarjetaActual] = boton.textContent;
-      if (!puntuacionPorPregunta[tarjetaActual]) {
-        score += 10;  
-        puntuacionPorPregunta[tarjetaActual] = true;
-        document.getElementById("score").textContent = score;
-      }
-      mensaje.innerText = "¡Correcto!";
-      mensaje.style.color = "green";
-      boton.classList.add("correcto");
-      reproducirSonidoCorrecto(); // Reproducir sonido al seleccionar respuesta correcta
+        respuestasUsuario[tarjetaActual] = boton.textContent;
+        if (!puntuacionPorPregunta[tarjetaActual]) {
+          score += 10;  
+          puntuacionPorPregunta[tarjetaActual] = true;
+          document.getElementById("score").textContent = score;
+        }
+        mensaje.innerText = "¡Correcto!";
+        mensaje.style.color = "green";
+        boton.classList.add("correcto");
+        reproducirSonidoCorrecto(); // Reproducir sonido al seleccionar respuesta correcta
       } else {
-      mensaje.innerText = "Incorrecto, intenta de nuevo.";
-      mensaje.style.color = "red";
-      boton.classList.add("incorrecto");
-      errorCount++;
-      if (errorCount < maxErrors) {
-        document.getElementById("error-modal").style.display = "flex";
-        reproducirSonidoErro();
-        // No se marca la respuesta para permitir reintento
-      } else {
-        // Al tercer error se termina el juego
-        mostrarFinJuego();
-        return;
-      }
+        mensaje.innerText = "Incorrecto, intenta de nuevo.";
+        mensaje.style.color = "red";
+        boton.classList.add("incorrecto");
+        errorCount++;
+        if (errorCount < maxErrors) {
+          document.getElementById("error-modal").style.display = "flex";
+          reproducirSonidoErro();
+        } else {
+          // Al tercer error se termina el juego
+          mostrarFinJuego();
+          return;
+        }
       }
   
       mensaje.classList.add("mostrar");
@@ -577,10 +581,21 @@
       reproducirSonidoFinJuego();
     }
   
+    // Función que muestra la felicitación y asigna las insignias si corresponde
     function mostrarFelicitacion() {
       isGameOver = true;
       stopTimer();
       document.getElementById("final-score").innerText = document.getElementById("score").innerText;
+      // Si se cometieron 1 error o menos, se asignan ambas insignias
+      if (errorCount <= 1) {
+       
+        document.getElementById("badge2").textContent = "🏆 Visionario del Aprendizaje";
+        document.getElementById("mensajeInsignia").textContent = "¡Excelente desempeño!";
+      } else {
+        document.getElementById("badge1").textContent = "";
+        document.getElementById("badge2").textContent = "";
+        document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener las insignias";
+      }
       document.getElementById("felicitacion-modal").style.display = "flex";
       reproducirSonidoTrompetas();
     }

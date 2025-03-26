@@ -308,17 +308,18 @@
 
   <!-- Modal de Felicitación -->
   <div id="felicitacion-modal" class="modal">
-    <div class="modal-content">
+    <div class="felicitacion-modal">
       <h2>🎉 Felicidades 🎉</h2>
       <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
-      <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
+      <img src="img/gami.jpg" alt="Gami" class="avatar-modal" />
       <button id="restart-btn">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
-    </div>
   </div>
-  
+</div>
+
+
   <!-- Modal de Fin del Juego (alternativo) -->
   <div id="fin-juego-modal" class="modal">
     <div class="modal-content">
@@ -326,7 +327,7 @@
       <p>Puntaje final: <span id="final-score-fj"></span></p>
       <p>Tiempo total: <span id="final-time-fj"></span></p>
       <img src="img/radicux.jpg" alt="Avatar" class="avatar-modal">
-      <button onclick="reiniciarJuego()">Reiniciar Juego</button>
+      <button onclick="reiniciarJuego()">Reiniciar Juego</button> 
       <button onclick="window.location.href='inicio.html';">Salir</button>
     </div>
   </div>
@@ -550,33 +551,55 @@ function reproducirSonidoCorrecto() {
       }
       }
     }
-    
-    // Función de finalización de juego modificada para tiempo ilimitado
-    function finalizarJuego() {
-      isGameOver = true;
-      clearInterval(timerInterval);
-      
-      const finalTime = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-      
-      localStorage.setItem("juegoFinalizado", "true");
-      localStorage.setItem("puntaje", scoreMemorama);
-      function reproducirSonidoCorrecto() {
-const audio = new Audio("img/correcto.mp3");
-audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-}
-      
-      if (errorCount >= maxErrors) {
-        document.getElementById("final-score-fj").textContent = scoreMemorama;
-        document.getElementById("final-time-fj").textContent = finalTime;
-        document.getElementById("fin-juego-modal").style.display = "flex";
-        reproducirSonidoFinJuego();
-      } else {
-        document.getElementById("final-score").textContent = scoreMemorama;
-        document.getElementById("final-time").textContent = finalTime;
-        document.getElementById("felicitacion-modal").style.display = "flex";
+    function finalizarJuegoFelicitacion() {
+        clearInterval(timerInterval);
+        document.getElementById("finalScoreValue").textContent = score;
+        // Se muestra la insignia solo si se obtuvo la puntuación máxima y no hubo errores
+        if (score === 10 && errorCount === 0) {
+          document.getElementById("badge").textContent = "🧠 Genio del Juego";
+          document.getElementById("mensajeInsignia").textContent = "";
+        } else {
+          document.getElementById("badge").textContent = "";
+          document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener la insignia";
+        }
+        document.getElementById("felicitacion-modal").style.display = "block";
         reproducirSonidoTrompetas();
       }
+      
+    // Función de finalización de juego modificada para tiempo ilimitado
+    // Función de finalización de juego modificada
+function finalizarJuego() {
+  isGameOver = true;
+  clearInterval(timerInterval);
+  
+  const finalTime = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  
+  localStorage.setItem("juegoFinalizado", "true");
+  localStorage.setItem("puntaje", scoreMemorama);
+  
+  if (errorCount >= maxErrors) {
+    document.getElementById("final-score-fj").textContent = scoreMemorama;
+    document.getElementById("final-time-fj").textContent = finalTime;
+    document.getElementById("fin-juego-modal").style.display = "flex";
+    reproducirSonidoFinJuego();
+  } else {
+    document.getElementById("final-score").textContent = scoreMemorama;
+    document.getElementById("final-time").textContent = finalTime;
+    
+    // Se asigna la insignia si el usuario cometió como máximo 1 error
+    if (errorCount <= 1) {
+      document.getElementById("badge").textContent = "🏆 Visionario del Aprendizaje";
+      document.getElementById("mensajeInsignia").textContent = "¡Excelente desempeño!";
+    } else {
+      document.getElementById("badge").textContent = "";
+      document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener la insignia";
     }
+    
+    document.getElementById("felicitacion-modal").style.display = "block";
+    reproducirSonidoTrompetas();
+  }
+}
+
     function iniciarJuego() {
       const grid = document.getElementById("grid");
       grid.innerHTML = "";
@@ -584,6 +607,42 @@ audio.play().catch(error => console.error("Error al reproducir el sonido:", erro
         grid.appendChild(createCard(card, index));
       });
     }
+
+   // Función para reiniciar el juego sin recargar la página
+function reiniciarJuego() {
+  // Restablecer variables globales
+  isGameOver = false;
+  seconds = 0;
+  minutes = 0;
+  errorCount = 0;
+  scoreMemorama = 0;
+  matchedPairs = 0;
+  selectedCards = [];
+
+  // Reiniciar el temporizador
+  clearInterval(timerInterval);
+  document.getElementById("timer").innerText = "00:00";
+  startTimer();
+
+  // Restablecer el puntaje en el DOM y en localStorage
+  document.getElementById("score-memorama").textContent = "Puntuación: 0";
+  localStorage.setItem("scoreMemorama", 0);
+
+  // Ocultar los modales de felicitación y fin de juego
+  document.getElementById("felicitacion-modal").style.display = "none";
+  document.getElementById("fin-juego-modal").style.display = "none";
+
+  // Volver a barajar las cartas y reconstruir la cuadrícula
+  shuffledCards = [...cards].sort(() => Math.random() - 0.5);
+  const grid = document.getElementById("grid");
+  grid.innerHTML = "";
+  shuffledCards.forEach((card, index) => {
+    grid.appendChild(createCard(card, index));
+  });
+}
+
+document.getElementById("restart-btn").addEventListener("click", reiniciarJuego);
+
     document.addEventListener("DOMContentLoaded", function() {
       const username = localStorage.getItem("username");
       const useremail = localStorage.getItem("useremail");

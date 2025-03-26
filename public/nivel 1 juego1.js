@@ -232,22 +232,35 @@ function reproducirSonidoTrompetas() {
     });
 }
 
- 
-// Reiniciar el juego
 function restartGame() {
+    // Reiniciar variables globales
     attempts = 1;
     selectedAnswers = [];
-    equationsHistory.forEach(equation => equation.respuestaUsuario = '', equation.casillaSeleccionada = '');
-    currentEquationIndex = 0;
     totalPoints = 0;
+    currentEquationIndex = 0;
 
+    // Reiniciar el historial de ecuaciones: limpiar las respuestas y las casillas seleccionadas
+    equationsHistory.forEach(equation => {
+        equation.respuestaUsuario = '';
+        equation.casillaSeleccionada = '';
+    });
+
+    // Detener y reiniciar el temporizador
     clearInterval(timerInterval);
     document.getElementById("timer").textContent = "00:00";
+
+    // Actualizar información en pantalla
     document.getElementById("points").textContent = "0";
     document.getElementById("attempts").textContent = "Intentos restantes: 1";
+
+    // Ocultar cualquier modal abierto
     document.getElementById("feedback-modal").style.display = "none";
 
+    // Volver a renderizar el tablero de bingo para quitar la selección anterior
     renderBingoBoard();
+
+    // Iniciar el temporizador y actualizar la ecuación actual
     startTimer();
     updateEquation();
 }
+

@@ -103,7 +103,26 @@
     .avatar-feedback:hover {
       transform: scale(1.1);
     }
+
+    .felicitacion-modal {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 30%;
+      text-align: center;
+      position: relative;
+      z-index: 500;
+    }
+    .avatar-modal {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+          /* Estilo de los títulos en todos los modales */
+
        /* Estilo de los títulos en todos los modales */
+
 .modal-content h2 {
     font-family: 'Trebuchet MS', sans-serif;
     text-shadow: 1px 1px 2px #000;
@@ -202,7 +221,7 @@
         <img src="img/EduGamix.jpg" alt="EduGamix Logo">
       </a>
     </div>
-    <h1>Nivel 3</h1>
+    <h1>Inicio</h1>
     <div class="user-info">
       <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
       <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
@@ -301,7 +320,7 @@
       document.getElementById("fin-juego-modal").style.display = "none";
     }
 
-   // Función para obtener y seleccionar una voz natural en español
+    // Función para obtener y seleccionar una voz natural en español
   function obtenerVozNatural() {
     let voices = window.speechSynthesis.getVoices();
     // Intenta seleccionar una voz que contenga "Google" en su nombre, si no, la primera que sea en español.
@@ -365,11 +384,12 @@
 
   <!-- Modal de felicitación -->
   <div id="felicitacion-modal" class="modal">
-    <div class="felicitacion-modal">
+    <div class="modal-content">
       <h2>🎉 ¡Felicidades! 🎉</h2>
       <p>¡Has completado el desafío Explorando Soluciones Lineales!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
+      <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <button id="restart-btn">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n3.html';">Regresar</button>
@@ -413,9 +433,9 @@
     }
   </script>
 
-  <!-- SCRIPT DEL JUEGO CON TEMPORIZADOR DE 3 MINUTOS -->
+  <!-- SCRIPT DEL JUEGO CON TEMPORIZADOR DE 5 MINUTOS -->
   <script>
-    let timeRemaining = 180; // 3 minutos = 180 segundos
+    let timeRemaining = 180; 
     let timerInterval;
     let isGameOver = false;
 
@@ -444,7 +464,7 @@
 
     function stopTimer() {
       clearInterval(timerInterval);
-      let elapsed = 180 - timeRemaining;
+      let elapsed = 300 - timeRemaining;
       let minutesElapsed = Math.floor(elapsed / 60);
       let secondsElapsed = elapsed % 60;
       let timeStr = (minutesElapsed < 10 ? "0" + minutesElapsed : minutesElapsed) + ":" +
@@ -548,32 +568,53 @@
         const feedbackElement = document.getElementById("feedback");
         const scoreElement = document.getElementById("score");
         const nextButton = document.getElementById("next-btn");
+        if (!questionElement || !optionsContainer || !nextButton) return;
 
-        if (!feedbackElement || !scoreElement || !nextButton) return;
+questionElement.innerText = `Pregunta ${currentQuestion + 1} de ${questions.length}: ${q.question}`;
+optionsContainer.innerHTML = "";
 
-        if (isCorrect) {
-          button.classList.add("correct");
-          feedbackElement.innerText = "¡Correcto!";
-          score += 20;
-          scoreElement.innerText = score;
-          nextButton.style.display = "block";
-          reproducirSonidoCorrecto();
-        } else {
-          button.classList.add("incorrect");
-          feedbackElement.innerText = "Incorrecto, intenta de nuevo.";
-          errorCount++;
-          if (errorCount >= maxErrors) {
-        mostrarFinJuego();
-          } else {
-        mostrarError();
-          }
-        }
-      }
+q.options.forEach((option, index) => {
+  const button = document.createElement("button");
+  button.classList.add("option");
+  button.innerText = option;
+  button.onclick = () => checkAnswer(button, index === q.correct);
+  optionsContainer.appendChild(button);
+});
 
-      function reproducirSonidoCorrecto() {
-        const audio = new Audio("img/correcto.mp3");
-        audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
-      }
+resetGame();
+}
+
+function checkAnswer(button, isCorrect) {
+document.querySelectorAll(".option").forEach(btn => btn.disabled = true);
+const feedbackElement = document.getElementById("feedback");
+const scoreElement = document.getElementById("score");
+const nextButton = document.getElementById("next-btn");
+
+if (!feedbackElement || !scoreElement || !nextButton) return;
+
+if (isCorrect) {
+  button.classList.add("correct");
+  feedbackElement.innerText = "¡Correcto!";
+  score += 20;
+  scoreElement.innerText = score;
+  nextButton.style.display = "block";
+  reproducirSonidoCorrecto();
+} else {
+  button.classList.add("incorrect");
+  feedbackElement.innerText = "Incorrecto, intenta de nuevo.";
+  errorCount++;
+  if (errorCount >= maxErrors) {
+mostrarFinJuego();
+  } else {
+mostrarError();
+  }
+}
+}
+
+function reproducirSonidoCorrecto() {
+const audio = new Audio("img/correcto.mp3");
+audio.play().catch(error => console.error("Error al reproducir el sonido:", error));
+}
 
       function resetGame() {
         document.querySelectorAll(".option").forEach(btn => {
