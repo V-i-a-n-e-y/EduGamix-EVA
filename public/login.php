@@ -36,7 +36,7 @@ if ($result->num_rows > 0) {
         echo "<script> 
         sessionStorage.setItem('username', '" . $row['nombre'] . "'); 
         sessionStorage.setItem('useremail', '" . $row['email'] . "'); 
-        window.location.href = 'inicio.html'; 
+        window.location.href = 'inicio.php'; 
         </script>"; 
         exit();
     } else {
