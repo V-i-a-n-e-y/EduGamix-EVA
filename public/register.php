@@ -1,42 +1,41 @@
-<?php
-// Conexión a la base de datos MySQL
-$host = 'localhost';
-$dbname = 'edugamixdb';
-$user = 'root'; // 
-$password = '1730'; 
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error en la conexión: " . $e->getMessage());
-}
-
-// Verificar si se enviaron los datos por método POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nombre = $_POST['nombre'];
-    $email = $_POST['email'];
-    $contrasena = password_hash($_POST['contrasena'], PASSWORD_BCRYPT); // Hashear la contraseña
-
-    // Verificar si el correo ya está registrado
-    $sql = "SELECT email FROM usuarios WHERE email = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
+<?php 
+/* Datos de la base de datos*/ 
+$servername = "localhost"; 
+$username = "root"; 
+//$username = "u779086120_Bvianeyhm"; 
+$password = ""; 
+//$password = "W+>dWT1&1l"; 
+$dbname = "u779086120_edugamix"; 
+// Crear conexión 
+$conn = new mysqli($servername, $username, $password, $dbname); 
+// Verificar conexión 
+if ($conn->connect_error) 
+{ 
+ die("Conexión fallida:".$conn->connect_error); 
+} 
+// Capturar datos del formulario 
+$nombre = $_POST['nombre']; 
+$email = $_POST['email']; 
+$contrasena = $_POST['password']; 
+// Verificar si las contraseñas coinciden 
+if ($_POST['password'] !== $_POST['confirm-contrasena']) 
+{ 
+    die("Las contraseñas no coinciden."); 
+} 
+// Encriptar la contraseña 
+$contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT); 
+// SQL para insertar datos 
+$sql = "INSERT INTO usuarios (nombre, email, contrasena) VALUES ('$nombre', '$email', '$contrasena_hash')"; 
+if ($conn->query($sql) === TRUE) { 
+echo "<script> alert('Nuevo jugador registrado exitosamente, ahora puedes iniciar sesión'); 
+window.location.href = 'login.html'; 
+</script>"; 
+} 
+else 
+{ 
+    echo "Error:".$sql."<br>".$conn->error; 
     
-    if ($stmt->rowCount() > 0) {
-        echo "El correo ya está registrado.";
-    } else {
-        // Insertar el nuevo usuario en la base de datos
-        $sql = "INSERT INTO usuarios (nombre, email, contrasena) VALUES (?, ?, ?)";
-        $stmt = $pdo->prepare($sql);
-        
-        if ($stmt->execute([$nombre, $email, $contrasena])) {
-            echo "Usuario registrado exitosamente.";
-        } else {
-            echo "Error al registrar el usuario.";
-
-
-        }
-    }
-}
+} 
+// Cerrar conexión 
+$conn->close(); 
 ?>

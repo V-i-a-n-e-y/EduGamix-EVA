@@ -1,37 +1,51 @@
 <?php
-// Conexión a la base de datos MySQL
-$host = 'localhost';
-$dbname = 'edugamixdb';
-$user = 'root'; 
-$password = '1730'; 
+session_start();
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Error en la conexión: " . $e->getMessage());
+// Datos de la base de datos
+$servername = "localhost"; 
+$username = "root"; 
+//$username = "u779086120_Bvianeyhm"; 
+$password = ""; 
+//$password = "W+>dWT1&1l"; 
+$dbname = "u779086120_edugamix"; 
+
+// Crear conexión 
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexión 
+if ($conn->connect_error) { 
+    die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Verificar si se enviaron los datos por método POST
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $email = $_POST['email'];
-    $contrasena = $_POST['contrasena'];
+// Capturar datos del formulario
+$usuario = $_POST['usuario']; 
+$contrasena = $_POST['password']; 
 
-    // Buscar al usuario en la base de datos por su email
-    $sql = "SELECT * FROM usuarios WHERE email = ?";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([$email]);
-    $usuario = $stmt->fetch();
+// SQL para verificar usuario
+$sql = "SELECT nombre, contrasena FROM usuarios WHERE nombre='$usuario'";
+$result = $conn->query($sql);
 
-    if ($usuario) {
-        // Verificar si la contraseña ingresada coincide con la hasheada
-        if (password_verify($contrasena, $usuario['contrasena'])) {
-            echo "Inicio de sesión exitoso. Bienvenido, " . $usuario['nombre'];
-        } else {
-            echo "Contraseña incorrecta.";
-        }
+if ($result->num_rows > 0) {
+    // Obtener datos del usuario
+    $row = $result->fetch_assoc();
+    if (password_verify($contrasena, $row['contrasena'])) {
+        // Guardar datos en la sesión 
+        $_SESSION['username'] = $row['nombre']; 
+        //$_SESSION['useremail'] = $row['email']; 
+        // Redirigir a la página de bienvenida 
+        echo "<script> 
+        sessionStorage.setItem('username', '" . $row['nombre'] . "'); 
+        sessionStorage.setItem('useremail', '" . $row['email'] . "'); 
+        window.location.href = 'inicio.html'; 
+        </script>"; 
+        exit();
     } else {
-        echo "Correo no registrado.";
+        echo "Contraseña incorrecta.";
     }
+} else {
+    echo "No existe una cuenta con ese usuario.";
 }
+
+// Cerrar conexión
+$conn->close();
 ?>
