@@ -135,95 +135,90 @@
       display: block;
       margin: 0 auto;
     }
-          /* Estilo de los títulos en todos los modales */
-.modal-content h2 {
-    font-family: 'Trebuchet MS', sans-serif;
-    text-shadow: 1px 1px 2px #000;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Estilos específicos para el modal de error */
-#error-modal .modal-content {
-    background-color: #ffdddd;
-    border: 3px solid #d9534f;
-    box-shadow: 0 0 15px #d9534f;
-    animation: shake 0.3s ease-in-out 2;
-}
-
-#error-modal h2 {
-    color: #d9534f;
-}
-
-#error-modal p {
-    color: #d9534f;
-    font-size: 1.2em;
-}
-
-#error-modal .avatar-error {
-    width: 130px;
-    filter: contrast(1.2);
-}
-
-/* Animación de vibración */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-5px); }
-    40% { transform: translateX(5px); }
-    60% { transform: translateX(-5px); }
-    80% { transform: translateX(5px); }
-}
-
-/* Estilos específicos para el modal de fin del juego */
-#fin-juego-modal .modal-content {
-    background-color: #222;
-    color: white;
-    border: 3px solid #ffcc00;
-    box-shadow: 0 0 20px #ffcc00;
-}
-
-#fin-juego-modal h2 {
-    color: #ffcc00;
-}
-
-#fin-juego-modal p {
-    font-size: 1.3em;
-    font-style: italic;
-}
-
-#fin-juego-modal .avatar-modal {
-    width: 140px;
-    filter: drop-shadow(0 0 10px #ffcc00);
-}
-
-/* Estilos específicos para el modal de felicitación */
-#felicitacion-modal .modal-content {
-    background-color: #fff;
-    border: 3px solid #4CAF50;
-    box-shadow: 0 0 15px #4CAF50;
-    animation: scale-up 0.5s ease-in-out;
-}
-
-#felicitacion-modal h2 {
-    color: #4CAF50;
-}
-
-#felicitacion-modal p {
-    color: #000800;
-    font-size: 1.3em;
-    font-weight: bold;
-}
-
-#felicitacion-modal .avatar-felicitacion {
-    width: 140px;
-    filter: drop-shadow(0 0 10px #4CAF50);
-}
-
-/* Animación de escala */
-@keyframes scale-up {
-    0% { transform: scale(0.8); }
-    100% { transform: scale(1); }
-}
+    /* Estilo de los títulos en todos los modales */
+    .modal-content h2 {
+      font-family: 'Trebuchet MS', sans-serif;
+      text-shadow: 1px 1px 2px #000;
+      justify-content: center;
+      align-items: center;
+    }
+    /* Estilos específicos para el modal de error */
+    #error-modal .modal-content {
+      background-color: #ffdddd;
+      border: 3px solid #d9534f;
+      box-shadow: 0 0 15px #d9534f;
+      animation: shake 0.3s ease-in-out 2;
+    }
+    #error-modal h2 {
+      color: #d9534f;
+    }
+    #error-modal p {
+      color: #d9534f;
+      font-size: 1.2em;
+    }
+    #error-modal .avatar-error {
+      width: 130px;
+      filter: contrast(1.2);
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+    /* Estilos específicos para el modal de fin del juego */
+    #fin-juego-modal .modal-content {
+      background-color: #222;
+      color: white;
+      border: 3px solid #ffcc00;
+      box-shadow: 0 0 20px #ffcc00;
+    }
+    #fin-juego-modal h2 {
+      color: #ffcc00;
+    }
+    #fin-juego-modal p {
+      font-size: 1.3em;
+      font-style: italic;
+    }
+    #fin-juego-modal .avatar-modal {
+      width: 140px;
+      filter: drop-shadow(0 0 10px #ffcc00);
+    }
+    /* Estilos específicos para el modal de felicitación */
+    #felicitacion-modal .modal-content {
+      background-color: #fff;
+      border: 3px solid #4CAF50;
+      box-shadow: 0 0 15px #4CAF50;
+      animation: scale-up 0.5s ease-in-out;
+    }
+    #felicitacion-modal h2 {
+      color: #4CAF50;
+    }
+    #felicitacion-modal p {
+      color: #000800;
+      font-size: 1.3em;
+      font-weight: bold;
+    }
+    #felicitacion-modal .avatar-felicitacion {
+      width: 140px;
+      filter: drop-shadow(0 0 10px #4CAF50);
+    }
+    /* Elementos para las insignias */
+    #felicitacion-modal #badge1,
+    #felicitacion-modal #badge2 {
+      font-size: 1.5em;
+      margin-top: 10px;
+    }
+    #felicitacion-modal #mensajeInsignia {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+    @keyframes scale-up {
+      0% { transform: scale(0.8); }
+      100% { transform: scale(1); }
+    }
+    
   </style>
 </head>
 <body>
@@ -282,7 +277,6 @@
   <!-- Modal de felicitación (se muestra al responder todas las preguntas correctamente) -->
   <div id="felicitacion-modal" class="modal">
     <div class="modal-content">
-    <div class="modal-content">
       <h2>🎉Felicidades🎉</h2>
       <p>¡Has completado el desafío respondiendo correctamente todas las preguntas!</p>
       <p>Puntaje final: <span id="final-score"></span></p>
@@ -291,7 +285,6 @@
       
       <p id="badge2"></p>
       <p id="mensajeInsignia"></p>
-      <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
       <button id="restart-btn" onclick="reiniciarJuego()">Reiniciar Juego</button>
       <button id="modo-btn" onclick="window.location.href='modo juego n2.html';">Regresar</button>
@@ -323,7 +316,9 @@
   <!-- Contenido del desafío -->
   <div class="contenido">
     <h2>Desafío: Explorando Soluciones Lineales</h2>
-    <div></div>
+    <div>
+
+    </div>
     <!-- El temporizador ahora es ilimitado: se muestra el tiempo transcurrido -->
     <p>TIEMPO: <span id="timer">00:00</span></p>
     <p>Puntaje: <span id="score">0</span></p>
