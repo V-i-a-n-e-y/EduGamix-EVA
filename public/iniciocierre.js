@@ -11,7 +11,7 @@ function updateAuthButton() {
         authButton.textContent = "Cerrar Sesión";
         authButton.onclick = logout;
     } else {
-        authButton.textContent = "Iniciar Sesión";
+        authButton.textContent = "Unirse al juego";
         authButton.onclick = loginRedirect;
     }
 }
