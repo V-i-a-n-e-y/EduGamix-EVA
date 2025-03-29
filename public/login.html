@@ -37,5 +37,18 @@
             </form>
         </div>
     </div>
+    <script>
+        function iniciarSesion() {
+        let nombre = "Juan Pérez";  // Estos valores deben venir de un formulario
+        let email = "juan@example.com";
+    
+        // Guardar en LocalStorage
+        localStorage.setItem("usuarioNombre", nombre);
+        localStorage.setItem("usuarioEmail", email);
+    
+        // Redirigir al usuario a la página principal
+        window.location.href = "index.html"; 
+    }
+    </script>
 </body>
 </html>
