@@ -15,7 +15,7 @@
             </a>
         </div>
         
-        <h1> </h1>
+        <h1></h1>
         <div class="user-info">
             <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
             <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
@@ -34,12 +34,11 @@
     <div class="main-content">
         <h2>¡Bienvenido a EduGamix!</h2>
         <p>Selecciona un nivel para comenzar:</p>
-      
 
         <!-- Ruta de progreso -->
         <div class="progress-road">
             <div class="road">
-                <!-- Primer punto -->
+
                 <div class="road-point" onclick="openModal('modal1')">
                     <p>Definición de sistemas de ecuaciones lineales</p>
                     <div class="point-icon yellow">
@@ -48,48 +47,48 @@
                     </div>
                 </div>
 
-                <!-- Segundo punto -->
                 <div class="road-point" onclick="openModal('modal2')">
                     <p>Clasificación de los sistemas de ecuaciones lineales</p>
                     <div class="point-icon red">
                         <img src="img/pin2.png" alt="Pin de ubicación" class="pin-icons">
                     </div>
-                    
                 </div>
 
-                <!-- Tercer punto -->
                 <div class="road-point" onclick="openModal('modal3')">
                     <p>Métodos de solución de ecuaciones</p>
                     <div class="point-icon green">
                         <img src="img/pin3.png" alt="Pin de ubicación" class="pin-icons">
                     </div>
-                    
                 </div>
 
-                <!-- Cuarto punto -->
                 <div class="road-point" onclick="openModal('modal4')">
                     <p>Interpretación geométrica</p>
                     <div class="point-icon light-green">
                         <img src="img/pin4.png" alt="Pin de ubicación" class="pin-icons">
                     </div>
-                    
                 </div>
 
-                <!-- Quinto punto -->
                 <div class="road-point" onclick="openModal('modal5')">
                     <p>Aplicaciones</p>
                     <div class="point-icon blue">
-                        <img src="img/pin5.png" alt="Pin de ubicación" class="pin-icons">
+                       <img src="img/pin5.png" alt="Pin de ubicación" class="pin-icons">
                     </div>
-                    
                 </div>
+
+                <div class="road-point" onclick="openModal('modal6')">
+                   <p>Actividad Complementaria</p>
+                   <div class="point-icon purple">
+                        <img src="img/pin6.png" alt="Pin de ubicación" class="pin-icons">
+                    </div>
+                </div>
+
             </div>
         </div>
-           <!-- Imagen en el medio -->
-           <div class="middle-image-container">
-            <img src="img/camino.png" alt="Imagen en medio">
-     </div>
 
+        <!-- Imagen en el medio -->
+        <div class="middle-image-container">
+            <img src="img/camino.png" alt="Imagen en medio">
+        </div>
     </div>
 
     <!-- Modales -->
@@ -138,23 +137,30 @@
         </div>
     </div>
 
-    <!-- Avatar de Xilo -->
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal6')">&times;</span>
+            <h2>Actividad Complementaria</h2>
+            <p>Descubre cómo por medio de un complemento puedes seguir aprendiendo.</p>
+            <button onclick="window.location.href='nivel 6.html'">Ir a Complemento</button>
+        </div>
+    </div>
+
+    <!-- Avatares -->
     <div id="avatar-container-xilo">
         <img src="img/xilo-avatar.jpg" alt="Xilo" class="avatar">
     </div>
 
-    <!-- Avatar de Gami -->
     <div id="avatar-container-gami">
         <img src="img/gami.jpg" alt="Gami" class="avatar-gami">
     </div>
 
-    <!-- Cuadro de diálogo de Xilo -->
+    <!-- Cuadros de diálogo -->
     <div id="dialogo-xilo" class="avatar-dialog">
         <span class="close" onclick="cerrarDialogo('dialogo-xilo')">&times;</span>
         <div class="dialog-content" id="texto-xilo"></div>
     </div>
 
-    <!-- Cuadro de diálogo de Gami -->
     <div id="dialogo-gami" class="avatar-dialog">
         <span class="close" onclick="cerrarDialogo('dialogo-gami')">&times;</span>
         <div class="dialog-content" id="texto-gami"></div>

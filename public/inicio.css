@@ -139,6 +139,11 @@ h1 {
     background-color: #ffffff;
     animation: bounce 1.5s infinite 0.8s;
 }
+.point-icon.purple {
+    background-color: #ffffff;
+    animation: bounce 1.5s infinite 0.10s;
+}
+
 
 /* Ejemplo de keyframes para la animación bounce */
 @keyframes bounce {
@@ -150,10 +155,6 @@ h1 {
     }
 }
 
-.point-icon.blue {
-    background-color: #ffffff;
-    animation: bounce 1.5s infinite 0.8s;
-}
 
 @keyframes bounce {
     0%, 100% {

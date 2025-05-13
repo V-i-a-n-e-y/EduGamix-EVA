@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGamix</title>
+    <link rel="stylesheet" href="nivel 2.css">
+    <style>
+        .intro {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 11vh;
+            text-align: center;
+        }
+
+        .instructions {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            color: #0a0a0a;
+            text-align: left;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .instructions h2, .instructions h3, .intro p {
+            font-size: 24px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        .instructions ol {
+            list-style-type: decimal;
+            padding-left: 40px;
+            font-size: 18px;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #45a049;
+            color: white;
+            transition: background 0.3s;
+        }
+
+        .buttons button:hover {
+            background-color: #027808;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html" target="_blank">
+                <img src="img/EduGamix.jpg" alt="EduGamix Logo" height="150">
+            </a>
+        </div>
+        <h1>Actividad complementaria</h1>
+        <div class="user-info">
+            <span class="icon" title="Inicio" onclick="window.location.href='inicio.html';">🏠</span>
+            <span class="icon" title="Notificaciones" onclick="alert('Notificaciones');">🔔</span>
+            <span class="icon" title="Difusión" onclick="window.location.href='ini2.html';">📢</span>
+
+            <div class="user-info">
+                <i class="fas fa-user-circle" style="font-size: 24px; margin-right: 8px;"></i>
+                <span id="username">Nombre de Usuario</span> | <span id="useremail">correo@ejemplo.com</span>
+                <a class="logout-link" title="Cerrar sesión" onclick="logout()">Cerrar sesión</a>
+            </div>
+            <span class="icon" title="Perfil" onclick="window.location.href='miespacio.html';">👤</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="intro">
+            <p>Bienvenido a tu actividad complementaria. Sigue las instrucciones y disfruta aprendiendo con EduGamix.</p>
+        </section>
+
+        <section class="instructions">
+            <h2>Para EduGamix tu aprendizaje es importante aun fuera de línea.</h2>
+            <h3>📜 A continuación Gami te deja una actividad para descargar y que el aprendizaje continúe fuera del entorno.</h3>
+            <ol>
+                <li>🎯 Las instrucciones de uso se muestran en el video.</li>
+            </ol>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <video width="640" height="360" controls>
+                    <source src="img/complemento.mp4" type="video/mp4">
+                    Tu navegador no admite la reproducción de videos.
+                </video>
+            </div>
+
+            <h3>📥 Descarga la actividad:</h3>
+            <ol>
+                <li>📄 <a href="img/actividad.xlsm" download>Descargar actividad</a></li>
+            </ol>
+        </section>
+
+        <div class="main-container">
+            <div id="avatar-animation">
+                <img id="gami-avatar" src="img/gami.jpg" alt="Avatar de Gami" style="height: 150px;">
+            </div>
+
+            <div class="controls">
+                <div class="buttons">
+                    <button onclick="window.location.href='inicio.html'">⬅️ Regresar a Inicio</button>
+                    <button onclick="leerContenido()">▶️ Iniciar audio</button>
+                    <button onclick="leerContenido()">🔄 Repetir</button>
+                    <button onclick="toggleMute()">🔇 Silenciar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let isMuted = false;
+        let utteranceText = '';
+        let currentCharIndex = 0;
+
+        function leerContenido() {
+            if (isMuted) return;
+            detenerNarracion();
+
+            let texto = '';
+            const intro = document.querySelector(".intro p");
+            const h2 = document.querySelector(".instructions h2");
+            const h3 = document.querySelector(".instructions h3");
+            const items = document.querySelectorAll(".instructions ol li");
+
+            if (intro) texto += intro.innerText + " ";
+            if (h2) texto += h2.innerText + " ";
+            if (h3) texto += h3.innerText + " ";
+            items.forEach(li => texto += li.innerText + " ");
+
+            texto = texto.replace(/[\u{1F300}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+
+            utteranceText = texto.trim();
+            currentCharIndex = 0;
+            if (utteranceText.length > 0) narrarTexto(utteranceText);
+        }
+
+        function narrarTexto(texto) {
+            let speech = new SpeechSynthesisUtterance(texto.substring(currentCharIndex));
+            speech.lang = "es-ES";
+            speech.rate = 1;
+            speech.onboundary = function(event) {
+                currentCharIndex += event.charLength;
+            };
+            window.speechSynthesis.speak(speech);
+        }
+
+        function detenerNarracion() {
+            window.speechSynthesis.cancel();
+        }
+
+        function toggleMute() {
+            const button = document.querySelector("button[onclick='toggleMute()']");
+            if (isMuted) {
+                narrarTexto(utteranceText.substring(currentCharIndex));
+                button.innerText = "🔇 Silenciar";
+            } else {
+                detenerNarracion();
+                button.innerText = "🔊 Activar Sonido";
+            }
+            isMuted = !isMuted;
+        }
+    </script>
+
+    <script src="nivel 3.js"></script>
+</body>
+</html>
