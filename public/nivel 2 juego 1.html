@@ -218,7 +218,23 @@
       0% { transform: scale(0.8); }
       100% { transform: scale(1); }
     }
-    
+    .toast {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toast-close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
@@ -282,7 +298,13 @@
       <p>Puntaje final: <span id="final-score"></span></p>
       <p>Tiempo total: <span id="final-time"></span></p>
       <!-- Elementos para las insignias -->
-      
+      <ul id="logros-insignia" style="margin: 10px 0; padding: 0; list-style: none; color: #333;"></ul>
+      <a href="modo_desafio_nivel2.html" class="tooltip-boton" style="background:#ff9800;">🔥 Modo Desafío</a>
+      <a href="exportar_ranking_pdf.php?insignia=visionario_aprendizaje&escuela=MiEscuela&clase=3A&grupo=Rojo" target="_blank" class="tooltip-boton">🧾 Exportar PDF</a>
+      <a href="ranking_insignias.php?insignia=visionario_aprendizaje" class="tooltip-boton" style="background:#673ab7;">📊 Ver Ranking</a>
+      <img src="img/insignia.png" alt="Insignia" class="avatar-felicitacion" />
+      <p id="badge1"></p>
+      <p id="mensajeInsignia"></p>  
       <p id="badge2"></p>
       <p id="mensajeInsignia"></p>
       <img src="img/gami.gif" alt="Gami" class="avatar-modal" />
@@ -346,6 +368,7 @@
     <div class="navegacion">
       <button onclick="cambiarTarjeta(-1)">Atrás</button>
       <button onclick="cambiarTarjeta(1)">Siguiente</button>
+      
     </div>
   </div>
   
@@ -577,26 +600,116 @@
     }
   
     // Función que muestra la felicitación y asigna las insignias si corresponde
-    function mostrarFelicitacion() {
-      isGameOver = true;
-      stopTimer();
-      document.getElementById("final-score").innerText = document.getElementById("score").innerText;
-      // Si se cometieron 1 error o menos, se asignan ambas insignias
-      if (errorCount <= 1) {
-       
-        document.getElementById("badge2").textContent = "🏆 Visionario del Aprendizaje";
-        document.getElementById("mensajeInsignia").textContent = "¡Excelente desempeño!";
-      } else {
-        document.getElementById("badge1").textContent = "";
-        document.getElementById("badge2").textContent = "";
-        document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener las insignias";
-      }
-      document.getElementById("felicitacion-modal").style.display = "flex";
-      reproducirSonidoTrompetas();
-    }
+function mostrarFelicitacion() {
+  isGameOver = true;
+  stopTimer();
+  document.getElementById("final-score").innerText = document.getElementById("score").innerText;
+
+  let badgeName = "";
+  let badgeId = "";
+
+  if (errorCount <= 1) {
+    badgeName = "🏆 Visionario del Aprendizaje";
+    badgeId = "visionario_aprendizaje";
+    document.getElementById("mensajeInsignia").textContent = "¡Excelente desempeño!";
+  } else {
+    badgeName = "🏅 Explorador de Soluciones";
+    badgeId = "explorador_soluciones";
+    document.getElementById("mensajeInsignia").textContent = errorCount <= 2 ? "¡Buen trabajo!" : "¡Sigue practicando!";
+  }
+
+  document.getElementById("badge1").textContent = badgeName;
+  document.getElementById("badge2").textContent = badgeName;
+
+  const logros = document.getElementById("logros-insignia");
+  let logrosData = [];
+
+  if (badgeId === "visionario_aprendizaje") {
+    logros.innerHTML = "<li>✅ Sin errores</li><li>⚡ Tiempo eficiente</li><li>🎯 Precisión total</li>";
+    logrosData = ["✅ Sin errores", "⚡ Tiempo eficiente", "🎯 Precisión total"];
+  } else {
+    logros.innerHTML = "<li>🎓 Nivel completado</li><li>🔄 Intento superado</li>";
+    logrosData = ["🎓 Nivel completado", "🔄 Intento superado"];
+  }
+
+  // Guardar insignia
+  fetch("guardar_insignia.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `nivel=nivel2&insignia=${encodeURIComponent(badgeId)}`
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("No se pudo guardar la insignia");
+    return res.text();
+  })
+  .then(data => console.log("Insignia guardada:", data))
+  .catch(error => {
+    alert("⚠️ No se pudo guardar la insignia.");
+    console.error(error);
+  });
+
+  // Guardar estadísticas
+  fetch("guardar_estadisticas.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `nivel=nivel2&puntaje=${score}&tiempo=${document.getElementById("final-time").innerText}`
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("No se pudo guardar estadísticas");
+    return res.text();
+  })
+  .then(data => console.log("Estadísticas guardadas:", data))
+  .catch(error => {
+    alert("⚠️ No se pudieron guardar las estadísticas.");
+    console.error(error);
+  });
+
+  // Guardar logros
+  fetch("guardar_logros.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: `nivel=nivel2&logros=${encodeURIComponent(JSON.stringify(logrosData))}`
+  })
+  .then(res => {
+    if (!res.ok) throw new Error("No se pudieron guardar logros");
+    return res.text();
+  })
+  .then(data => console.log("Logros guardados:", data))
+  .catch(error => {
+    alert("⚠️ No se pudieron guardar los logros.");
+    console.error(error);
+  });
+
+  if (errorCount <= 2) {
+    lanzarFuegosArtificiales();
+  }
+
+  reproducirSonidoTrompetas();
+  document.getElementById("felicitacion-modal").style.display = "flex";
+}
+
+function mostrarToast(mensaje, tipo = "info") {
+  const container = document.getElementById("toast-container");
+
+  const toast = document.createElement("div");
+  toast.className = `toast show ${tipo}`;
+  toast.innerHTML = `
+    <span>${mensaje}</span>
+    <button class="toast-close" onclick="this.parentElement.remove()">✖</button>
+  `;
+
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    if (toast.parentElement) toast.classList.remove("show");
+    toast.addEventListener("transitionend", () => toast.remove());
+  }, 4000);
+}
+
+    // Función que reinicia el juego
+    
   
     function reiniciarJuego() {
-      // Reinicia variables y estado del juego
       score = 0;
       document.getElementById("score").textContent = score;
       respuestasUsuario.fill(null);

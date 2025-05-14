@@ -516,6 +516,28 @@ function showFeedbackModal() {
     function reiniciarJuego() {
       location.reload();
     }
+    function mostrarFelicitacion() {
+  isGameOver = true;
+  stopTimer();
+  document.getElementById("final-score").innerText = document.getElementById("score").innerText;
+
+  if (errorCount <= 1) {
+    const badgeName = "🏆 Visionario del Aprendizaje";
+    document.getElementById("badge2").textContent = badgeName;
+    document.getElementById("mensajeInsignia").textContent = "¡Excelente desempeño!";
+    
+    // Guardar insignia en localStorage
+    localStorage.setItem("insignia_nivel2", badgeName);
+  } else {
+    document.getElementById("badge1").textContent = "";
+    document.getElementById("badge2").textContent = "";
+    document.getElementById("mensajeInsignia").textContent = "Sigue intentando para obtener las insignias";
+  }
+
+  document.getElementById("felicitacion-modal").style.display = "flex";
+  reproducirSonidoTrompetas();
+}
+
     </script>
   
 </body>
