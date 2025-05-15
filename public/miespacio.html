@@ -46,60 +46,9 @@
         });
     </script>
 
-    <!-- Contenido principal -->
-    <main class="main-container">
-        <!-- Evaluación -->
-        <div class="evaluation-container">
-            <h2>Evaluación</h2>
-            <div class="evaluation-item">📍 Puntos obtenidos del nivel 1 0/1000</div>
-            <div class="evaluation-item">📍 Puntos obtenidos del nivel 2 0/1000</div>
-            <div class="evaluation-item">📍 Puntos obtenidos del nivel 3 0/1000</div>
-            <div class="evaluation-item">📍 Puntos obtenidos del nivel 4 0/1000</div>
-            <div class="evaluation-item">📍 Puntos obtenidos del nivel 5 0/1000</div>
-        </div>
-
-        <!-- Mi avance -->
-        <div class="progress-container">
-            <h2>Mi avance</h2>
-            <div class="progress-item">
-                👤 <span>Nombre de usuario</span>
-            </div>
-            <div class="progress-item">
-                📍 <span>Nivel</span>
-            </div>
-            <div class="progress-item">
-                🔋 <span>Porcentaje de avance</span>
-            </div>
-        </div>
-
-        <!-- Secciones Identificadores, Insignias y Potenciadores -->
-        <div class="identifiers-container">
-            <h2>Identificadores</h2>
-            <div class="identifier-item">
-                
-                <p>Descripción del identificador</p>
-            </div>
-        </div>
-
-        <div class="badges-container">
-            <h2>Insignias</h2>
-            <div class="badge-item">
-                
-                <p>Descripción de la insignia</p>
-            </div>
-        </div>
-
-        <div class="boosters-container">
-            <h2>Potenciadores</h2>
-            <div class="booster-item">
-                
-                <p>Descripción del potenciador</p>
-            </div>
-        </div>
-
-    </main>
-
+   
     <script>
+        // Cargar el nombre de usuario y correo desde localStorage
         document.addEventListener("DOMContentLoaded", function() {
             const username = localStorage.getItem("username");
             const useremail = localStorage.getItem("useremail");
@@ -107,15 +56,242 @@
             if (username) {
                 document.getElementById("username").textContent = username;
             }
-
+    
             if (useremail) {
                 document.getElementById("useremail").textContent = useremail;
             }
         });
-
-        function logout() {
-            alert("Cerrando sesión...");
-        }
     </script>
+
+  <style>
+    .insignia-contenedor {
+      position: relative;
+      display: inline-block;
+      text-align: center;
+      margin: 10px;
+    }
+
+    .insignia-contenedor img {
+      width: 100px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0002;
+      cursor: pointer;
+    }
+
+    .tooltip-custom {
+      display: none;
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: #fff;
+      text-align: left;
+      padding: 10px;
+      border-radius: 6px;
+      z-index: 10;
+      width: 240px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      font-size: 0.9em;
+      animation: fadeInScale 0.3s ease-out;
+    }
+
+    .tooltip-custom.visible {
+      display: block;
+    }
+
+    .tooltip-custom ul {
+      padding-left: 18px;
+      margin: 8px 0;
+    }
+
+    .tooltip-custom li {
+      margin-bottom: 4px;
+    }
+
+    .tooltip-boton {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 0.9em;
+      margin-right: 5px;
+    }
+
+    .tooltip-boton:hover {
+      opacity: 0.9;
+    }
+
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Contenido principal -->
+  <main class="main-container">
+    <!-- Evaluación -->
+    <div class="evaluation-container">
+      <h2>Evaluación</h2>
+      <div class="evaluation-item">📍 Puntos obtenidos del nivel 1 0/1000</div>
+      <div class="evaluation-item">📍 Puntos obtenidos del nivel 2 0/1000</div>
+      <div class="evaluation-item">📍 Puntos obtenidos del nivel 3 0/1000</div>
+      <div class="evaluation-item">📍 Puntos obtenidos del nivel 4 0/1000</div>
+      <div class="evaluation-item">📍 Puntos obtenidos del nivel 5 0/1000</div>
+    </div>
+
+    <!-- Mi avance -->
+    <div class="progress-container">
+      <h2>Mi avance</h2>
+      <div class="progress-item">👤 <span id="name">Nombre de Usuario</span></div>
+      <div class="progress-item">📍 <span>Nivel</span></div>
+      <div class="progress-item">🔋 <span>Porcentaje de avance</span></div>
+    </div>
+
+    <!-- Identificadores -->
+    <div class="identifiers-container">
+      <h2>Identificadores</h2>
+      <div class="identifier-item">
+        <p>Descripción del identificador</p>
+      </div>
+    </div>
+
+    <!-- Insignias -->
+    <div class="badges-container">
+      <h2>Insignias</h2>
+      <div class="insignia-contenedor">
+        <img src="img/insignias/visionario.png" alt="Visionario del Aprendizaje">
+        <div class="tooltip-custom">
+          <strong>🏆 Visionario del Aprendizaje</strong>
+          <p>Obtenida al completar el Nivel 2 con precisión.</p>
+          <ul>
+            <li>✅ Sin errores</li>
+            <li>⚡ Tiempo eficiente</li>
+            <li>🎯 Precisión total</li>
+          </ul>
+          <a href="nivel2.html" class="tooltip-boton">🔁 Repetir Nivel</a>
+          <a href="desafio_nivel2.php" class="tooltip-boton" style="background:#ff9800;">🔥 Modo Desafío</a>
+          <a href="ranking_insignias.php?insignia=visionario_aprendizaje" class="tooltip-boton" style="background:#673ab7;">📊 Ver Ranking</a>
+        </div>
+        <div><strong>🏆 Visionario del Aprendizaje</strong><br><small>Nivel: 2</small></div>
+      </div>
+    </div>
+
+    <!-- Potenciadores -->
+    <div class="boosters-container">
+      <h2>Potenciadores</h2>
+      <div class="booster-item">
+        <p>Descripción del potenciador</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Contenedor para fuegos artificiales -->
+  <div id="fireworks-container" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.1.0/dist/index.umd.min.js"></script>
+  <script>
+    function narrarTexto(texto) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const msg = new SpeechSynthesisUtterance(texto);
+        msg.lang = 'es-ES';
+        msg.rate = 1;
+        msg.pitch = 1;
+        window.speechSynthesis.speak(msg);
+      }
+    }
+
+    function reproducirSonidoCelebracion() {
+      const audio = new Audio("audio/celebracion.mp3");
+      audio.volume = 0.8;
+      audio.play().catch(error => console.warn("No se pudo reproducir el audio:", error));
+    }
+
+    function lanzarFuegosArtificiales() {
+      reproducirSonidoCelebracion();
+
+      const container = document.getElementById("fireworks-container");
+      const fireworks = new Fireworks.default(container, {
+        autoresize: true,
+        opacity: 0.8,
+        acceleration: 1.05,
+        friction: 0.97,
+        gravity: 1.5,
+        particles: 90,
+        traceLength: 3,
+        traceSpeed: 10,
+        explosion: 5,
+        intensity: 30,
+        flickering: 50,
+        lineStyle: "round",
+        hue: { min: 0, max: 360 },
+        delay: { min: 15, max: 30 },
+        rocketsPoint: 50,
+        lineWidth: {
+          explosion: { min: 1, max: 3 },
+          trace: { min: 1, max: 2 }
+        },
+        brightness: { min: 50, max: 80 },
+        decay: { min: 0.015, max: 0.03 },
+        mouse: { click: false, move: false, max: 0 }
+      });
+
+      fireworks.start();
+
+      setTimeout(() => {
+        fireworks.stop();
+        container.innerHTML = "";
+      }, 4000);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const name = "<?php echo isset($_SESSION['name']) ? $_SESSION['name'] : 'Jugador'; ?>";
+      const email = "<?php echo isset($_SESSION['email']) ? $_SESSION['email'] : 'correo@ejemplo.com'; ?>";
+      document.getElementById("name").textContent = name;
+      document.getElementById("email").textContent = email;
+
+      const insignias = document.querySelectorAll(".insignia-contenedor");
+
+      insignias.forEach(insignia => {
+        const img = insignia.querySelector("img");
+        const tooltip = insignia.querySelector(".tooltip-custom");
+
+        img.addEventListener("click", (e) => {
+          document.querySelectorAll(".tooltip-custom.visible").forEach(t => {
+            if (t !== tooltip) t.classList.remove("visible");
+          });
+
+          tooltip.classList.toggle("visible");
+
+          if (tooltip.classList.contains("visible")) {
+            narrarTexto(tooltip.innerText.trim());
+            lanzarFuegosArtificiales();
+          } else {
+            window.speechSynthesis.cancel();
+          }
+
+          e.stopPropagation();
+        });
+      });
+
+      document.addEventListener("click", () => {
+        document.querySelectorAll(".tooltip-custom.visible").forEach(t => t.classList.remove("visible"));
+        window.speechSynthesis.cancel();
+      });
+    });
+
+    function logout() {
+      alert("Cerrando sesión...");
+    }
+  </script>
 </body>
 </html>
